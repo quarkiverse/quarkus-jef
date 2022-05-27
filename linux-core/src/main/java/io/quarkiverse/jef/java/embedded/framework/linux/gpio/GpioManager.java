@@ -16,7 +16,7 @@ public class GpioManager {
             if ((pin = getCachedKey(key)) != null) {
                 return pin;
             }
-            pin = new GpioPin(key, path, number);
+            pin = new GpioPinImpl(key, path, number);
             pinsets.put(key, pin);
             return pin;
         }

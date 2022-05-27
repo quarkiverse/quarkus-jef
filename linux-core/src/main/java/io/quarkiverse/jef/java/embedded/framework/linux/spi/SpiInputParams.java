@@ -7,7 +7,7 @@ import java.nio.ByteBuffer;
 import io.quarkiverse.jef.java.embedded.framework.linux.core.io.DynamicByteBuffer;
 
 /**
- * The {@link SpiInputParams} class provides wrapper for input parameters for transmitting to {@link SpiBus}.
+ * The {@link SpiInputParams} class provides wrapper for input parameters for transmitting to {@link SpiBusImpl}.
  * Practically it's wrapper to {@link java.nio.ByteBuffer} with auto extension feature
  */
 @SuppressWarnings("unused")

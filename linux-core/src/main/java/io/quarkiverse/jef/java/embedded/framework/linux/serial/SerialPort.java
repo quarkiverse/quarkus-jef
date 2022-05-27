@@ -17,7 +17,7 @@ import io.quarkiverse.jef.java.embedded.framework.linux.core.io.FileHandle;
 import io.quarkiverse.jef.java.embedded.framework.linux.core.types.IntReference;
 
 @SuppressWarnings("unused")
-public class SerialPort {
+public class SerialPort implements SerialBus {
     private final Fcntl fcntl;
     private final Ioctl ioctl;
     private final Termios termios;
@@ -112,18 +112,20 @@ public class SerialPort {
         os = new SerialOutputStream();
     }
 
+    @Override
     public void close() {
         handle.close();
     }
 
+    @Override
     public InputStream getInputStream() {
         return is;
     }
-
+    @Override
     public FileHandle getHandle() {
         return handle;
     }
-
+    @Override
     public OutputStream getOutputStream() {
         return os;
     }

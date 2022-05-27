@@ -1,9 +1,14 @@
 name: Java Embedded Framework
-#description: Java Embedded Framework ...
+description: Java Embedded Framework provide access to the low level hardware protocols like SPI/I2C/GPIO/Serial
 metadata:
-#  keywords:
-#    - java-embedded-framework
+  keywords:
+    - java-embedded-framework
+    - embedded
+    - i2c
+    - spi
+    - serial bus
+    - gpio
 #  guide: ...
-#  categories:
-#    - "miscellaneous"
-#  status: "preview"
+  categories:
+    - "miscellaneous"
+  status: "preview"
