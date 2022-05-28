@@ -49,7 +49,6 @@ public class I2CBusImpl implements I2CBus {
      * method to identify all available devices in bus
      */
 
-
     private final FileHandle fd;
     private final String path;
     private final long func;
@@ -119,16 +118,16 @@ public class I2CBusImpl implements I2CBus {
         return Ioctl.getInstance().ioctl(fd, command, arg);
     }
 
-        /**
-         * Force interface selection for i2c device. This method similar to {@link #select(int)}
-         * and only provides additional functions
-         *
-         * @param address i2c device address
-         * @param force force device selection
-         * @param isTenBit is ten bits bus or not
-         * @return {@link I2CInterfaceImpl} for selected address
-         * @throws NativeIOException if ioctl returns error
-         */
+    /**
+     * Force interface selection for i2c device. This method similar to {@link #select(int)}
+     * and only provides additional functions
+     *
+     * @param address i2c device address
+     * @param force force device selection
+     * @param isTenBit is ten bits bus or not
+     * @return {@link I2CInterfaceImpl} for selected address
+     * @throws NativeIOException if ioctl returns error
+     */
     @Override
     public I2CInterfaceImpl select(int address, boolean force, boolean isTenBit) throws NativeIOException {
         log.log(
@@ -240,7 +239,7 @@ public class I2CBusImpl implements I2CBus {
     @Override
     public List<Status> enumerate() {
         List<Status> result = new ArrayList<>(MAX_7BIT_DEVICES);
-        SMBusImpl smBus = (SMBusImpl)getInterface(0).getSmBus();
+        SMBusImpl smBus = (SMBusImpl) getInterface(0).getSmBus();
 
         int cmd;
         for (int i = 0; i <= MAX_7BIT_DEVICES; i++) {

@@ -1,9 +1,9 @@
 package io.quarkiverse.jef.java.embedded.framework.runtime.config;
 
-import io.quarkus.runtime.annotations.*;
-
 import java.util.Map;
 import java.util.Objects;
+
+import io.quarkus.runtime.annotations.*;
 
 @ConfigRoot(name = "i2c", phase = ConfigPhase.BUILD_AND_RUN_TIME_FIXED)
 public class I2CBusesConfig {
@@ -13,7 +13,9 @@ public class I2CBusesConfig {
     @ConfigItem(name = ConfigItem.PARENT)
     public I2CBusConfig defaultBus;
 
-
+    /**
+     * Additional named I2Cs.
+     */
     @ConfigDocSection
     @ConfigDocMapKey("i2c-name")
     @ConfigItem(name = ConfigItem.PARENT)

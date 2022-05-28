@@ -1,0 +1,3 @@
+io.quarkiverse.jef.java.embedded.framework.runtime.config.SerialBaudRateConverter
+io.quarkiverse.jef.java.embedded.framework.runtime.config.BitOrderingConverter
+io.quarkiverse.jef.java.embedded.framework.runtime.config.SpiModeConverter

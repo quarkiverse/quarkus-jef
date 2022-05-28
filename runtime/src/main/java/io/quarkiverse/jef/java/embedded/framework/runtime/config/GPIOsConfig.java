@@ -1,9 +1,9 @@
 package io.quarkiverse.jef.java.embedded.framework.runtime.config;
 
-import io.quarkus.runtime.annotations.*;
-
 import java.util.Map;
 import java.util.Objects;
+
+import io.quarkus.runtime.annotations.*;
 
 @ConfigRoot(name = "gpio", phase = ConfigPhase.BUILD_AND_RUN_TIME_FIXED)
 public class GPIOsConfig {
@@ -13,7 +13,9 @@ public class GPIOsConfig {
     @ConfigItem(name = ConfigItem.PARENT)
     public GPIOConfig defaultBus;
 
-
+    /**
+     * Additional named GPIOs.
+     */
     @ConfigDocSection
     @ConfigDocMapKey("i2c-name")
     @ConfigItem(name = ConfigItem.PARENT)

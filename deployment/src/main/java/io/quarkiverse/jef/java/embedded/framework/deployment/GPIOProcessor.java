@@ -1,5 +1,7 @@
 package io.quarkiverse.jef.java.embedded.framework.deployment;
 
+import javax.inject.Singleton;
+
 import io.quarkiverse.jef.java.embedded.framework.runtime.config.GPIOsConfig;
 import io.quarkiverse.jef.java.embedded.framework.runtime.gpio.GPIOManager;
 import io.quarkiverse.jef.java.embedded.framework.runtime.gpio.GPIORecorder;
@@ -9,16 +11,13 @@ import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.annotations.ExecutionTime;
 import io.quarkus.deployment.annotations.Record;
 
-import javax.inject.Singleton;
-
 public class GPIOProcessor {
     @BuildStep
     @Record(ExecutionTime.STATIC_INIT)
     public void register(
             BuildProducer<SyntheticBeanBuildItem> syntheticBuildProducer,
             GPIOsConfig cfg,
-            GPIORecorder recorder
-    ) {
+            GPIORecorder recorder) {
         SyntheticBeanBuildItem bean = SyntheticBeanBuildItem
                 .configure(GPIOManager.class)
                 .scope(Singleton.class)

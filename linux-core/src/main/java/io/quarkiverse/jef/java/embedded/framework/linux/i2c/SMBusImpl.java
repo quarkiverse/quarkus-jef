@@ -249,9 +249,9 @@ public class SMBusImpl implements SmBusConstants, SMBus {
      */
     @Override
     public void i2cSmbusAccess(byte readWrite,
-                               long command,
-                               int size,
-                               byte[] data) throws IOException {
+            long command,
+            int size,
+            byte[] data) throws IOException {
         SmbusData smbusData = new SmbusData();
         smbusData.setBlock(data);
         SmbusIoctlData ioctlData = new SmbusIoctlData(readWrite, command, size, smbusData);
@@ -293,7 +293,6 @@ public class SMBusImpl implements SmBusConstants, SMBus {
     static void setUnsignedShort(byte[] p, int word) {
         ByteBuffer.wrap(p).putShort(0, (short) word);
     }
-
 
     Object synchLock() {
         return iface.synchLock();

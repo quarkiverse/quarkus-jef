@@ -1,16 +1,7 @@
 
 package io.quarkiverse.jef.java.embedded.framework.linux.gpio;
 
-import static io.quarkiverse.jef.java.embedded.framework.linux.core.IOFlags.O_CLOEXEC;
-import static io.quarkiverse.jef.java.embedded.framework.linux.core.IOFlags.O_RDONLY;
-
 import java.io.IOException;
-import java.util.EnumSet;
-
-import io.quarkiverse.jef.java.embedded.framework.linux.core.Fcntl;
-import io.quarkiverse.jef.java.embedded.framework.linux.core.Ioctl;
-import io.quarkiverse.jef.java.embedded.framework.linux.core.NativeIOException;
-import io.quarkiverse.jef.java.embedded.framework.linux.core.io.FileHandle;
 
 @SuppressWarnings("unused")
 public interface GpioPin extends AutoCloseable {

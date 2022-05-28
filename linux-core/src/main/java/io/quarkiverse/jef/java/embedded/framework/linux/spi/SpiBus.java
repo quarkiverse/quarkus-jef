@@ -1,15 +1,10 @@
 package io.quarkiverse.jef.java.embedded.framework.linux.spi;
 
-import io.quarkiverse.jef.java.embedded.framework.linux.core.Ioctl;
-import io.quarkiverse.jef.java.embedded.framework.linux.core.NativeIOException;
-import io.quarkiverse.jef.java.embedded.framework.linux.core.io.FileHandle;
-import io.quarkiverse.jef.java.embedded.framework.linux.core.types.IntReference;
-import io.quarkiverse.jef.java.embedded.framework.linux.core.types.SpiIocTransfer;
-import io.quarkiverse.jef.java.embedded.framework.linux.core.util.StringUtils;
-
 import java.io.IOException;
 import java.nio.ByteBuffer;
-import java.util.logging.Level;
+
+import io.quarkiverse.jef.java.embedded.framework.linux.core.NativeIOException;
+import io.quarkiverse.jef.java.embedded.framework.linux.core.io.FileHandle;
 
 public interface SpiBus {
     String getBus();

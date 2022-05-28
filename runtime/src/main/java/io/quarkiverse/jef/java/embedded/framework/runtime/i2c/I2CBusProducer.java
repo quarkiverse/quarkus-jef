@@ -1,12 +1,13 @@
 package io.quarkiverse.jef.java.embedded.framework.runtime.i2c;
 
-import io.quarkiverse.jef.java.embedded.framework.linux.i2c.I2CBus;
+import java.lang.annotation.Annotation;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.inject.Produces;
 import javax.enterprise.inject.spi.InjectionPoint;
 import javax.inject.Inject;
-import java.lang.annotation.Annotation;
+
+import io.quarkiverse.jef.java.embedded.framework.linux.i2c.I2CBus;
 
 @ApplicationScoped
 public class I2CBusProducer {

@@ -1,10 +1,9 @@
 package io.quarkiverse.jef.java.embedded.framework.linux.i2c;
 
-import io.quarkiverse.jef.java.embedded.framework.linux.core.NativeIOException;
-import io.quarkiverse.jef.java.embedded.framework.linux.core.io.FileHandle;
-
 import java.io.IOException;
 import java.nio.ByteBuffer;
+
+import io.quarkiverse.jef.java.embedded.framework.linux.core.io.FileHandle;
 
 public interface SMBus {
 
@@ -30,9 +29,9 @@ public interface SMBus {
     void writeBlockData(int command, ByteBuffer buf) throws IOException;
 
     void i2cSmbusAccess(byte readWrite,
-                        long command,
-                        int size,
-                        byte[] data) throws IOException;
+            long command,
+            int size,
+            byte[] data) throws IOException;
 
     I2CInterface getInterface();
 

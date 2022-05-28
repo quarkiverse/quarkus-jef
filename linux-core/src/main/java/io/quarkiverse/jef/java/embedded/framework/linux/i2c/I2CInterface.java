@@ -1,9 +1,9 @@
 package io.quarkiverse.jef.java.embedded.framework.linux.i2c;
 
+import java.nio.ByteBuffer;
+
 import io.quarkiverse.jef.java.embedded.framework.linux.core.NativeIOException;
 import io.quarkiverse.jef.java.embedded.framework.linux.core.io.FileHandle;
-
-import java.nio.ByteBuffer;
 
 public interface I2CInterface {
     SMBus getSmBus();

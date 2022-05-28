@@ -1,9 +1,9 @@
 package io.quarkiverse.jef.java.embedded.framework.runtime.config;
 
-import io.quarkus.runtime.annotations.*;
-
 import java.util.Map;
 import java.util.Objects;
+
+import io.quarkus.runtime.annotations.*;
 
 @ConfigRoot(name = "serial", phase = ConfigPhase.BUILD_AND_RUN_TIME_FIXED)
 public class SerialBusesConfig {
@@ -13,6 +13,9 @@ public class SerialBusesConfig {
     @ConfigItem(name = ConfigItem.PARENT)
     public SerialBusConfig defaultBus;
 
+    /**
+     * Additional named Serials.
+     */
     @ConfigDocSection
     @ConfigDocMapKey("i2c-name")
     @ConfigItem(name = ConfigItem.PARENT)

@@ -1,10 +1,10 @@
 package io.quarkiverse.jef.java.embedded.framework.runtime.config;
 
-import io.quarkus.runtime.annotations.ConfigGroup;
-import io.quarkus.runtime.annotations.ConfigItem;
-
 import java.util.Optional;
 import java.util.OptionalInt;
+
+import io.quarkus.runtime.annotations.ConfigGroup;
+import io.quarkus.runtime.annotations.ConfigItem;
 
 @ConfigGroup
 public class I2CBusConfig {

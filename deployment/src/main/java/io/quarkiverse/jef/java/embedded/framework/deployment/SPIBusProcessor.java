@@ -1,5 +1,7 @@
 package io.quarkiverse.jef.java.embedded.framework.deployment;
 
+import javax.inject.Singleton;
+
 import io.quarkiverse.jef.java.embedded.framework.runtime.config.SPIBusesConfig;
 import io.quarkiverse.jef.java.embedded.framework.runtime.spi.SPIBusManager;
 import io.quarkiverse.jef.java.embedded.framework.runtime.spi.SPIBusRecorder;
@@ -9,8 +11,6 @@ import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.annotations.ExecutionTime;
 import io.quarkus.deployment.annotations.Record;
 
-import javax.inject.Singleton;
-
 @SuppressWarnings("unused")
 public class SPIBusProcessor {
     @BuildStep
@@ -18,8 +18,7 @@ public class SPIBusProcessor {
     public void register(
             BuildProducer<SyntheticBeanBuildItem> syntheticBuildProducer,
             SPIBusesConfig cfg,
-            SPIBusRecorder recorder
-    ) {
+            SPIBusRecorder recorder) {
         SyntheticBeanBuildItem bean = SyntheticBeanBuildItem
                 .configure(SPIBusManager.class)
                 .scope(Singleton.class)

@@ -1,15 +1,13 @@
 package io.quarkiverse.jef.java.embedded.framework.runtime.serial;
 
-import io.quarkiverse.jef.java.embedded.framework.linux.serial.SerialBus;
-import io.quarkiverse.jef.java.embedded.framework.linux.spi.SpiBus;
-import io.quarkiverse.jef.java.embedded.framework.runtime.spi.SPI;
-import io.quarkiverse.jef.java.embedded.framework.runtime.spi.SPIBusManager;
+import java.lang.annotation.Annotation;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.inject.Produces;
 import javax.enterprise.inject.spi.InjectionPoint;
 import javax.inject.Inject;
-import java.lang.annotation.Annotation;
+
+import io.quarkiverse.jef.java.embedded.framework.linux.serial.SerialBus;
 
 @ApplicationScoped
 public class SerialBusProducer {

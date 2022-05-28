@@ -1,13 +1,13 @@
 package io.quarkiverse.jef.java.embedded.framework.runtime.gpio;
 
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
+
 import io.quarkiverse.jef.java.embedded.framework.linux.gpio.GpioManager;
 import io.quarkiverse.jef.java.embedded.framework.linux.gpio.GpioPin;
 import io.quarkiverse.jef.java.embedded.framework.runtime.config.GPIOConfig;
 import io.quarkiverse.jef.java.embedded.framework.runtime.config.GPIOsConfig;
-
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
 
 public class GPIOManagerImpl implements GPIOManager {
     private final Map<String, String> buses = new HashMap<>();

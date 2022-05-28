@@ -77,7 +77,8 @@ public class SpiBusImpl implements SpiBus {
      *        {@link java.nio.ByteOrder#LITTLE_ENDIAN}
      * @throws NativeIOException if got error from Linux subsystem during initialization
      */
-    public SpiBusImpl(String bus, int clockFrequency, SpiMode clockMode, int wordLength, int bitOrdering) throws NativeIOException {
+    public SpiBusImpl(String bus, int clockFrequency, SpiMode clockMode, int wordLength, int bitOrdering)
+            throws NativeIOException {
         this(bus);
         log.log(Level.INFO,
                 () -> String.format(

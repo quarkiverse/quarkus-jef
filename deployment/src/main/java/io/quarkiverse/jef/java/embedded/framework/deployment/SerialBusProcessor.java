@@ -1,5 +1,7 @@
 package io.quarkiverse.jef.java.embedded.framework.deployment;
 
+import javax.inject.Singleton;
+
 import io.quarkiverse.jef.java.embedded.framework.runtime.config.SerialBusesConfig;
 import io.quarkiverse.jef.java.embedded.framework.runtime.serial.SerialBusManager;
 import io.quarkiverse.jef.java.embedded.framework.runtime.serial.SerialBusRecorder;
@@ -9,16 +11,13 @@ import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.annotations.ExecutionTime;
 import io.quarkus.deployment.annotations.Record;
 
-import javax.inject.Singleton;
-
 public class SerialBusProcessor {
     @BuildStep
     @Record(ExecutionTime.STATIC_INIT)
     public void register(
             BuildProducer<SyntheticBeanBuildItem> syntheticBuildProducer,
             SerialBusesConfig cfg,
-            SerialBusRecorder recorder
-    ) {
+            SerialBusRecorder recorder) {
         SyntheticBeanBuildItem bean = SyntheticBeanBuildItem
                 .configure(SerialBusManager.class)
                 .scope(Singleton.class)

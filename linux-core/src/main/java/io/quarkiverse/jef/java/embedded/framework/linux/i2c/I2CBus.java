@@ -1,8 +1,8 @@
 package io.quarkiverse.jef.java.embedded.framework.linux.i2c;
 
-import io.quarkiverse.jef.java.embedded.framework.linux.core.NativeIOException;
-
 import java.util.List;
+
+import io.quarkiverse.jef.java.embedded.framework.linux.core.NativeIOException;
 
 public interface I2CBus {
     enum Status {

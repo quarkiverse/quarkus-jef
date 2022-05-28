@@ -1,10 +1,10 @@
 package io.quarkiverse.jef.java.embedded.framework.linux.serial;
 
-import io.quarkiverse.jef.java.embedded.framework.linux.core.NativeIOException;
-import io.quarkiverse.jef.java.embedded.framework.linux.core.io.FileHandle;
-
 import java.io.InputStream;
 import java.io.OutputStream;
+
+import io.quarkiverse.jef.java.embedded.framework.linux.core.NativeIOException;
+import io.quarkiverse.jef.java.embedded.framework.linux.core.io.FileHandle;
 
 public interface SerialBus {
     InputStream getInputStream();

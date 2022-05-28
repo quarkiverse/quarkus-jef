@@ -121,10 +121,12 @@ public class SerialPort implements SerialBus {
     public InputStream getInputStream() {
         return is;
     }
+
     @Override
     public FileHandle getHandle() {
         return handle;
     }
+
     @Override
     public OutputStream getOutputStream() {
         return os;

@@ -1,9 +1,9 @@
 package io.quarkiverse.jef.java.embedded.framework.runtime.config;
 
-import io.quarkus.runtime.annotations.*;
-
 import java.util.Map;
 import java.util.Objects;
+
+import io.quarkus.runtime.annotations.*;
 
 @ConfigRoot(name = "spi", phase = ConfigPhase.BUILD_AND_RUN_TIME_FIXED)
 public class SPIBusesConfig {
@@ -13,7 +13,9 @@ public class SPIBusesConfig {
     @ConfigItem(name = ConfigItem.PARENT)
     public SPIBusConfig defaultBus;
 
-
+    /**
+     * Additional named SPIs.
+     */
     @ConfigDocSection
     @ConfigDocMapKey("i2c-name")
     @ConfigItem(name = ConfigItem.PARENT)

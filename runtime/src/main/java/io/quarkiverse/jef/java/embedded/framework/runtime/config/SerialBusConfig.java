@@ -1,12 +1,13 @@
 package io.quarkiverse.jef.java.embedded.framework.runtime.config;
 
-import io.quarkiverse.jef.java.embedded.framework.linux.serial.SerialBaudRate;
-import io.quarkus.runtime.annotations.ConfigItem;
-import io.quarkus.runtime.annotations.ConvertWith;
-import org.eclipse.microprofile.config.spi.Converter;
-
 import java.util.Optional;
 
+import io.quarkiverse.jef.java.embedded.framework.linux.serial.SerialBaudRate;
+import io.quarkus.runtime.annotations.ConfigGroup;
+import io.quarkus.runtime.annotations.ConfigItem;
+import io.quarkus.runtime.annotations.ConvertWith;
+
+@ConfigGroup
 public class SerialBusConfig {
     /**
      * Enable bus
@@ -20,16 +21,11 @@ public class SerialBusConfig {
     @ConfigItem
     public Optional<String> path;
 
-
-    @ConfigItem(name="baud-rate", defaultValue = "B9600")
+    /**
+     * Port speed
+     */
+    @ConfigItem(name = "baud-rate", defaultValue = "B9600")
     @ConvertWith(SerialBaudRateConverter.class)
     public SerialBaudRate baudRate;
-
-    public static class SerialBaudRateConverter  implements Converter<SerialBaudRate> {
-        @Override
-        public SerialBaudRate convert(String s) throws IllegalArgumentException, NullPointerException {
-            return SerialBaudRate.valueOf(s);
-        }
-    }
 
 }
