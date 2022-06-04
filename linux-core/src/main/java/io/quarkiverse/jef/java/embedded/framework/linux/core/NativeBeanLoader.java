@@ -55,8 +55,7 @@ class NativeBeanLoader<S> {
                 () -> String.format(
                         "Provider bean for %s linux access not found. Exit from application",
                         service.getName()));
-        System.exit(-1);
-        return null;
+        throw new RuntimeException("unable to create SPI for " + service.getName());
     }
 
     static <S extends FeatureSupport> S createContent(Class<S> service) {
