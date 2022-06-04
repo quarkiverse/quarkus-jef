@@ -14,7 +14,7 @@ import io.quarkiverse.jef.java.embedded.framework.linux.gpio.GpioHandleRequest;
 import io.quarkiverse.jef.java.embedded.framework.linux.gpio.GpioLineInfo;
 
 @SuppressWarnings("unused")
-public abstract class Ioctl extends IoctlBase implements NativeSupport {
+public abstract class Ioctl extends IoctlBase implements FeatureSupport {
 
     private static final AtomicBoolean initialized = new AtomicBoolean(false);
     public static int TIOCMGET = 0x5415;

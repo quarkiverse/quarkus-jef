@@ -7,7 +7,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 import io.quarkiverse.jef.java.embedded.framework.linux.core.io.FileHandle;
 
 @SuppressWarnings("unused")
-public abstract class Fcntl implements NativeSupport {
+public abstract class Fcntl implements FeatureSupport {
     private static final AtomicBoolean initialized = new AtomicBoolean(false);
     private static Fcntl instance = null;
     public static int F_DUPFD = 0; /* dup */

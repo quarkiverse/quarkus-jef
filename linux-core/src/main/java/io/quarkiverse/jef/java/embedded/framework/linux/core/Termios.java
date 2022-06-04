@@ -7,7 +7,7 @@ import io.quarkiverse.jef.java.embedded.framework.linux.core.io.FileHandle;
 import io.quarkiverse.jef.java.embedded.framework.linux.serial.TermiosStructure;
 
 @SuppressWarnings({ "unused", "UnusedReturnValue" })
-public abstract class Termios implements NativeSupport {
+public abstract class Termios implements FeatureSupport {
     /* tcflush() and TCFLSH use these */
     public static final int TCIFLUSH = 0;
     public static final int TCOFLUSH = 1;

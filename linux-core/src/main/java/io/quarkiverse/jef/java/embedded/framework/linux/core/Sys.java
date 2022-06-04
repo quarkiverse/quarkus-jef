@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 @SuppressWarnings("unused")
-public abstract class Sys implements NativeSupport {
+public abstract class Sys implements FeatureSupport {
     public final static int PATH_MAX = 4096;
     private static final AtomicBoolean initialized = new AtomicBoolean(false);
     private static Sys instance = null;

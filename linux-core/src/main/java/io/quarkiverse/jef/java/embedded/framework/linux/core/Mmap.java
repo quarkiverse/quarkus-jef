@@ -12,7 +12,7 @@ import io.quarkiverse.jef.java.embedded.framework.linux.core.io.FileHandle;
 // https://unix.stackexchange.com/questions/475800/non-root-read-access-to-dev-mem-by-kmem-group-members-fails
 // sudo setcap cap_sys_rawio=ep /usr/lib/jvm/graalvm-ce-java11-20.2.0/bin/java
 @SuppressWarnings("unused")
-public abstract class Mmap implements NativeSupport {
+public abstract class Mmap implements FeatureSupport {
     public enum MemoryProtection {
         PROT_READ(0x1), /* Page can be read. */
         PROT_WRITE(0x2), /* Page can be written. */

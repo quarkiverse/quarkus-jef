@@ -10,7 +10,7 @@ import java.util.logging.Logger;
 class NativeBeanLoader<S> {
     private static final Logger log = Logger.getLogger(NativeBeanLoader.class.getName());
 
-    static <S extends NativeSupport> S createContent(Class<S> service, boolean checkPermissions) {
+    static <S extends FeatureSupport> S createContent(Class<S> service, boolean checkPermissions) {
         if (checkPermissions) {
             RuntimePermissionsChecker.check();
         }
@@ -29,6 +29,15 @@ class NativeBeanLoader<S> {
                         () -> String.format(
                                 "Checking %s bean %s",
                                 service.getName(), obj.getClass().getName()));
+
+                if (LinuxUtils.isMock()) {
+                    if (!obj.isMock()) {
+                        continue;
+                    } else {
+                        return obj;
+                    }
+                }
+
                 if (LinuxUtils.isNative() == obj.isNativeSupported()) {
                     log.info(
                             () -> String.format(
@@ -50,7 +59,7 @@ class NativeBeanLoader<S> {
         return null;
     }
 
-    static <S extends NativeSupport> S createContent(Class<S> service) {
+    static <S extends FeatureSupport> S createContent(Class<S> service) {
         return createContent(service, true);
     }
 }

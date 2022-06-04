@@ -15,6 +15,7 @@
   <modules>
     <module>linux-core</module>
     <module>linux-native-core</module>
+    <module>device-library</module>
     <module>deployment</module>
     <module>runtime</module>
   </modules>

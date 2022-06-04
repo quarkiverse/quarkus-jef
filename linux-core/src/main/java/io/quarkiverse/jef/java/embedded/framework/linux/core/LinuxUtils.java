@@ -14,18 +14,29 @@ import java.util.stream.Stream;
 @SuppressWarnings("unused")
 public class LinuxUtils {
     private static Boolean isNative = null;
+    private static Boolean isMock = null;
     private static final AtomicBoolean lock = new AtomicBoolean(false);
 
     public static boolean isNative() {
-        if (lock.get() && isNative == null) {
+        init();
+        return isNative;
+    }
+
+    public static boolean isMock() {
+        init();
+        return isMock;
+    }
+
+    private static void init() {
+        if (!lock.get() && isNative == null) {
             synchronized (LinuxUtils.class) {
-                if (lock.get() && isNative == null) {
+                if (!lock.get() && isNative == null) {
                     isNative = "executable".equals(System.getProperty("org.graalvm.nativeimage.kind"));
+                    isMock = "test".equals(System.getProperty("java.embedded.framework.mode"));
                     lock.set(true);
                 }
             }
         }
-        return isNative;
     }
 
     public static void checkIOResult(String method, int result) throws NativeIOException {

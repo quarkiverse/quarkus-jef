@@ -4,7 +4,7 @@ package io.quarkiverse.jef.java.embedded.framework.linux.core;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 @SuppressWarnings("unused")
-public abstract class Errno implements NativeSupport {
+public abstract class Errno implements FeatureSupport {
     private static final AtomicBoolean initialized = new AtomicBoolean(false);
     private static Errno instance = null;
 
