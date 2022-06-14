@@ -12,14 +12,13 @@ public class SPIBusManagerImpl implements SPIBusManager {
     private final Map<String, SpiBus> buses = new HashMap<>();
 
     public SPIBusManagerImpl(SPIBusesConfig cfg) {
+        if (cfg.defaultBus != null) {
+            processBus("<default>", cfg.defaultBus);
+        }
 
-        if (cfg.namedBuses.isEmpty()) {
-            processBus("default", cfg.defaultBus);
-        } else {
-            for (Map.Entry<String, SPIBusConfig> item : cfg.namedBuses.entrySet()) {
-                SPIBusConfig config = item.getValue();
-                processBus(item.getKey(), config);
-            }
+        for (Map.Entry<String, SPIBusConfig> item : cfg.namedBuses.entrySet()) {
+            SPIBusConfig config = item.getValue();
+            processBus(item.getKey(), config);
         }
     }
 
@@ -28,8 +27,8 @@ public class SPIBusManagerImpl implements SPIBusManager {
             try {
                 SpiBus bus = SpiBus.create(config.path.get());
                 bus.setClockFrequency(config.clockFrequency);
-                //bus.setClockMode(config.spiMode);
-                //bus.setBitOrdering(config.bitOrdering.getValue());
+                bus.setClockMode(config.spiMode);
+                bus.setBitOrdering(config.bitOrdering.getValue());
                 bus.setWordLength(config.wordLength);
                 buses.put(name, bus);
             } catch (NativeIOException e) {

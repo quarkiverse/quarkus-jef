@@ -5,7 +5,7 @@ import java.util.Objects;
 
 import io.quarkus.runtime.annotations.*;
 
-@ConfigRoot(name = "gpio", phase = ConfigPhase.BUILD_AND_RUN_TIME_FIXED)
+@ConfigRoot(name = "jef.gpio", phase = ConfigPhase.BUILD_TIME)
 public class GPIOsConfig {
     /**
      * The default gpio bus.

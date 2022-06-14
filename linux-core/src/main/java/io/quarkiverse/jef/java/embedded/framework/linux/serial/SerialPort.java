@@ -18,6 +18,9 @@ import io.quarkiverse.jef.java.embedded.framework.linux.core.types.IntReference;
 
 @SuppressWarnings("unused")
 public class SerialPort implements SerialBus {
+    private final String path;
+    private final SerialBaudRate rate;
+    private boolean closed = false;
     private final Fcntl fcntl;
     private final Ioctl ioctl;
     private final Termios termios;
@@ -26,6 +29,8 @@ public class SerialPort implements SerialBus {
     private final SerialOutputStream os;
 
     public SerialPort(String path, SerialBaudRate rate) throws NativeIOException {
+        this.path = path;
+        this.rate = rate;
         fcntl = Fcntl.getInstance();
         ioctl = Ioctl.getInstance();
         termios = Termios.getInstance();
@@ -113,8 +118,27 @@ public class SerialPort implements SerialBus {
     }
 
     @Override
-    public void close() {
+    public String path() {
+        return path;
+    }
+
+    @Override
+    public SerialBaudRate serialBaudRate() {
+        return rate;
+    }
+
+    @Override
+    public void close() throws IOException {
+        checkClosed();
+        closed = true;
+        is.close();
+        os.close();
         handle.close();
+    }
+
+    private void checkClosed() throws IOException {
+        if (closed)
+            throw new IOException("Input Stream is closed");
     }
 
     @Override
@@ -133,59 +157,45 @@ public class SerialPort implements SerialBus {
     }
 
     private final class SerialOutputStream extends OutputStream {
-        /*
-         * @Override
-         * public void write(byte[] b) throws IOException {
-         * fcntl.write(handle, b, b.length);
-         * }
-         * 
-         * @Override
-         * public void write(byte[] b, int off, int len) throws IOException {
-         * byte[] slice = Arrays.copyOfRange(b, off, off+len);
-         * System.out.println("write: " + Arrays.toString(slice));
-         * fcntl.write(handle, slice, slice.length);
-         * }
-         */
+        private boolean closed = false;
 
         @Override
         public void write(int b) throws IOException {
+            checkClosed();
             fcntl.write(handle, new byte[] { (byte) b }, 1);
         }
 
         @Override
-        public void flush() {
+        public void flush() throws IOException {
+            checkClosed();
             termios.tcflush(handle, Termios.TCIOFLUSH);
         }
 
         @Override
         public void close() throws IOException {
+            checkClosed();
+            closed = true;
             handle.close();
+        }
+
+        private void checkClosed() throws IOException {
+            if (closed)
+                throw new IOException("Input Stream is closed");
         }
     }
 
     private final class SerialInputStream extends InputStream {
-        /*
-         * @Override
-         * public int read(byte[] b) throws IOException {
-         * return fcntl.read(handle, b, b.length);
-         * }
-         * 
-         * @Override
-         * public int read(byte[] b, int off, int len) throws IOException {
-         * byte[] bb = new byte[len];
-         * int result = fcntl.read(handle, bb, bb.length);
-         * System.arraycopy(bb, 0, b, off, len);
-         * return result;
-         * }
-         */
+        private boolean closed = false;
 
         @Override
         public long skip(long n) throws IOException {
+            checkClosed();
             return fcntl.lseek(handle, n, Fcntl.Whence.SEEK_CUR);
         }
 
         @Override
         public int read() throws IOException {
+            checkClosed();
             byte[] b = new byte[1];
             if (fcntl.read(handle, b, 1) != 1) {
                 return -1;
@@ -195,6 +205,7 @@ public class SerialPort implements SerialBus {
 
         @Override
         public int available() throws IOException {
+            checkClosed();
             IntReference ref = new IntReference();
             if (ioctl.ioctl(handle, Ioctl.FIONREAD, ref) == -1) {
                 return -1;
@@ -202,8 +213,15 @@ public class SerialPort implements SerialBus {
             return ref.getValue();
         }
 
+        private void checkClosed() throws IOException {
+            if (closed)
+                throw new IOException("Input Stream is closed");
+        }
+
         @Override
         public void close() throws IOException {
+            checkClosed();
+            closed = true;
             handle.close();
         }
     }

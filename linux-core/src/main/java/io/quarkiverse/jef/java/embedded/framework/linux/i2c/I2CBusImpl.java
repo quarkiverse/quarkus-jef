@@ -299,6 +299,11 @@ public class I2CBusImpl implements I2CBus {
         tenBits = isTenBit;
     }
 
+    @Override
+    public boolean isTenBits() {
+        return tenBits;
+    }
+
     /**
      * Returns file handle to i2c bus
      * 

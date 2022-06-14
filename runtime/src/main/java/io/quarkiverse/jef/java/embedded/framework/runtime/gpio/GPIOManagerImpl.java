@@ -13,12 +13,13 @@ public class GPIOManagerImpl implements GPIOManager {
     private final Map<String, String> buses = new HashMap<>();
 
     public GPIOManagerImpl(GPIOsConfig cfg) {
-        if (cfg.namedBuses.isEmpty()) {
-            processBus("default", cfg.defaultBus);
-        } else {
-            for (Map.Entry<String, GPIOConfig> item : cfg.namedBuses.entrySet()) {
-                processBus(item.getKey(), item.getValue());
-            }
+        if (cfg.defaultBus != null) {
+            processBus("<default>", cfg.defaultBus);
+        }
+
+        for (Map.Entry<String, GPIOConfig> entry : cfg.namedBuses.entrySet()) {
+            GPIOConfig config = entry.getValue();
+            processBus(entry.getKey(), config);
         }
     }
 

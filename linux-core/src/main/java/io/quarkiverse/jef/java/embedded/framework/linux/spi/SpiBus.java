@@ -25,6 +25,8 @@ public interface SpiBus {
 
     int getBitOrdering() throws NativeIOException;
 
+    void reload() throws NativeIOException;
+
     void setBitOrdering(int bitOrdering) throws NativeIOException;
 
     int readByteData(SpiInputParams inputParams) throws IOException;

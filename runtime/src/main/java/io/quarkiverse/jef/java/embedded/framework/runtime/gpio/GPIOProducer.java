@@ -11,11 +11,12 @@ import io.quarkiverse.jef.java.embedded.framework.linux.gpio.GpioPin;
 
 @ApplicationScoped
 public class GPIOProducer {
+
     @Inject
     GPIOManager manager;
 
     @Produces
-    //@SPI("") // The `value` attribute is @Nonbinding.
+    @GPIO(number = -1, name = "") // The `value` attribute is @Nonbinding.
     GpioPin produce(InjectionPoint injectionPoint) {
         for (Annotation qualifier : injectionPoint.getQualifiers()) {
             if (qualifier instanceof GPIO) {
@@ -26,4 +27,5 @@ public class GPIOProducer {
         // This will never be returned.
         return null;
     }
+
 }

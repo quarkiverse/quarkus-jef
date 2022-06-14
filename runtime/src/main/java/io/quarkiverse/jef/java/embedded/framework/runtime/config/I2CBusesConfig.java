@@ -5,7 +5,7 @@ import java.util.Objects;
 
 import io.quarkus.runtime.annotations.*;
 
-@ConfigRoot(name = "i2c", phase = ConfigPhase.BUILD_AND_RUN_TIME_FIXED)
+@ConfigRoot(name = "jef.i2c", phase = ConfigPhase.BUILD_TIME)
 public class I2CBusesConfig {
     /**
      * The default i2c bus.

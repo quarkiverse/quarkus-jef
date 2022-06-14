@@ -46,6 +46,8 @@ public interface I2CBus {
 
     void setTenBits(boolean isTenBit) throws NativeIOException;
 
+    boolean isTenBits();
+
     List<Status> enumerate();
 
     String getPath();

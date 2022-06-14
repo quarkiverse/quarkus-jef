@@ -9,13 +9,14 @@ import javax.inject.Inject;
 
 import io.quarkiverse.jef.java.embedded.framework.linux.spi.SpiBus;
 
+@SuppressWarnings("unused")
 @ApplicationScoped
 public class SPIBusProducer {
     @Inject
     SPIBusManager manager;
 
     @Produces
-    //@SPI("") // The `value` attribute is @Nonbinding.
+    @SPI(name = "") // The `value` attribute is @Nonbinding.
     SpiBus produce(InjectionPoint injectionPoint) {
         for (Annotation qualifier : injectionPoint.getQualifiers()) {
             if (qualifier instanceof SPI) {
@@ -25,4 +26,5 @@ public class SPIBusProducer {
         // This will never be returned.
         return null;
     }
+
 }

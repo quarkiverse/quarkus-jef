@@ -5,7 +5,7 @@ import java.util.Objects;
 
 import io.quarkus.runtime.annotations.*;
 
-@ConfigRoot(name = "spi", phase = ConfigPhase.BUILD_AND_RUN_TIME_FIXED)
+@ConfigRoot(name = "jef.spi", phase = ConfigPhase.BUILD_TIME)
 public class SPIBusesConfig {
     /**
      * The default spi bus.

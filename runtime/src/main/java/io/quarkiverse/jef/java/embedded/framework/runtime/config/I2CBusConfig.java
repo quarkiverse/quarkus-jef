@@ -1,7 +1,6 @@
 package io.quarkiverse.jef.java.embedded.framework.runtime.config;
 
 import java.util.Optional;
-import java.util.OptionalInt;
 
 import io.quarkus.runtime.annotations.ConfigGroup;
 import io.quarkus.runtime.annotations.ConfigItem;
@@ -29,13 +28,13 @@ public class I2CBusConfig {
     /**
      * Amount of bus reties
      */
-    @ConfigItem
-    public OptionalInt retries;
+    @ConfigItem(defaultValue = "-1")
+    public Integer retries;
 
     /**
      * Timeout ms
      */
-    @ConfigItem
-    public OptionalInt timeout;
+    @ConfigItem(defaultValue = "-1")
+    public Integer timeout;
 
 }

@@ -13,13 +13,13 @@ public class I2CBusManagerImpl implements I2CBusManager {
     private final Map<String, I2CBus> buses = new HashMap<>();
 
     public I2CBusManagerImpl(I2CBusesConfig cfg) {
-        if (cfg.namedBuses.isEmpty()) {
-            processBus("default", cfg.defaultBus);
-        } else {
-            for (Map.Entry<String, I2CBusConfig> entry : cfg.namedBuses.entrySet()) {
-                I2CBusConfig config = entry.getValue();
-                processBus(entry.getKey(), config);
-            }
+        if (cfg.defaultBus != null) {
+            processBus("<default>", cfg.defaultBus);
+        }
+
+        for (Map.Entry<String, I2CBusConfig> entry : cfg.namedBuses.entrySet()) {
+            I2CBusConfig config = entry.getValue();
+            processBus(entry.getKey(), config);
         }
     }
 
@@ -29,12 +29,12 @@ public class I2CBusManagerImpl implements I2CBusManager {
                 I2CBus bus = I2CBus.create(config.path.get());
                 bus.setTenBits(config.isTenBits);
 
-                if (config.retries.isPresent()) {
-                    bus.setRetries(config.retries.getAsInt());
+                if (config.retries > 0) {
+                    bus.setRetries(config.retries);
                 }
 
-                if (config.timeout.isPresent()) {
-                    bus.setTimeout(config.timeout.getAsInt());
+                if (config.timeout > 0) {
+                    bus.setTimeout(config.timeout);
                 }
 
                 buses.put(name, bus);

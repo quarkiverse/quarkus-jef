@@ -15,6 +15,7 @@
   <modules>
     <module>linux-core</module>
     <module>linux-native-core</module>
+    <module>linux-mock</module>
     <module>device-library</module>
     <module>deployment</module>
     <module>runtime</module>
@@ -37,6 +38,12 @@
       </dependency>
     </dependencies>
   </dependencyManagement>
+  <dependencies>
+    <dependency>
+      <groupId>org.jboss.logmanager</groupId>
+      <artifactId>log4j2-jboss-logmanager</artifactId>
+    </dependency>
+  </dependencies>
   <build>
     <pluginManagement>
       <plugins>

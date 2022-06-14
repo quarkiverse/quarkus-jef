@@ -9,12 +9,28 @@
         <version>1.0.0-SNAPSHOT</version>
     </parent>
     <artifactId>device-library</artifactId>
+    <name>Java Embedded Framework - Device Library</name>
+    <properties>
+        <junit.version>5.7.0</junit.version>
+    </properties>
 
     <dependencies>
         <dependency>
             <groupId>io.quarkiverse.jef</groupId>
             <artifactId>linux-core</artifactId>
             <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.quarkiverse.jef</groupId>
+            <artifactId>linux-mock</artifactId>
+            <version>${project.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter</artifactId>
+            <version>${junit.version}</version>
+            <scope>test</scope>
         </dependency>
     </dependencies>
 
@@ -34,6 +50,23 @@
                             <Built-By>Java Embedded Framework team</Built-By>
                         </manifestEntries>
                     </archive>
+                </configuration>
+            </plugin>
+            <plugin>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>3.0.0-M6</version>
+                <configuration>
+                    <systemProperties>
+                        <property>
+                            <name>java.embedded.framework.mode</name>
+                            <value>test</value>
+                        </property>
+                    </systemProperties>
+                    <excludes>
+                        <exclude>io.quarkiverse.jef.java.embedded.framework.linux.core.jna.*</exclude>
+                    </excludes>
+                    <!--suppress UnresolvedMavenProperty -->
+                    <!--<skipTests>${native.surefire.skip}</skipTests>-->
                 </configuration>
             </plugin>
         </plugins>

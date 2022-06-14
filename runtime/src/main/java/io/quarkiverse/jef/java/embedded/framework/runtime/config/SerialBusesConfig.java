@@ -5,7 +5,7 @@ import java.util.Objects;
 
 import io.quarkus.runtime.annotations.*;
 
-@ConfigRoot(name = "serial", phase = ConfigPhase.BUILD_AND_RUN_TIME_FIXED)
+@ConfigRoot(name = "jef.serial", phase = ConfigPhase.BUILD_TIME)
 public class SerialBusesConfig {
     /**
      * The default serial bus.
@@ -27,5 +27,13 @@ public class SerialBusesConfig {
         }
         SerialBusConfig cfg = namedBuses.get(name);
         return Objects.requireNonNullElseGet(cfg, SerialBusConfig::new);
+    }
+
+    @Override
+    public String toString() {
+        return "SerialBusesConfig{" +
+                "defaultBus=" + defaultBus +
+                ", namedBuses=" + namedBuses +
+                '}';
     }
 }
