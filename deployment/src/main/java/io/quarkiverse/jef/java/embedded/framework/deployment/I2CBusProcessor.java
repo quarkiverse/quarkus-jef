@@ -6,8 +6,11 @@ import static io.quarkus.deployment.annotations.ExecutionTime.STATIC_INIT;
 import javax.enterprise.context.ApplicationScoped;
 
 import io.quarkiverse.jef.java.embedded.framework.runtime.config.I2CBusesConfig;
+import io.quarkiverse.jef.java.embedded.framework.runtime.i2c.I2C;
 import io.quarkiverse.jef.java.embedded.framework.runtime.i2c.I2CBusManager;
+import io.quarkiverse.jef.java.embedded.framework.runtime.i2c.I2CBusProducer;
 import io.quarkiverse.jef.java.embedded.framework.runtime.i2c.I2CBusRecorder;
+import io.quarkus.arc.deployment.AdditionalBeanBuildItem;
 import io.quarkus.arc.deployment.AutoInjectAnnotationBuildItem;
 import io.quarkus.arc.deployment.SyntheticBeanBuildItem;
 import io.quarkus.arc.deployment.ValidationPhaseBuildItem.ValidationErrorBuildItem;
@@ -36,6 +39,11 @@ public class I2CBusProcessor extends AbstractProcessor {
                 .unremovable()
                 .supplier(recorder.getI2CBusManagerSupplier(config))
                 .done();
+    }
+
+    @BuildStep
+    AdditionalBeanBuildItem additionalBeans() {
+        return AdditionalBeanBuildItem.builder().addBeanClasses(I2C.class, I2CBusProducer.class).build();
     }
 
     private void analyseInjections(

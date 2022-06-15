@@ -7,8 +7,11 @@ import static io.quarkus.deployment.annotations.ExecutionTime.STATIC_INIT;
 import javax.enterprise.context.ApplicationScoped;
 
 import io.quarkiverse.jef.java.embedded.framework.runtime.config.SPIBusesConfig;
+import io.quarkiverse.jef.java.embedded.framework.runtime.spi.SPI;
 import io.quarkiverse.jef.java.embedded.framework.runtime.spi.SPIBusManager;
+import io.quarkiverse.jef.java.embedded.framework.runtime.spi.SPIBusProducer;
 import io.quarkiverse.jef.java.embedded.framework.runtime.spi.SPIBusRecorder;
+import io.quarkus.arc.deployment.AdditionalBeanBuildItem;
 import io.quarkus.arc.deployment.AutoInjectAnnotationBuildItem;
 import io.quarkus.arc.deployment.SyntheticBeanBuildItem;
 import io.quarkus.arc.deployment.ValidationPhaseBuildItem;
@@ -37,6 +40,11 @@ public class SPIBusProcessor extends AbstractProcessor {
                 .unremovable()
                 .supplier(recorder.getSpiBusManagerSupplier(config))
                 .done();
+    }
+
+    @BuildStep
+    AdditionalBeanBuildItem additionalBeans() {
+        return AdditionalBeanBuildItem.builder().addBeanClasses(SPI.class, SPIBusProducer.class).build();
     }
 
     private void analyseInjections(

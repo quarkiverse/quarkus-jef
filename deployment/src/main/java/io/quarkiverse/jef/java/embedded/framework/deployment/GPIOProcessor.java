@@ -7,8 +7,11 @@ import static io.quarkus.deployment.annotations.ExecutionTime.STATIC_INIT;
 import javax.enterprise.context.ApplicationScoped;
 
 import io.quarkiverse.jef.java.embedded.framework.runtime.config.GPIOsConfig;
+import io.quarkiverse.jef.java.embedded.framework.runtime.gpio.GPIO;
 import io.quarkiverse.jef.java.embedded.framework.runtime.gpio.GPIOManager;
+import io.quarkiverse.jef.java.embedded.framework.runtime.gpio.GPIOProducer;
 import io.quarkiverse.jef.java.embedded.framework.runtime.gpio.GPIORecorder;
+import io.quarkus.arc.deployment.AdditionalBeanBuildItem;
 import io.quarkus.arc.deployment.AutoInjectAnnotationBuildItem;
 import io.quarkus.arc.deployment.SyntheticBeanBuildItem;
 import io.quarkus.deployment.annotations.BuildProducer;
@@ -36,6 +39,11 @@ public class GPIOProcessor extends AbstractProcessor {
                 .unremovable()
                 .supplier(recorder.getGPIOManagerSupplier(config))
                 .done();
+    }
+
+    @BuildStep
+    AdditionalBeanBuildItem additionalBeans() {
+        return AdditionalBeanBuildItem.builder().addBeanClasses(GPIO.class, GPIOProducer.class).build();
     }
 
     private void analyseInjections(
