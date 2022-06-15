@@ -7,8 +7,11 @@ import static io.quarkus.deployment.annotations.ExecutionTime.STATIC_INIT;
 import javax.enterprise.context.ApplicationScoped;
 
 import io.quarkiverse.jef.java.embedded.framework.runtime.config.SerialBusesConfig;
+import io.quarkiverse.jef.java.embedded.framework.runtime.serial.Serial;
 import io.quarkiverse.jef.java.embedded.framework.runtime.serial.SerialBusManager;
+import io.quarkiverse.jef.java.embedded.framework.runtime.serial.SerialBusProducer;
 import io.quarkiverse.jef.java.embedded.framework.runtime.serial.SerialBusRecorder;
+import io.quarkus.arc.deployment.AdditionalBeanBuildItem;
 import io.quarkus.arc.deployment.AutoInjectAnnotationBuildItem;
 import io.quarkus.arc.deployment.SyntheticBeanBuildItem;
 import io.quarkus.arc.deployment.ValidationPhaseBuildItem;
@@ -37,6 +40,11 @@ public class SerialBusProcessor extends AbstractProcessor {
                 .unremovable()
                 .supplier(recorder.getSerialBusManagerSupplier(config))
                 .done();
+    }
+
+    @BuildStep
+    AdditionalBeanBuildItem additionalBeans() {
+        return AdditionalBeanBuildItem.builder().addBeanClasses(Serial.class, SerialBusProducer.class).build();
     }
 
     private void analyseInjections(
