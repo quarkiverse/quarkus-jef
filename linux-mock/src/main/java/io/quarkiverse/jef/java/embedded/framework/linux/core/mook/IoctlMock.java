@@ -60,6 +60,10 @@ public class IoctlMock extends Ioctl {
 
     @Override
     public int ioctl(FileHandle handle, long command, GpioLineInfo line) throws NativeIOException {
+        line.setOffset(0);
+        line.setConsumer("dummy");
+        line.setFlags(32);
+        line.setName("dummy pin");
         return 0;
     }
 
