@@ -35,6 +35,9 @@ jobs:
           distribution: temurin
           java-version: ${{ env.JAVA_VERSION }}
 
+      - name: Setup libcap-dev
+        run: sudo apt-get install -y libcap-dev
+
       - name: Checkout repo
         uses: actions/checkout@v2
         with:
