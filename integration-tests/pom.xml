@@ -27,6 +27,12 @@
       <version>${project.parent.version}</version>
     </dependency>
     <dependency>
+      <groupId>io.quarkiverse.jef</groupId>
+      <artifactId>device-library</artifactId>
+      <version>${project.parent.version}</version>
+    </dependency>
+
+    <dependency>
       <groupId>io.quarkus</groupId>
       <artifactId>quarkus-junit5</artifactId>
       <scope>test</scope>

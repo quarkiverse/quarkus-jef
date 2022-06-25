@@ -1,19 +1,9 @@
 
 package io.quarkiverse.jef.java.embedded.framework.linux.core.jna;
 
-import static io.quarkiverse.jef.java.embedded.framework.linux.core.LinuxUtils.checkIOResult;
-import static io.quarkiverse.jef.java.embedded.framework.linux.core.SmBusConstants.I2C_SMBUS;
-import static io.quarkiverse.jef.java.embedded.framework.linux.core.SmBusConstants.I2C_SMBUS_WRITE;
-
-import java.nio.ByteBuffer;
-import java.util.Objects;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
 import com.sun.jna.*;
 import com.sun.jna.ptr.IntByReference;
 import com.sun.jna.ptr.LongByReference;
-
 import io.quarkiverse.jef.java.embedded.framework.linux.core.Ioctl;
 import io.quarkiverse.jef.java.embedded.framework.linux.core.LinuxUtils;
 import io.quarkiverse.jef.java.embedded.framework.linux.core.NativeIOException;
@@ -28,7 +18,17 @@ import io.quarkiverse.jef.java.embedded.framework.linux.gpio.GpioHandleData;
 import io.quarkiverse.jef.java.embedded.framework.linux.gpio.GpioHandleRequest;
 import io.quarkiverse.jef.java.embedded.framework.linux.gpio.GpioLineInfo;
 
-@SuppressWarnings({ "UnusedDeclaration" })
+import java.nio.ByteBuffer;
+import java.nio.ByteOrder;
+import java.util.Objects;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import static io.quarkiverse.jef.java.embedded.framework.linux.core.LinuxUtils.checkIOResult;
+import static io.quarkiverse.jef.java.embedded.framework.linux.core.SmBusConstants.I2C_SMBUS;
+import static io.quarkiverse.jef.java.embedded.framework.linux.core.SmBusConstants.I2C_SMBUS_WRITE;
+
+@SuppressWarnings({"UnusedDeclaration"})
 public class IoctlJna extends Ioctl {
     private static final Logger log = Logger.getLogger(IoctlJna.class.getName());
 
@@ -47,6 +47,16 @@ public class IoctlJna extends Ioctl {
 
     public boolean isNativeSupported() {
         return false;
+    }
+
+    private final Memory i2cSmbusIoctlData;
+    private final Memory i2cSmbusData;
+
+    public IoctlJna() {
+        i2cSmbusIoctlData = new Memory(NativeI2CSmbusIoctlData.SIZE);
+        i2cSmbusData = new Memory(NativeI2CSmbusData.SIZE);
+        i2cSmbusIoctlData.clear();
+        i2cSmbusData.clear();
     }
 
     @Override
@@ -110,6 +120,24 @@ public class IoctlJna extends Ioctl {
     public int ioctl(FileHandle fd, long command, SmbusIoctlData ptr) throws NativeIOException {
         log.log(Level.FINEST, () -> String.format("ioctl.smbus fd is '%d' data is '%s'", fd.getHandle(), ptr));
 
+/*        ByteBuffer block = ByteBuffer.wrap(ptr.getData().getBlock());
+        i2cSmbusData.write(0, block.array(), 0, block.limit());
+
+        i2cSmbusIoctlData.setByte(NativeI2CSmbusIoctlData.OFFSET_READ_WRITE, ptr.getReadWrite());
+        i2cSmbusIoctlData.setByte(NativeI2CSmbusIoctlData.OFFSET_COMMAND, (byte) command);
+        i2cSmbusIoctlData.setInt(NativeI2CSmbusIoctlData.OFFSET_SIZE, ptr.getSize());
+        i2cSmbusIoctlData.setPointer(NativeI2CSmbusIoctlData.OFFSET_DATA, i2cSmbusData);
+
+        int result = Delegate.ioctl(fd.getHandle(), new NativeLong(I2C_SMBUS, true), i2cSmbusIoctlData);
+        checkIOResult("ioctl:sm_bus", result);
+
+        byte[] byteArray = i2cSmbusData.getByteArray(0, I2CSmbusData.SIZE);
+
+        block.put(byteArray, 0, byteArray.length);
+
+        return result;*/
+
+
         IoctlData data = new IoctlData();
         int offsetRw = data.offset("rw");
         int offsetCommand = data.offset("command");
@@ -123,7 +151,9 @@ public class IoctlJna extends Ioctl {
         ioctlData.clear();
         i2cSmbusData.clear();
 
-        ByteBuffer block = ByteBuffer.wrap(ptr.getData().getBlock());
+        byte[] bytes = ptr.getData().getBlock();
+        ByteBuffer block = ByteBuffer.allocate(bytes.length);
+        //block.order(ByteOrder.nativeOrder());
 
         log.log(Level.FINEST, "ioctl.smbus input block: ");
         log.log(Level.FINEST, () -> StringUtils.dump(block));
@@ -148,6 +178,7 @@ public class IoctlJna extends Ioctl {
         log.log(Level.FINEST, () -> StringUtils.dump(block));
 
         return result;
+
     }
 
     @Override
@@ -246,7 +277,7 @@ public class IoctlJna extends Ioctl {
         public byte[] values = new byte[GPIOHANDLES_MAX];
     }
 
-    @Structure.FieldOrder({ "lineoffsets", "flags", "default_values", "consumer_label", "lines", "fd"/* , "buf" */ })
+    @Structure.FieldOrder({"lineoffsets", "flags", "default_values", "consumer_label", "lines", "fd"/* , "buf" */})
     public static class gpiohandle_request extends Structure {
         public int[] lineoffsets = new int[GPIOHANDLES_MAX];
         public int flags;
@@ -279,7 +310,7 @@ public class IoctlJna extends Ioctl {
         }
     }
 
-    @Structure.FieldOrder({ "line_offset", "flags", "name", "consumer" })
+    @Structure.FieldOrder({"line_offset", "flags", "name", "consumer"})
     public static class gpioline_info extends Structure {
         public int line_offset;
         public int flags;
@@ -303,7 +334,7 @@ public class IoctlJna extends Ioctl {
         }
     }
 
-    @Structure.FieldOrder({ "name", "label", "lines" })
+    @Structure.FieldOrder({"name", "label", "lines"})
     public static class gpiochip_info extends Structure {
         public byte[] name = new byte[32];
         public byte[] label = new byte[32];
@@ -322,8 +353,8 @@ public class IoctlJna extends Ioctl {
         }
     }
 
-    @Structure.FieldOrder({ "txBuff", "rxBuff", "len", "speedHz", "delayMicros", "bitsPerWord", "csChange", "txNBits",
-            "rxNBits", "pad" })
+    @Structure.FieldOrder({"txBuff", "rxBuff", "len", "speedHz", "delayMicros", "bitsPerWord", "csChange", "txNBits",
+            "rxNBits", "pad"})
     public static class SpiIOCTransfer extends Structure {
         public long txBuff;
         public long rxBuff;
@@ -373,7 +404,7 @@ public class IoctlJna extends Ioctl {
 
     }
 
-    @Structure.FieldOrder({ "rw", "command", "size", "data" })
+    @Structure.FieldOrder({"rw", "command", "size", "data"})
     public static class IoctlData extends Structure {
         public byte rw;
         public byte command;
@@ -443,6 +474,7 @@ public class IoctlJna extends Ioctl {
         }
         return _SPI_IOC_TRANSFER_SIZE;
     }
+
 
     static class Delegate {
         public static native int ioctl(int fd, NativeLong request, Pointer arg);

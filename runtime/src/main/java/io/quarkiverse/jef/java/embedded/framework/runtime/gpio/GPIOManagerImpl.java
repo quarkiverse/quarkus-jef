@@ -8,12 +8,18 @@ import io.quarkiverse.jef.java.embedded.framework.linux.gpio.GpioManager;
 import io.quarkiverse.jef.java.embedded.framework.linux.gpio.GpioPin;
 import io.quarkiverse.jef.java.embedded.framework.runtime.config.GPIOConfig;
 import io.quarkiverse.jef.java.embedded.framework.runtime.config.GPIOsConfig;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class GPIOManagerImpl implements GPIOManager {
+    private final static Logger logger = LogManager.getLogger(GPIOManagerImpl.class);
     private final Map<String, String> buses = new HashMap<>();
 
     public GPIOManagerImpl(GPIOsConfig cfg) {
+        logger.info("Create GPIOManagerImpl");
+
         if (cfg.defaultBus != null) {
+            logger.info("Default bus found");
             processBus("<default>", cfg.defaultBus);
         }
 
@@ -25,12 +31,14 @@ public class GPIOManagerImpl implements GPIOManager {
 
     private void processBus(String name, GPIOConfig bus) {
         if (bus.enabled && bus.path.isPresent()) {
+            logger.info("add GPIO bus to list: {}", name);
             buses.put(name, bus.path.get());
         }
     }
 
     @Override
     public GpioPin getPin(String name, int number) {
+        logger.info("Get pin({}) from bus {}", number, name);
         String path = buses.get(name);
         if (path != null) {
             try {

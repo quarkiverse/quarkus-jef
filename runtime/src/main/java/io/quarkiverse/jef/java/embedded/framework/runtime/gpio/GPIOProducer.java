@@ -9,6 +9,7 @@ import javax.inject.Inject;
 
 import io.quarkiverse.jef.java.embedded.framework.linux.gpio.GpioPin;
 
+@SuppressWarnings("unused")
 @ApplicationScoped
 public class GPIOProducer {
 
