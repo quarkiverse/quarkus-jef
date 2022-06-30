@@ -1,9 +1,8 @@
 package io.quarkiverse.jef.java.embedded.framework.runtime.config;
 
-import io.quarkus.runtime.annotations.*;
-
 import java.util.Map;
-import java.util.Optional;
+
+import io.quarkus.runtime.annotations.*;
 
 @ConfigRoot(name = "jef.onewire", phase = ConfigPhase.BUILD_TIME)
 public class OneWiresConfig {

@@ -2,6 +2,8 @@
 package io.quarkiverse.jef.java.embedded.framework.linux.serial;
 
 import static io.quarkiverse.jef.java.embedded.framework.linux.core.IOFlags.*;
+import static io.quarkiverse.jef.java.embedded.framework.linux.core.Ioctl.TIOCMGET;
+import static io.quarkiverse.jef.java.embedded.framework.linux.core.Ioctl.TIOCMSET;
 import static io.quarkiverse.jef.java.embedded.framework.linux.core.Termios.*;
 
 import java.io.IOException;
@@ -36,85 +38,44 @@ public class SerialPort implements SerialBus {
         termios = Termios.getInstance();
         handle = fcntl.open(path, EnumSet.of(O_RDWR, O_NOCTTY, O_NONBLOCK));
         fcntl.fcntl(handle, Fcntl.F_SETFL, EnumSet.of(O_RDWR));
-
-        //https://blog.mbedded.ninja/programming/operating-systems/linux/linux-serial-ports-using-c-cpp/
-        TermiosStructure tty = termios.tcgetattr(handle);
-
-        // Control Modes
-        tty.c_cflag &= ~PARENB; // Clear parity bit, disabling parity
-        tty.c_cflag &= ~CSTOPB; // Clear stop field, only one stop bit used in communication
-        tty.c_cflag &= ~CSIZE; // Clear all the size bits, then use one of the statements
-        tty.c_cflag |= CS8; // 8 bits per byte
-        tty.c_cflag &= ~CRTSCTS; // Disable RTS/CTS hardware flow control
-        tty.c_cflag |= CREAD | CLOCAL; // Turn on READ & ignore ctrl lines (CLOCAL = 1)
-
-        // Local Modes
-        tty.c_lflag &= ~(ICANON | IEXTEN | ISIG | ECHO);
-        //tty.c_lflag &= ~ICANON; // Canonical mode is disabled
-        //tty.c_lflag &= ~ECHO; // Disable echo
-        //tty.c_lflag &= ~ISIG; // Disable interpretation of INTR, QUIT and SUSP
-        //tty.c_lflag |= ICANON; // Canonical mode is enabled
-
-        // Input Modes
-        tty.c_iflag &= ~(ICRNL | INPCK | ISTRIP | IXON | BRKINT);
-        //tty.c_iflag &= ~(IXON | IXOFF | IXANY); // Turn off s/w flow ctrl
-        //tty.c_iflag &= ~(IGNBRK|BRKINT|PARMRK|ISTRIP|INLCR|IGNCR|ICRNL);
-
-        // Output Modes
-        tty.c_oflag &= ~OPOST; // Prevent special interpretation of output bytes (e.g. newline chars)
-        //tty.c_oflag &= ~ONLCR; // Prevent conversion of newline to carriage return/line feed
-
-        tty.c_cc[VMIN] = 0;
-        tty.c_cc[VTIME] = 50;
-
-        termios.tcflush(handle, TCIFLUSH);
-        termios.tcsetattr(handle, TCSANOW, tty);
-
-        /*
-         * TermiosStructure tty = termios.tcgetattr(handle);
-         * 
-         * termios.cfmakeraw(tty);
-         * int speed = rate.value;
-         * 
-         * termios.cfsetispeed(tty, speed);
-         * termios.cfsetospeed(tty, speed);
-         * 
-         * tty.c_cflag |= (CLOCAL | CREAD) ;
-         * tty.c_cflag &= ~PARENB ;
-         * tty.c_cflag &= ~CSTOPB ;
-         * tty.c_cflag &= ~CSIZE ;
-         * tty.c_cflag |= CS8 ;
-         * tty.c_lflag &= ~(ICANON | ECHO |
-         *//* ECHOE | *//*
-                         * ISIG | IEXTEN) ;
-                         * tty.c_oflag &= ~OPOST ; // ++
-                         * 
-                         * tty.c_cc [VMIN] = 1 ;
-                         * tty.c_cc [VTIME] = 5 ; // Ten seconds (100 deciseconds)
-                         * 
-                         * termios.tcflush(handle, TCIFLUSH);
-                         * termios.tcsetattr(handle, TCSANOW, tty);
-                         * 
-                         * IntReference statusRef = new IntReference();
-                         * 
-                         * try {
-                         * ioctl.ioctl(handle, Ioctl.TIOCMGET, statusRef);
-                         * 
-                         * int status = statusRef.getValue();
-                         * 
-                         * status |= Termios.TIOCM_DTR;
-                         * status |= Termios.TIOCM_RTS;
-                         * 
-                         * statusRef.setValue(status);
-                         * 
-                         * ioctl.ioctl(handle, Ioctl.TIOCMSET, statusRef);
-                         * } catch (NativeIOException e) {
-                         * e.printStackTrace();
-                         * }
-                         */
-
+        setup();
+        //setup1();
         is = new SerialInputStream();
         os = new SerialOutputStream();
+    }
+
+    private void setup() throws NativeIOException {
+        TermiosStructure tty = termios.tcgetattr(handle);
+        termios.cfmakeraw(tty);
+        termios.cfsetispeed(tty, rate.value);
+        termios.cfsetospeed(tty, rate.value);
+
+        tty.c_cflag |= (CLOCAL | CREAD);
+        tty.c_cflag &= ~PARENB;
+        tty.c_cflag &= ~CSTOPB;
+        tty.c_cflag &= ~CSIZE;
+        tty.c_cflag |= CS8;
+        tty.c_lflag &= ~(ICANON | ECHO | ECHOE | ISIG);
+        tty.c_oflag &= ~OPOST;
+
+        tty.c_cc[VMIN] = 0;
+        tty.c_cc[VTIME] = 30;
+
+        termios.tcsetattr(handle, TCSANOW, tty);
+        termios.tcflush(handle, TCIFLUSH);
+        IntReference statusRef = new IntReference();
+
+        ioctl.ioctl(handle, TIOCMGET, statusRef);
+
+        int status = statusRef.getValue();
+        status |= TIOCM_DTR;
+        status |= TIOCM_RTS;
+        statusRef.setValue(status);
+
+        ioctl.ioctl(handle, TIOCMSET, statusRef);
+
+        //usleep (10000) ;	// 10mS
+
     }
 
     @Override

@@ -1,10 +1,10 @@
 package io.quarkiverse.jef.java.embedded.framework.deployment;
 
-import io.quarkiverse.jef.java.embedded.framework.runtime.onewire.OneWire;
 import org.jboss.jandex.DotName;
 
 import io.quarkiverse.jef.java.embedded.framework.runtime.gpio.GPIO;
 import io.quarkiverse.jef.java.embedded.framework.runtime.i2c.I2C;
+import io.quarkiverse.jef.java.embedded.framework.runtime.onewire.OneWire;
 import io.quarkiverse.jef.java.embedded.framework.runtime.serial.Serial;
 import io.quarkiverse.jef.java.embedded.framework.runtime.spi.SPI;
 
