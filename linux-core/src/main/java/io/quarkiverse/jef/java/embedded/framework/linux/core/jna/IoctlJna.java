@@ -49,14 +49,14 @@ public class IoctlJna extends Ioctl {
         return false;
     }
 
-    private final Memory i2cSmbusIoctlData;
-    private final Memory i2cSmbusData;
+//    private final Memory i2cSmbusIoctlData;
+//    private final Memory i2cSmbusData;
 
     public IoctlJna() {
-        i2cSmbusIoctlData = new Memory(NativeI2CSmbusIoctlData.SIZE);
+/*        i2cSmbusIoctlData = new Memory(NativeI2CSmbusIoctlData.SIZE);
         i2cSmbusData = new Memory(NativeI2CSmbusData.SIZE);
         i2cSmbusIoctlData.clear();
-        i2cSmbusData.clear();
+        i2cSmbusData.clear();*/
     }
 
     @Override

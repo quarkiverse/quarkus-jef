@@ -12,6 +12,7 @@ import org.graalvm.nativeimage.PinnedObject;
 import org.graalvm.nativeimage.c.CContext;
 import org.graalvm.nativeimage.c.function.CFunction;
 import org.graalvm.nativeimage.c.function.CLibrary;
+import org.graalvm.nativeimage.c.struct.SizeOf;
 import org.graalvm.nativeimage.c.type.CCharPointer;
 import org.graalvm.word.PointerBase;
 
@@ -75,6 +76,7 @@ public class FcntlNative extends Fcntl {
         log.log(Level.FINEST, () -> String.format("fctl.native read from '%d' length '%d'", fd.getHandle(), size));
         try (PinnedObject pin = PinnedObject.create(buffer)) {
             CCharPointer rawData = pin.addressOfArrayElement(0);
+            //SizeOf.get(rawData.getClass())
             int result = Delegate.read(fd.getHandle(), rawData, size);
             log.log(Level.FINEST, () -> dump(buffer));
             checkIOResult("read", result);

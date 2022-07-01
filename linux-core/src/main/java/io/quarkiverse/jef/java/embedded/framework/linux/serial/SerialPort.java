@@ -129,7 +129,7 @@ public class SerialPort implements SerialBus {
         @Override
         public void flush() throws IOException {
             checkClosed();
-            termios.tcflush(handle, Termios.TCIOFLUSH);
+            termios.tcflush(handle, Termios.TCOFLUSH);
         }
 
         @Override
@@ -158,10 +158,16 @@ public class SerialPort implements SerialBus {
         public int read() throws IOException {
             checkClosed();
             byte[] b = new byte[1];
-            if (fcntl.read(handle, b, 1) != 1) {
+            if (read(b) != 1) {
                 return -1;
             }
             return b[0] & 0xFF;
+        }
+
+        @Override
+        public int read(byte[] b) throws IOException {
+            checkClosed();
+            return fcntl.read(handle, b, b.length);
         }
 
         @Override
@@ -173,6 +179,8 @@ public class SerialPort implements SerialBus {
             }
             return ref.getValue();
         }
+
+
 
         private void checkClosed() throws IOException {
             if (closed)
