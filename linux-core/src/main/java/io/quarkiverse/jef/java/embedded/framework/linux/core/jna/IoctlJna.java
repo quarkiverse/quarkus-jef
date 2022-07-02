@@ -120,25 +120,6 @@ public class IoctlJna extends Ioctl {
     public int ioctl(FileHandle fd, long command, SmbusIoctlData ptr) throws NativeIOException {
         log.log(Level.FINEST, () -> String.format("ioctl.smbus fd is '%d' data is '%s'", fd.getHandle(), ptr));
 
-        /*
-         * ByteBuffer block = ByteBuffer.wrap(ptr.getData().getBlock());
-         * i2cSmbusData.write(0, block.array(), 0, block.limit());
-         * 
-         * i2cSmbusIoctlData.setByte(NativeI2CSmbusIoctlData.OFFSET_READ_WRITE, ptr.getReadWrite());
-         * i2cSmbusIoctlData.setByte(NativeI2CSmbusIoctlData.OFFSET_COMMAND, (byte) command);
-         * i2cSmbusIoctlData.setInt(NativeI2CSmbusIoctlData.OFFSET_SIZE, ptr.getSize());
-         * i2cSmbusIoctlData.setPointer(NativeI2CSmbusIoctlData.OFFSET_DATA, i2cSmbusData);
-         * 
-         * int result = Delegate.ioctl(fd.getHandle(), new NativeLong(I2C_SMBUS, true), i2cSmbusIoctlData);
-         * checkIOResult("ioctl:sm_bus", result);
-         * 
-         * byte[] byteArray = i2cSmbusData.getByteArray(0, I2CSmbusData.SIZE);
-         * 
-         * block.put(byteArray, 0, byteArray.length);
-         * 
-         * return result;
-         */
-
         IoctlData data = new IoctlData();
         int offsetRw = data.offset("rw");
         int offsetCommand = data.offset("command");
@@ -152,12 +133,10 @@ public class IoctlJna extends Ioctl {
         ioctlData.clear();
         i2cSmbusData.clear();
 
-        byte[] bytes = ptr.getData().getBlock();
-        ByteBuffer block = ByteBuffer.allocate(bytes.length);
-        //block.order(ByteOrder.nativeOrder());
+        ByteBuffer block = ByteBuffer.wrap(ptr.getData().getBlock());
 
         log.log(Level.FINEST, "ioctl.smbus input block: ");
-        log.log(Level.FINEST, () -> StringUtils.dump(block));
+        //log.log(Level.FINEST, ()-> dump(block));
 
         if (ptr.getReadWrite() == I2C_SMBUS_WRITE) {
             i2cSmbusData.write(0, block.array(), 0, block.limit());
@@ -176,11 +155,11 @@ public class IoctlJna extends Ioctl {
         block.put(byteArray, 0, byteArray.length);
 
         log.log(Level.FINEST, "ioctl.smbus output block: ");
-        log.log(Level.FINEST, () -> StringUtils.dump(block));
+        //log.log(Level.FINEST, ()-> dump(block));
 
         return result;
-
     }
+
 
     @Override
     public int ioctl(FileHandle fd, SpiIocTransfer ptr) throws NativeIOException {
