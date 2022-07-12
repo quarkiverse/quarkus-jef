@@ -36,7 +36,7 @@ public class SerialPort implements SerialBus {
         fcntl = Fcntl.getInstance();
         ioctl = Ioctl.getInstance();
         termios = Termios.getInstance();
-        handle = fcntl.open(path, EnumSet.of(O_RDWR, O_NOCTTY, O_SYNC/*O_NONBLOCK*/));
+        handle = fcntl.open(path, EnumSet.of(O_RDWR, O_NOCTTY, O_SYNC/* O_NONBLOCK */));
         fcntl.fcntl(handle, Fcntl.F_SETFL, EnumSet.of(O_RDWR));
         setup();
         //setup1();
@@ -183,8 +183,6 @@ public class SerialPort implements SerialBus {
             }
             return ref.getValue();
         }
-
-
 
         private void checkClosed() throws IOException {
             if (closed)

@@ -34,7 +34,6 @@ public enum SerialBaudRate {
     B3500000(0x0000000000100e),
     B4000000(0x0000000000100f);
 
-
     final int value;
 
     SerialBaudRate(int value) {
