@@ -11,19 +11,19 @@ public interface SpiBus {
 
     FileHandle getFd();
 
-    int getClockFrequency() throws NativeIOException;
+    int getClockFrequency();
 
     void setClockFrequency(int value) throws NativeIOException;
 
-    SpiMode getClockMode() throws NativeIOException;
+    SpiMode getClockMode();
 
     void setClockMode(SpiMode clockMode) throws NativeIOException;
 
-    int getWordLength() throws NativeIOException;
+    int getWordLength();
 
     void setWordLength(int wordLength) throws NativeIOException;
 
-    int getBitOrdering() throws NativeIOException;
+    int getBitOrdering();
 
     void reload() throws NativeIOException;
 
@@ -37,7 +37,11 @@ public interface SpiBus {
 
     ByteBuffer readWriteData(ByteBuffer input, int outputSize) throws NativeIOException;
 
-    static SpiBus create(String path) throws NativeIOException {
-        return new SpiBusImpl(path);
+    static SpiBus createFullDuplex(String path) throws NativeIOException {
+        return new FullDuplexSpiBus(path);
+    }
+
+    static SpiBus createHalfDuplex(String path) throws NativeIOException {
+        return new HalfDuplexSpiBus(path);
     }
 }

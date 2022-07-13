@@ -25,7 +25,9 @@ public class SPIBusManagerImpl implements SPIBusManager {
     private void processBus(String name, SPIBusConfig config) {
         if (config.enabled && config.path.isPresent()) {
             try {
-                SpiBus bus = SpiBus.create(config.path.get());
+                String path = config.path.get();
+                SpiBus bus = config.workMode == SPIBusConfig.SpiWorkMode.FULL_DUPLEX ? SpiBus.createFullDuplex(path)
+                        : SpiBus.createHalfDuplex(path);
                 bus.setClockFrequency(config.clockFrequency);
                 bus.setClockMode(config.spiMode);
                 bus.setBitOrdering(config.bitOrdering.getValue());

@@ -1,10 +1,5 @@
-
 package io.quarkiverse.jef.java.embedded.framework.linux.spi;
 
-import static io.quarkiverse.jef.java.embedded.framework.linux.core.util.StringUtils.dump;
-
-import java.io.IOException;
-import java.nio.ByteBuffer;
 import java.util.EnumSet;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -15,34 +10,25 @@ import io.quarkiverse.jef.java.embedded.framework.linux.core.Ioctl;
 import io.quarkiverse.jef.java.embedded.framework.linux.core.NativeIOException;
 import io.quarkiverse.jef.java.embedded.framework.linux.core.io.FileHandle;
 import io.quarkiverse.jef.java.embedded.framework.linux.core.types.IntReference;
-import io.quarkiverse.jef.java.embedded.framework.linux.core.types.SpiIocTransfer;
-import io.quarkiverse.jef.java.embedded.framework.linux.core.util.StringUtils;
 
-/**
- * The {@link SpiBusImpl} class provides methods for transmitting and receiving data to/from an SPI slave device.
- * On an SPI bus, data is transferred between the SPI master device and an SPI slave device in full duplex. That is, data is
- * transmitted by the SPI master to the SPI slave device at the same time data is received from the SPI slave device by the SPI
- * master.
- *
- */
-@SuppressWarnings("unused")
-public class SpiBusImpl implements SpiBus {
-    private static final Logger log = Logger.getLogger(SpiBusImpl.class.getName());
+public abstract class AbstractSpiBus implements SpiBus {
 
-    private final String bus;
-    private final FileHandle fd;
+    private static final Logger log = Logger.getLogger(AbstractSpiBus.class.getName());
 
-    private final Ioctl console = Ioctl.getInstance();
-    private SpiMode currentClockMode;
-    private int currentBitOrdering;
-    private int currentWordLength;
-    private int currentClockFrequency;
+    protected final String bus;
+    protected final FileHandle fd;
 
-    public SpiBusImpl(int busNumber) throws NativeIOException {
+    protected final Ioctl console = Ioctl.getInstance();
+    protected SpiMode currentClockMode;
+    protected int currentBitOrdering;
+    protected int currentWordLength;
+    protected int currentClockFrequency;
+
+    public AbstractSpiBus(int busNumber) throws NativeIOException {
         this("/dev/spidev0." + busNumber);
     }
 
-    public SpiBusImpl(String bus) throws NativeIOException {
+    public AbstractSpiBus(String bus) throws NativeIOException {
         this.bus = bus;
         log.log(Level.INFO, () -> String.format("Open SPI Bus '%s'", bus));
         fd = Fcntl.getInstance().open(bus, EnumSet.of(IOFlags.O_RDWR));
@@ -50,7 +36,7 @@ public class SpiBusImpl implements SpiBus {
     }
 
     /**
-     * Allocates new instance of {@link SpiBusImpl} based on interface ID
+     * Allocates new instance of {@link FullDuplexSpiBus} based on interface ID
      *
      * @param busNumber number of available bus (0, 1, 2, ...)
      * @param clockFrequency working frequency
@@ -60,13 +46,13 @@ public class SpiBusImpl implements SpiBus {
      *        {@link java.nio.ByteOrder#LITTLE_ENDIAN}
      * @throws NativeIOException if got error from Linux subsystem during initialization
      */
-    public SpiBusImpl(int busNumber, int clockFrequency, SpiMode clockMode, int wordLength, int bitOrdering)
+    public AbstractSpiBus(int busNumber, int clockFrequency, SpiMode clockMode, int wordLength, int bitOrdering)
             throws NativeIOException {
         this("/dev/spidev0." + busNumber, clockFrequency, clockMode, wordLength, bitOrdering);
     }
 
     /**
-     * Allocates new instance of {@link SpiBusImpl} based on interface name
+     * Allocates new instance of {@link FullDuplexSpiBus} based on interface name
      *
      * @param bus path to bus in Linux file system i.e '/dev/spidev0.x'
      * @param clockFrequency working frequency
@@ -76,7 +62,7 @@ public class SpiBusImpl implements SpiBus {
      *        {@link java.nio.ByteOrder#LITTLE_ENDIAN}
      * @throws NativeIOException if got error from Linux subsystem during initialization
      */
-    public SpiBusImpl(String bus, int clockFrequency, SpiMode clockMode, int wordLength, int bitOrdering)
+    public AbstractSpiBus(String bus, int clockFrequency, SpiMode clockMode, int wordLength, int bitOrdering)
             throws NativeIOException {
         this(bus);
         log.log(Level.INFO,
@@ -112,7 +98,7 @@ public class SpiBusImpl implements SpiBus {
      * @return clock frequency
      */
     @Override
-    public int getClockFrequency() throws NativeIOException {
+    public int getClockFrequency() {
         return currentClockFrequency;
 
     }
@@ -131,7 +117,7 @@ public class SpiBusImpl implements SpiBus {
      * @return clock mode
      */
     @Override
-    public SpiMode getClockMode() throws NativeIOException {
+    public SpiMode getClockMode() {
         return this.currentClockMode;
     }
 
@@ -149,8 +135,16 @@ public class SpiBusImpl implements SpiBus {
      * @return word length
      */
     @Override
-    public int getWordLength() throws NativeIOException {
+    public int getWordLength() {
         return currentWordLength;
+    }
+
+    @Override
+    public void setWordLength(int wordLength) throws NativeIOException {
+        IntReference arg = new IntReference();
+        arg.setValue(wordLength);
+        console.ioctl(fd, console.getSpiIocWrBitsPerWord(), arg);
+        this.currentWordLength = wordLength;
     }
 
     /**
@@ -159,7 +153,7 @@ public class SpiBusImpl implements SpiBus {
      * @return bus bit ordering
      */
     @Override
-    public int getBitOrdering() throws NativeIOException {
+    public int getBitOrdering() {
         return this.currentBitOrdering;
     }
 
@@ -172,53 +166,28 @@ public class SpiBusImpl implements SpiBus {
         this.currentBitOrdering = bitOrdering;
     }
 
-    /**
-     * Read data from SPI bus based on requested parameters
-     *
-     * @param inputParams request with input parameters. See {@link SpiInputParams}
-     * @return buffer with response from SPI bus
-     * @throws NativeIOException if SPI bus discard request
-     */
     @Override
-    public int readByteData(SpiInputParams inputParams) throws IOException {
-        log.log(Level.FINEST, () -> "read byte data");
-        return readWriteData(inputParams.getFinal(), 1).get();
-    }
-
-    /**
-     * Write data to SPI bus
-     *
-     * @param inputParams request with input parameters. See {@link SpiInputParams}
-     * @throws NativeIOException if SPI bus discard request
-     */
-    @Override
-    public void writeByteData(SpiInputParams inputParams) throws NativeIOException {
-        log.log(Level.FINEST, () -> "write byte data");
-        readWriteData(inputParams.getFinal(), 0);
-    }
-
-    /**
-     * Read array from SPI bus
-     *
-     * @param inputParams request with input parameters. See {@link SpiInputParams}
-     * @param outputSize expected size of response
-     * @return buffer with response from SPI bus
-     * @throws NativeIOException if SPI bus discard request
-     */
-    @Override
-    public ByteBuffer readArray(SpiInputParams inputParams, int outputSize) throws NativeIOException {
-        log.log(Level.FINEST, () -> "read array");
-        return readWriteData(
-                inputParams.getFinal(),
-                outputSize);
-    }
-
-    @Override
-    public void setWordLength(int wordLength) throws NativeIOException {
+    public void reload() throws NativeIOException {
+        // Clock mode
         IntReference arg = new IntReference();
-        arg.setValue(wordLength);
-        console.ioctl(fd, console.getSpiIocWrBitsPerWord(), arg);
-        this.currentWordLength = wordLength;
+        console.ioctl(fd, console.getSpiIocRdMode(), arg);
+        this.currentClockMode = SpiMode.valueOf(arg.getValue());
+
+        //SPI_IOC_RD_LSB_FIRST
+        // Bit Ordering
+        arg.setValue(0);
+        console.ioctl(fd, console.getSpiIocRdLsbFirst(), arg);
+        currentBitOrdering = arg.getValue();
+
+        // Word Length
+        arg.setValue(0);
+        console.ioctl(fd, console.getSpiIocRdBitsPerWord(), arg);
+        currentWordLength = arg.getValue();
+
+        // Clock Frenq
+        arg.setValue(0);
+        console.ioctl(fd, console.getSpiIocRdMaxSpeedHz(), arg);
+        currentClockFrequency = arg.getValue();
     }
 
     private void initSPIHandler(int clockFrequency, SpiMode clockMode, int wordLength, int bitOrdering)
@@ -254,7 +223,7 @@ public class SpiBusImpl implements SpiBus {
         log.log(Level.INFO, () -> "current max speed is " + this.currentClockFrequency);
 
         if (this.currentClockFrequency != clockFrequency) {
-            SpiBusImpl.log.log(Level.INFO, () -> "Setup max speed");
+            log.log(Level.INFO, () -> "Setup max speed");
             setClockFrequency(clockFrequency);
         } else {
             log.log(Level.INFO, () -> "Current max speed is the same");
@@ -271,55 +240,5 @@ public class SpiBusImpl implements SpiBus {
         }
 
         log.log(Level.INFO, () -> String.format("SPI bus '%s' setup finished", bus));
-    }
-
-    @Override
-    public ByteBuffer readWriteData(ByteBuffer input, int outputSize) throws NativeIOException {
-        input.position(0);
-
-        ByteBuffer output = ByteBuffer
-                .allocateDirect(outputSize);
-
-        log.log(Level.FINEST, () -> StringUtils.dump(input));
-
-        SpiIocTransfer data = new SpiIocTransfer(
-                input,
-                output,
-                input.capacity() + outputSize,
-                getClockFrequency(),
-                //clockFrequency,
-                (short) 0,
-                //(byte) wordLength
-                (byte) getWordLength());
-
-        Ioctl.getInstance().ioctl(fd, data);
-
-        log.log(Level.FINEST, () -> StringUtils.dump(output));
-
-        return output.asReadOnlyBuffer();
-    }
-
-    @Override
-    public void reload() throws NativeIOException {
-        // Clock mode
-        IntReference arg = new IntReference();
-        console.ioctl(fd, console.getSpiIocRdMode(), arg);
-        this.currentClockMode = SpiMode.valueOf(arg.getValue());
-
-        //SPI_IOC_RD_LSB_FIRST
-        // Bit Ordering
-        arg.setValue(0);
-        console.ioctl(fd, console.getSpiIocRdLsbFirst(), arg);
-        currentBitOrdering = arg.getValue();
-
-        // Word Length
-        arg.setValue(0);
-        console.ioctl(fd, console.getSpiIocRdBitsPerWord(), arg);
-        currentWordLength = arg.getValue();
-
-        // Clock Frenq
-        arg.setValue(0);
-        console.ioctl(fd, console.getSpiIocRdMaxSpeedHz(), arg);
-        currentClockFrequency = arg.getValue();
     }
 }

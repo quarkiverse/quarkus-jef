@@ -41,8 +41,8 @@ import io.quarkiverse.jef.java.embedded.framework.linux.gpio.GpioManager;
 import io.quarkiverse.jef.java.embedded.framework.linux.gpio.GpioPin;
 import io.quarkiverse.jef.java.embedded.framework.linux.i2c.I2CBus;
 import io.quarkiverse.jef.java.embedded.framework.linux.i2c.I2CBusImpl;
+import io.quarkiverse.jef.java.embedded.framework.linux.spi.FullDuplexSpiBus;
 import io.quarkiverse.jef.java.embedded.framework.linux.spi.SpiBus;
-import io.quarkiverse.jef.java.embedded.framework.linux.spi.SpiBusImpl;
 import io.quarkiverse.jef.java.embedded.framework.linux.spi.SpiMode;
 import io.quarkiverse.jef.java.embedded.framework.mcu.core.boards.Board;
 import io.quarkiverse.jef.java.embedded.framework.mcu.core.boards.BoardPin;
@@ -76,7 +76,7 @@ abstract class OrangePiAbstractBoard extends Board {
         List<SpiBus> ss = new ArrayList<>();
         if (new File("/dev/spidev0.0").exists()) {
             ss.add(
-                    new SpiBusImpl("/dev/spidev0.0", 500000, SpiMode.SPI_MODE_3, 8, 0));
+                    new FullDuplexSpiBus("/dev/spidev0.0", 500000, SpiMode.SPI_MODE_3, 8, 0));
         }
         return Collections.unmodifiableList(ss);
     }

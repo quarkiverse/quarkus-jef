@@ -52,6 +52,13 @@ public class SPIBusConfig {
     @ConvertWith(BitOrderingConverter.class)
     public BitOrdering bitOrdering;
 
+    /**
+     * Work mode: half or full duplex
+     */
+    @ConfigItem(name = "work-mode", defaultValue = "HALF_DUPLEX")
+    @ConvertWith(SpiWorkModeConverter.class)
+    public SpiWorkMode workMode;
+
     public enum BitOrdering {
         BIG_ENDIAN(0),
         LITTLE_ENDIAN(1);
@@ -65,6 +72,11 @@ public class SPIBusConfig {
         public int getValue() {
             return value;
         }
+    }
+
+    public enum SpiWorkMode {
+        HALF_DUPLEX,
+        FULL_DUPLEX;
     }
 
 }
