@@ -93,17 +93,17 @@ public abstract class Signal implements FeatureSupport {
      * #endif
      * sigset_t sa_mask;
      * };
-     * 
+     *
      * typedef void __signalfn_t(int);
      * typedef __signalfn_t *__sighandler_t;
-     * 
+     *
      * typedef void __restorefn_t(void);
      * typedef __restorefn_t *__sigrestore_t;
-     * 
+     *
      * public static final int SIG_DFL ((__sighandler_t)0) // default signal handling
      * public static final int SIG_IGN ((__sighandler_t)1) // ignore signal
      * public static final int SIG_ERR ((__sighandler_t)-1) // error return from signal
-     * 
+     *
      */
     public interface SignalHandler {
         void handle(int value);

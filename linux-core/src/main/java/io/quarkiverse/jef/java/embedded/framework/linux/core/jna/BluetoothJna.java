@@ -175,13 +175,13 @@ public class BluetoothJna extends Bluetooth {
          * protected void useMemory(Pointer m) {
          * super.useMemory(m);
          * }
-         * 
+         *
          * @Override
          * protected void useMemory(Pointer m, int offset) {
          * super.useMemory(m, offset);
          * }
-         * 
-         * 
+         *
+         *
          */
         public static class ByReference extends inquiry_info implements Structure.ByReference {
             public ByReference() {

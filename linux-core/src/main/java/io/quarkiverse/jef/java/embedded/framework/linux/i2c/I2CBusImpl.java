@@ -59,7 +59,7 @@ public class I2CBusImpl implements I2CBus {
 
     /**
      * Allocates instance of I2C bus
-     * 
+     *
      * @param bus bus number
      * @throws NativeIOException if I2C bus not available
      */
@@ -69,7 +69,7 @@ public class I2CBusImpl implements I2CBus {
 
     /**
      * Allocates instance of I2C bus
-     * 
+     *
      * @param bus path to I2C bus in Linux file system
      * @throws NativeIOException if I2C bus not available
      */
@@ -84,7 +84,7 @@ public class I2CBusImpl implements I2CBus {
 
     /**
      * Allocate instance of {@link I2CInterfaceImpl} for selected address
-     * 
+     *
      * @param address address of device
      * @return i2c interface for the device
      */
@@ -94,7 +94,7 @@ public class I2CBusImpl implements I2CBus {
 
     /**
      * System method for ioctl manipulations
-     * 
+     *
      * @param fd file handle
      * @param command ioctl command
      * @param arg i2c argument
@@ -107,7 +107,7 @@ public class I2CBusImpl implements I2CBus {
 
     /**
      * System method for ioctl manipulations
-     * 
+     *
      * @param fd file handle
      * @param command ioctl command
      * @param arg i2c argument
@@ -142,7 +142,7 @@ public class I2CBusImpl implements I2CBus {
 
     /**
      * Checking I2C bus supported functionality
-     * 
+     *
      * @param functionality requested {@link I2CFunctionality} value
      * @return {@code true} if support or {@code false} otherwise
      */
@@ -153,7 +153,7 @@ public class I2CBusImpl implements I2CBus {
 
     /**
      * Gets amount of retries to i2c bus. Returns value only if retries was updated by user or {@code -1} otherwise
-     * 
+     *
      * @return amount of retries
      */
     @Override
@@ -163,7 +163,7 @@ public class I2CBusImpl implements I2CBus {
 
     /**
      * Set amount of retries to i2c bus
-     * 
+     *
      * @param retries amount of retries
      * @throws NativeIOException if ioctl returns error
      */
@@ -176,7 +176,7 @@ public class I2CBusImpl implements I2CBus {
 
     /**
      * Gets i2c bus timeout. Returns value only if timeout was updated by user or {@code -1} otherwise
-     * 
+     *
      * @return timeout in milliseconds
      */
     @Override
@@ -186,7 +186,7 @@ public class I2CBusImpl implements I2CBus {
 
     /**
      * Sets i2c bus timeout
-     * 
+     *
      * @param timeoutMs timeout in milliseconds
      * @throws NativeIOException if ioctl returns error
      */
@@ -200,7 +200,7 @@ public class I2CBusImpl implements I2CBus {
     /**
      * /**
      * Selects slave device in I2C bus without force selection
-     * 
+     *
      * @param address slave device address
      * @return instance of {@link I2CInterfaceImpl}
      * @throws NativeIOException if ioctl returns error
@@ -212,7 +212,7 @@ public class I2CBusImpl implements I2CBus {
 
     /**
      * Selects slave device in I2C bus
-     * 
+     *
      * @param address slave device address
      * @param force force device selection
      * @throws NativeIOException if ioctl returns error
@@ -233,7 +233,7 @@ public class I2CBusImpl implements I2CBus {
 
     /**
      * Return status of all I2C addresses in I2C bus.
-     * 
+     *
      * @return list of statuses for addresses in bus
      */
     @Override
@@ -279,7 +279,7 @@ public class I2CBusImpl implements I2CBus {
 
     /**
      * Sets or remove 10 bits address schema to I2C bus
-     * 
+     *
      * @param isTenBit {@code true} if bus 10 bits or {@code false} otherwise
      * @throws NativeIOException if ioctl returns error
      */
@@ -306,7 +306,7 @@ public class I2CBusImpl implements I2CBus {
 
     /**
      * Returns file handle to i2c bus
-     * 
+     *
      * @return file handle
      */
     protected FileHandle getFd() {
@@ -315,7 +315,7 @@ public class I2CBusImpl implements I2CBus {
 
     /**
      * Returns path to i2c bus in Linux file system
-     * 
+     *
      * @return path to i2c bus
      */
     @Override

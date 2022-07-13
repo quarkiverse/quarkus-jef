@@ -20,7 +20,7 @@ public enum PressureOversampling {
 
     /**
      * Allocate enum based on {@link Oversampling} value
-     * 
+     *
      * @param oversampling value
      */
     PressureOversampling(Oversampling oversampling) {
@@ -29,7 +29,7 @@ public enum PressureOversampling {
 
     /**
      * Allocate enum value
-     * 
+     *
      * @param value value
      */
     PressureOversampling(int value) {
@@ -38,7 +38,7 @@ public enum PressureOversampling {
 
     /**
      * Convert {@code int} to {@link PressureOversampling}
-     * 
+     *
      * @param i integer value
      * @return power mode value
      */
@@ -53,7 +53,7 @@ public enum PressureOversampling {
 
     /**
      * Returns {@code int} representation of value
-     * 
+     *
      * @return int value
      */
     public int getValue() {

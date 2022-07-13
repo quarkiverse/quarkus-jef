@@ -42,7 +42,7 @@ public enum StandbyTime {
 
     /**
      * Allocate enum value
-     * 
+     *
      * @param value value
      */
     StandbyTime(int value) {
@@ -51,7 +51,7 @@ public enum StandbyTime {
 
     /**
      * Convert {@code int} to {@link StandbyTime}
-     * 
+     *
      * @param i integer value
      * @return power mode value
      */
@@ -66,7 +66,7 @@ public enum StandbyTime {
 
     /**
      * Returns {@code int} representation of value
-     * 
+     *
      * @return int value
      */
     public int getValue() {

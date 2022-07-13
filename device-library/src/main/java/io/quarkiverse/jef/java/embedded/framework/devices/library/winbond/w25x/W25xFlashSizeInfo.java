@@ -38,7 +38,7 @@ public enum W25xFlashSizeInfo {
 
     /**
      * Allocate instance
-     * 
+     *
      * @param code JedecId - code
      * @param pages amount of pages
      * @param sectors amount of sectors
@@ -53,7 +53,7 @@ public enum W25xFlashSizeInfo {
 
     /**
      * Returns about of bytes per page
-     * 
+     *
      * @return bytes per page
      */
     public int getBytesPerPage() {
@@ -62,7 +62,7 @@ public enum W25xFlashSizeInfo {
 
     /**
      * Returns JedecId code
-     * 
+     *
      * @return code value
      */
     public int getCode() {
@@ -71,7 +71,7 @@ public enum W25xFlashSizeInfo {
 
     /**
      * Returns amount of pages
-     * 
+     *
      * @return amount of pages
      */
     public int getPages() {
@@ -80,7 +80,7 @@ public enum W25xFlashSizeInfo {
 
     /**
      * Returns amount of sectors
-     * 
+     *
      * @return amount of sectors
      */
     public int getSectors() {
@@ -89,7 +89,7 @@ public enum W25xFlashSizeInfo {
 
     /**
      * Returns amount of 64k blocks
-     * 
+     *
      * @return amount of 64k blocks
      */
     public int getBlocks64() {

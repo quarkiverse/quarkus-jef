@@ -27,7 +27,7 @@ public class I2CInterfaceImpl implements I2CInterface {
 
     /**
      * Allocate new instance of I2C Interface
-     * 
+     *
      * @param bus parent {@link I2CBusImpl}
      * @param fd {@link FileHandle} to used {@link I2CBusImpl}
      * @param address address of device
@@ -47,7 +47,7 @@ public class I2CInterfaceImpl implements I2CInterface {
 
     /**
      * Returns {@link SMBusImpl} interface for current I2C device
-     * 
+     *
      * @return SMBus interface
      */
     @Override
@@ -57,7 +57,7 @@ public class I2CInterfaceImpl implements I2CInterface {
 
     /**
      * Reads data from I2C device to buffer capacity
-     * 
+     *
      * @param buf allocated buffer
      * @throws NativeIOException if I2C bus reject command
      */
@@ -68,7 +68,7 @@ public class I2CInterfaceImpl implements I2CInterface {
 
     /**
      * Reads data from I2C device to buffer capacity
-     * 
+     *
      * @param buf allocated buffer
      * @param length number of bytes to read
      * @throws NativeIOException if I2C bus reject command
@@ -88,7 +88,7 @@ public class I2CInterfaceImpl implements I2CInterface {
 
     /**
      * Writes data from buffer to selected I2C device
-     * 
+     *
      * @param buf buffer with data
      * @throws NativeIOException if I2C bus reject command
      */
@@ -99,7 +99,7 @@ public class I2CInterfaceImpl implements I2CInterface {
 
     /**
      * Writes data from buffer to selected I2C device
-     * 
+     *
      * @param buf buffer with data
      * @param length amount of data to write
      * @throws NativeIOException if I2C bus reject command
@@ -121,7 +121,7 @@ public class I2CInterfaceImpl implements I2CInterface {
 
     /**
      * Lock decorator for selected device synchronization
-     * 
+     *
      * @return lock object
      */
     @Override
@@ -131,7 +131,7 @@ public class I2CInterfaceImpl implements I2CInterface {
 
     /**
      * Selecting current device in I2C bus if it's changed
-     * 
+     *
      * @throws NativeIOException if I2C bus reject command
      */
     @Override
@@ -141,7 +141,7 @@ public class I2CInterfaceImpl implements I2CInterface {
 
     /**
      * Returns {@link FileHandle} to I2C bus
-     * 
+     *
      * @return file handle to current I2C bus
      */
     @Override
@@ -151,7 +151,7 @@ public class I2CInterfaceImpl implements I2CInterface {
 
     /**
      * Returns path to I2C device
-     * 
+     *
      * @return path to I2C device
      */
     @Override
@@ -161,7 +161,7 @@ public class I2CInterfaceImpl implements I2CInterface {
 
     /**
      * Returns parent {@link I2CBusImpl} for current interface
-     * 
+     *
      * @return parent I2C bus
      */
     @Override
@@ -171,7 +171,7 @@ public class I2CInterfaceImpl implements I2CInterface {
 
     /**
      * Returns I2C address for current interface device
-     * 
+     *
      * @return i2c address of device
      */
     @Override

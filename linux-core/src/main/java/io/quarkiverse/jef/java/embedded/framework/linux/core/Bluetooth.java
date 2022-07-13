@@ -406,7 +406,7 @@ public abstract class Bluetooth implements FeatureSupport {
      * uint32_t event_mask[2];
      * uint16_t opcode;
      * };
-     * 
+     *
      */
     public static class HciFilter {
         private int typeMask;

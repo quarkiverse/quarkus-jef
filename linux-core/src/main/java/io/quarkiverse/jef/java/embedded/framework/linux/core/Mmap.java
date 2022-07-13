@@ -74,41 +74,41 @@ public abstract class Mmap implements FeatureSupport {
     /*
      * extern void *mmap (void *__addr, size_t __len, int __prot,
      * int __flags, int __fd, __off_t __offset) __THROW;
-     * 
+     *
      * extern void *mmap64 (void *__addr, size_t __len, int __prot,
      * int __flags, int __fd, __off64_t __offset) __THROW;
-     * 
+     *
      * extern int munmap (void *__addr, size_t __len) __THROW;
-     * 
+     *
      * extern int mprotect (void *__addr, size_t __len, int __prot) __THROW;
-     * 
+     *
      * extern int msync (void *__addr, size_t __len, int __flags);
-     * 
+     *
      * extern int madvise (void *__addr, size_t __len, int __advice) __THROW;
-     * 
+     *
      * extern int posix_madvise (void *__addr, size_t __len, int __advice) __THROW;
-     * 
+     *
      * extern int mlock (const void *__addr, size_t __len) __THROW;
-     * 
+     *
      * extern int munlock (const void *__addr, size_t __len) __THROW;
-     * 
+     *
      * extern int mlockall (int __flags) __THROW;
-     * 
+     *
      * extern int munlockall (void) __THROW;
-     * 
+     *
      * extern int mincore (void *__start, size_t __len, unsigned char *__vec)
-     * 
+     *
      * extern void *mremap (void *__addr, size_t __old_len, size_t __new_len,
      * int __flags, ...) __THROW;
-     * 
+     *
      * extern int remap_file_pages (void *__start, size_t __size, int __prot,
      * size_t __pgoff, int __flags) __THROW;
-     * 
+     *
      * extern int shm_open (const char *__name, int __oflag, mode_t __mode);
-     * 
-     * 
+     *
+     *
      * extern int shm_unlink (const char *__name);
-     * 
+     *
      */
 
     public static Mmap getInstance() {

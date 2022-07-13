@@ -51,7 +51,7 @@ public class SpiBusImpl implements SpiBus {
 
     /**
      * Allocates new instance of {@link SpiBusImpl} based on interface ID
-     * 
+     *
      * @param busNumber number of available bus (0, 1, 2, ...)
      * @param clockFrequency working frequency
      * @param clockMode clock mode. see {@link SpiMode}
@@ -67,7 +67,7 @@ public class SpiBusImpl implements SpiBus {
 
     /**
      * Allocates new instance of {@link SpiBusImpl} based on interface name
-     * 
+     *
      * @param bus path to bus in Linux file system i.e '/dev/spidev0.x'
      * @param clockFrequency working frequency
      * @param clockMode clock mode. see {@link SpiMode}
@@ -88,7 +88,7 @@ public class SpiBusImpl implements SpiBus {
 
     /**
      * Path to bus in Linux
-     * 
+     *
      * @return path to bus in Linux file system
      */
     @Override
@@ -98,7 +98,7 @@ public class SpiBusImpl implements SpiBus {
 
     /**
      * {@link FileHandle of bus in Linux file system}
-     * 
+     *
      * @return handler of bus in Linux FS
      */
     @Override
@@ -108,7 +108,7 @@ public class SpiBusImpl implements SpiBus {
 
     /**
      * Bus clock frequency
-     * 
+     *
      * @return clock frequency
      */
     @Override
@@ -127,7 +127,7 @@ public class SpiBusImpl implements SpiBus {
 
     /**
      * Bus clock mode {@link SpiMode}
-     * 
+     *
      * @return clock mode
      */
     @Override
@@ -145,7 +145,7 @@ public class SpiBusImpl implements SpiBus {
 
     /**
      * SPI Bus word length
-     * 
+     *
      * @return word length
      */
     @Override
@@ -155,7 +155,7 @@ public class SpiBusImpl implements SpiBus {
 
     /**
      * SPI bus bit ordering. 0 - {@link java.nio.ByteOrder#BIG_ENDIAN} or 1 - {@link java.nio.ByteOrder#LITTLE_ENDIAN}
-     * 
+     *
      * @return bus bit ordering
      */
     @Override
@@ -174,7 +174,7 @@ public class SpiBusImpl implements SpiBus {
 
     /**
      * Read data from SPI bus based on requested parameters
-     * 
+     *
      * @param inputParams request with input parameters. See {@link SpiInputParams}
      * @return buffer with response from SPI bus
      * @throws NativeIOException if SPI bus discard request
@@ -187,7 +187,7 @@ public class SpiBusImpl implements SpiBus {
 
     /**
      * Write data to SPI bus
-     * 
+     *
      * @param inputParams request with input parameters. See {@link SpiInputParams}
      * @throws NativeIOException if SPI bus discard request
      */
@@ -199,7 +199,7 @@ public class SpiBusImpl implements SpiBus {
 
     /**
      * Read array from SPI bus
-     * 
+     *
      * @param inputParams request with input parameters. See {@link SpiInputParams}
      * @param outputSize expected size of response
      * @return buffer with response from SPI bus

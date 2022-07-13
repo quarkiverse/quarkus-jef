@@ -19,22 +19,22 @@ public class FileHandlerCleaner {
     /*
      * public static void main(String[] args) throws Exception {
      * System.out.println("Start mook");
-     * 
+     *
      * Thread.sleep(3000);
      * FileHandle handler = new FileHandle(1);
      * register(handler);
-     * 
+     *
      * System.out.println("Sleep with GC 1");
      * Thread.sleep(3000);
      * System.gc();
-     * 
+     *
      * System.out.println("Sleep with GC 2");
      * Thread.sleep(3000);
      * System.gc();
-     * 
+     *
      * System.out.println("Clear references");
      * Thread.sleep(3000);
-     * 
+     *
      * for (int i = 0; i < 5; i++) {
      * System.out.println("Sleep " + i);
      * Thread.sleep(3000);
@@ -42,7 +42,7 @@ public class FileHandlerCleaner {
      * System.gc();
      * }
      * //System.out.println("cleanable = " + cleanable);
-     * 
+     *
      * System.out.println("End");
      * }
      */

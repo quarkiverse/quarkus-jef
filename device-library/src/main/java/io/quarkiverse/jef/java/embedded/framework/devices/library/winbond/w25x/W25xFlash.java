@@ -15,7 +15,7 @@ import io.quarkiverse.jef.java.embedded.framework.linux.spi.SpiInputParams;
 /**
  * Provides access to Winbond WS25x flash chipsets.
  * Datasheets available in Winbond website for example for one of types
- * 
+ *
  * @see <a href="https://www.winbond.com/resource-files/w25q32jv%20revh%2001072019%20plus.pdf">here</a>
  */
 @SuppressWarnings("unused")

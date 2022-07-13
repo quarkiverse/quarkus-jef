@@ -87,7 +87,7 @@ public class RuntimePermissionsChecker {
              * ok = ss.access("/dev/mem", EnumSet.of(R_OK, W_OK));
              * } catch (NativeIOException ignored) {
              * }
-             * 
+             *
              * if (!ok) {
              * log.log(Level.SEVERE,
              * write("ERROR: Current user don't have access to '/dev/mem'. Please run command 'sudo chmod g+rw /dev/mem'"));

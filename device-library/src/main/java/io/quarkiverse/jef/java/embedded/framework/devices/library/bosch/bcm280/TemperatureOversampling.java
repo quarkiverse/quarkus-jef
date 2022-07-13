@@ -20,7 +20,7 @@ public enum TemperatureOversampling {
 
     /**
      * Allocate enum based on {@link Oversampling} value
-     * 
+     *
      * @param oversampling value
      */
     TemperatureOversampling(Oversampling oversampling) {
@@ -29,7 +29,7 @@ public enum TemperatureOversampling {
 
     /**
      * Allocate enum value
-     * 
+     *
      * @param value value
      */
     TemperatureOversampling(int value) {
@@ -38,7 +38,7 @@ public enum TemperatureOversampling {
 
     /**
      * Convert {@code int} to {@link TemperatureOversampling}
-     * 
+     *
      * @param i integer value
      * @return power mode value
      */
@@ -53,7 +53,7 @@ public enum TemperatureOversampling {
 
     /**
      * Returns {@code int} representation of value
-     * 
+     *
      * @return int value
      */
     public int getValue() {

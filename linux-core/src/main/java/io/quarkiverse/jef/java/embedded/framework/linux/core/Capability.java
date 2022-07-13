@@ -363,7 +363,7 @@ public enum Capability {
 
     /**
      * Allocate enum value
-     * 
+     *
      * @param value value
      */
     Capability(int value) {
@@ -372,7 +372,7 @@ public enum Capability {
 
     /**
      * Returns {@code int} representation of value
-     * 
+     *
      * @return int value
      */
     public int getValue() {

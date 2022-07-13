@@ -24,6 +24,11 @@
       <artifactId>linux-native-core</artifactId>
       <version>${project.version}</version>
     </dependency>
+    <dependency>
+      <groupId>io.quarkiverse.jef</groupId>
+      <artifactId>mcu-core</artifactId>
+      <version>${project.version}</version>
+    </dependency>
   </dependencies>
   <build>
     <plugins>

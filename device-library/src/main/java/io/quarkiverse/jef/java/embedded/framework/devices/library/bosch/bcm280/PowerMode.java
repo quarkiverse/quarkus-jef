@@ -37,7 +37,7 @@ public enum PowerMode {
 
     /**
      * Allocate enum value
-     * 
+     *
      * @param value value
      */
     PowerMode(int value) {
@@ -46,7 +46,7 @@ public enum PowerMode {
 
     /**
      * Convert {@code int} to {@link PowerMode}
-     * 
+     *
      * @param i integer value
      * @return power mode value
      */
@@ -61,7 +61,7 @@ public enum PowerMode {
 
     /**
      * Returns {@code int} representation of value
-     * 
+     *
      * @return int value
      */
     public int getValue() {

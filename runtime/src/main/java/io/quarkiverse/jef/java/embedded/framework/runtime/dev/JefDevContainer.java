@@ -1,5 +1,9 @@
 package io.quarkiverse.jef.java.embedded.framework.runtime.dev;
 
+import java.io.IOException;
+
+import io.quarkiverse.jef.java.embedded.framework.mcu.core.boards.Board;
+import io.quarkiverse.jef.java.embedded.framework.mcu.core.boards.BoardManager;
 import io.quarkiverse.jef.java.embedded.framework.runtime.gpio.GPIOManager;
 import io.quarkiverse.jef.java.embedded.framework.runtime.i2c.I2CBusManager;
 import io.quarkiverse.jef.java.embedded.framework.runtime.onewire.OneWireManager;
@@ -56,6 +60,15 @@ public class JefDevContainer {
 
     public int getOneWireCount() {
         return wireManager.getAll().size();
+    }
+
+    public String getBoard() {
+        try {
+            Board board = BoardManager.getBoard();
+            return board.getBoardInfo();
+        } catch (IOException e) {
+            return "Unknown";
+        }
     }
 
 }

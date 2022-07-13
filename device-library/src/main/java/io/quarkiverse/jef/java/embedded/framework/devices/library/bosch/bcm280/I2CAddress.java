@@ -18,7 +18,7 @@ public enum I2CAddress {
 
     /**
      * Allocates enum instance
-     * 
+     *
      * @param addr value
      */
     I2CAddress(int addr) {
@@ -27,7 +27,7 @@ public enum I2CAddress {
 
     /**
      * Returns {@code int} representation of value
-     * 
+     *
      * @return int value
      */
     public int getValue() {

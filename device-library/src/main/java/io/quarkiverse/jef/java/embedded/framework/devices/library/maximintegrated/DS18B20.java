@@ -19,7 +19,7 @@ public class DS18B20 {
 
     /**
      * Allocate new instance of DS18B20 sensor
-     * 
+     *
      * @param path path to sensor in Linux file system
      *        like {@code '/sys/bus/w1/devices/28-&#42;/w1_slave'}
      */
@@ -31,7 +31,7 @@ public class DS18B20 {
 
     /**
      * Gets templerature in celsius
-     * 
+     *
      * @return temperature
      * @throws IOException if i2c bus not allow this operation
      */
@@ -58,7 +58,7 @@ public class DS18B20 {
 
     /**
      * Gets fahrenheit in celsius
-     * 
+     *
      * @return temperature
      * @throws IOException if i2c bus not allow this operation
      */

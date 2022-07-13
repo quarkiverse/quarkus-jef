@@ -30,15 +30,15 @@ public class SpiIocTransferNative {
      * struct spi_ioc_transfer {
      * __u64 tx_buf;
      * __u64 rx_buf;
-     * 
+     *
      * __u32 len;
      * __u32 speed_hz;
-     * 
+     *
      * __u16 delay_usecs;
      * __u8 bits_per_word;
      * __u8 cs_change;
      * __u32 pad;
-     * 
+     *
      * If the contents of 'struct spi_ioc_transfer' ever change
      * incompatibly, then the ioctl number (currently 0) must change;
      * ioctls with constant size fields get a bit more in the way of

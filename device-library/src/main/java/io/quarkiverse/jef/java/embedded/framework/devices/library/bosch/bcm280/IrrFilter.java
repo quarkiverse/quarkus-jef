@@ -35,7 +35,7 @@ public enum IrrFilter {
 
     /**
      * Allocate enum value
-     * 
+     *
      * @param value value
      */
     IrrFilter(int value) {
@@ -44,7 +44,7 @@ public enum IrrFilter {
 
     /**
      * Convert {@code int} to {@link IrrFilter}
-     * 
+     *
      * @param i integer value
      * @return power mode value
      */
@@ -59,7 +59,7 @@ public enum IrrFilter {
 
     /**
      * Returns {@code int} representation of value
-     * 
+     *
      * @return int value
      */
     public int getValue() {

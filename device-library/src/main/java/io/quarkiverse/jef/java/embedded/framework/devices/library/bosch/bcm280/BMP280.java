@@ -26,7 +26,7 @@ public class BMP280 extends DeviceImpl {
 
     /**
      * Allocate new instance of BMP280 sensor
-     * 
+     *
      * @param bus connected {@link I2CBus}
      * @param address specified {@link I2CAddress}
      * @throws IOException if device ont available in bus or bus return wrong chip ID
@@ -42,7 +42,7 @@ public class BMP280 extends DeviceImpl {
 
     /**
      * Reset sensor over power-on-reset procedure
-     * 
+     *
      * @throws IOException if i2c bus not allow this operation
      */
     public void reset() throws IOException {
@@ -51,7 +51,7 @@ public class BMP280 extends DeviceImpl {
 
     /**
      * Returns chip identification number. This number can be read as soon as the device finished the power-on-reset.
-     * 
+     *
      * @return chip identification number
      * @throws IOException if i2c bus not allow this operation
      */
@@ -61,7 +61,7 @@ public class BMP280 extends DeviceImpl {
 
     /**
      * Returns current power mode for sensor
-     * 
+     *
      * @return current {@link PowerMode} value
      * @throws IOException if i2c bus not allow this operation
      */
@@ -72,7 +72,7 @@ public class BMP280 extends DeviceImpl {
 
     /**
      * Sets power mode for sensor
-     * 
+     *
      * @param mode new {@link PowerMode}
      * @throws IOException if i2c bus not allow this operation
      */
@@ -83,7 +83,7 @@ public class BMP280 extends DeviceImpl {
 
     /**
      * Gets temperature oversampling value. Please see {@link TemperatureOversampling} for details
-     * 
+     *
      * @return current temperature oversampling value.
      * @throws IOException if i2c bus not allow this operation
      */
@@ -94,7 +94,7 @@ public class BMP280 extends DeviceImpl {
 
     /**
      * Sets temperature oversampling value. Please see {@link TemperatureOversampling} for details
-     * 
+     *
      * @param to new value
      * @throws IOException if i2c bus not allow this operation
      */
@@ -105,7 +105,7 @@ public class BMP280 extends DeviceImpl {
 
     /**
      * Gets pressure oversampling value. Please see {@link PressureOversampling} for details
-     * 
+     *
      * @return current temperature oversampling value.
      * @throws IOException if i2c bus not allow this operation
      */
@@ -116,7 +116,7 @@ public class BMP280 extends DeviceImpl {
 
     /**
      * Sets pressure oversampling value. Please see {@link PressureOversampling} for details
-     * 
+     *
      * @param oversampling new value
      * @throws IOException if i2c bus not allow this operation
      */
@@ -127,7 +127,7 @@ public class BMP280 extends DeviceImpl {
 
     /**
      * Gets current {@link IrrFilter} value
-     * 
+     *
      * @return IRR filter value
      * @throws IOException if i2c bus not allow this operation
      */
@@ -138,7 +138,7 @@ public class BMP280 extends DeviceImpl {
 
     /**
      * Sets new {@link IrrFilter} value
-     * 
+     *
      * @param irrFilter new value
      * @throws IOException if i2c bus not allow this operation
      */
@@ -149,7 +149,7 @@ public class BMP280 extends DeviceImpl {
 
     /**
      * Gets current {@link StandbyTime} from sensor
-     * 
+     *
      * @return current standby time
      * @throws IOException if i2c bus not allow this operation
      */
@@ -161,7 +161,7 @@ public class BMP280 extends DeviceImpl {
 
     /**
      * Sets new {@link StandbyTime} to sensor
-     * 
+     *
      * @param time new value
      * @throws IOException if i2c bus not allow this operation
      */
@@ -173,7 +173,7 @@ public class BMP280 extends DeviceImpl {
 
     /**
      * Gets Spi 3 wire value
-     * 
+     *
      * @return {@code true} if Spi 3 wire enabled or {@code false} if otherwise
      * @throws IOException if i2c bus not allow this operation
      */
@@ -185,7 +185,7 @@ public class BMP280 extends DeviceImpl {
 
     /**
      * Sets new Spi 3 wire value
-     * 
+     *
      * @param enabled new value
      * @throws IOException if i2c bus not allow this operation
      */
@@ -200,7 +200,7 @@ public class BMP280 extends DeviceImpl {
      * Automatically set to '1' when the NVM data are being copied to image registers
      * and back to '0' when the copying is done. The data are copied at power-on-reset
      * and before every conversion.
-     * 
+     *
      * @return current sensor value
      * @throws IOException if i2c bus not allow this operation
      */
@@ -212,7 +212,7 @@ public class BMP280 extends DeviceImpl {
     /**
      * Automatically set to '1' whenever a conversion is
      * running back to '0' when the results have been transferred to the data registers
-     * 
+     *
      * @return current sensor value
      * @throws IOException if i2c bus not allow this operation
      */
@@ -263,7 +263,7 @@ public class BMP280 extends DeviceImpl {
 
     /**
      * Read new value from sensor to {@link BMP280Data}
-     * 
+     *
      * @return new values from sensor
      * @throws IOException if i2c bus not allow this operation
      */
