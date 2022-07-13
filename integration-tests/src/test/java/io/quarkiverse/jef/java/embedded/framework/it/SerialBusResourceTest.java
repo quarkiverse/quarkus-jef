@@ -35,6 +35,6 @@ public class SerialBusResourceTest {
                 .when().get(PATH + "serial1")
                 .then()
                 .statusCode(200)
-                .body(is("/dev/serial1/B1152000"));
+                .body(is("/dev/serial1/B115200"));
     }
 }
