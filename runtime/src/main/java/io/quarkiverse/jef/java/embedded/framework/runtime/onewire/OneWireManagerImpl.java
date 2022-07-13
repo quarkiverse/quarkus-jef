@@ -34,6 +34,11 @@ public class OneWireManagerImpl implements OneWireManager {
     }
 
     @Override
+    public Map<String, OneWireDevice> getAll() {
+        return devices;
+    }
+
+    @Override
     public OneWireDevice getDevice(String name) {
         return devices.get(name);
     }

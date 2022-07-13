@@ -45,6 +45,11 @@ public class I2CBusManagerImpl implements I2CBusManager {
         }
     }
 
+    @Override
+    public Map<String, I2CBus> getAll() {
+        return buses;
+    }
+
     public I2CBus getBus(String value) {
         return buses.get(value);
     }

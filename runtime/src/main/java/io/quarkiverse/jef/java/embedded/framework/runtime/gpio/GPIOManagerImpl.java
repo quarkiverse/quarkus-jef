@@ -49,4 +49,9 @@ public class GPIOManagerImpl implements GPIOManager {
         }
         return null;
     }
+
+    @Override
+    public Map<String, String> getBuses() {
+        return buses;
+    }
 }

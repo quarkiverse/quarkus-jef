@@ -1,5 +1,5 @@
 name: Java Embedded Framework
-description: Java Embedded Framework - access to the low level hardware protocols(SPI/I2C/GPIO/Serial)
+description: Access to HW interfaces(SPI/I2C/GPIO/Serial)
 group-id: io.quarkiverse.jef
 artifact-id: quarkus-java-embedded-framework
 metadata:
@@ -15,4 +15,7 @@ metadata:
   categories:
     - "miscellaneous"
   status: "preview"
+  #unlisted: true
+  config:
+    - "quarkus.jef."
   description: "Connect to embedded devices over GPIO/SPI/I2C/Serial interfaces"

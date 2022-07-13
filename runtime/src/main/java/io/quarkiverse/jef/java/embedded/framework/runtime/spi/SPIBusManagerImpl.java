@@ -38,6 +38,11 @@ public class SPIBusManagerImpl implements SPIBusManager {
     }
 
     @Override
+    public Map<String, SpiBus> getAll() {
+        return buses;
+    }
+
+    @Override
     public SpiBus getBus(String name) {
         return buses.get(name);
     }
