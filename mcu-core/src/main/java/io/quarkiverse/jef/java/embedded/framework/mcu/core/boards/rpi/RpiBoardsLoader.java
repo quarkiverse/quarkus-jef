@@ -31,6 +31,7 @@
 
 package io.quarkiverse.jef.java.embedded.framework.mcu.core.boards.rpi;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -86,7 +87,10 @@ public class RpiBoardsLoader implements BoardLoader {
 
     public RpiBoardsLoader() throws IOException {
         props = new Properties();
-        try (InputStreamReader is = new InputStreamReader(new FileInputStream(CPU_INFO_PATH))) {
+        File f = new File(CPU_INFO_PATH);
+        if (!f.exists())
+            return;
+        try (InputStreamReader is = new InputStreamReader(new FileInputStream(f))) {
             props.load(is);
         }
     }

@@ -31,6 +31,7 @@
 
 package io.quarkiverse.jef.java.embedded.framework.mcu.core.boards.opi;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -83,7 +84,11 @@ public class OrangePiBoardsLoader implements BoardLoader {
 
     public OrangePiBoardsLoader() throws IOException {
         props = new Properties();
-        try (InputStreamReader is = new InputStreamReader(new FileInputStream(ARMBIAN_RELEASE))) {
+        File f = new File(ARMBIAN_RELEASE);
+        if (!f.exists()) {
+            return;
+        }
+        try (InputStreamReader is = new InputStreamReader(new FileInputStream(f))) {
             props.load(is);
         }
     }
