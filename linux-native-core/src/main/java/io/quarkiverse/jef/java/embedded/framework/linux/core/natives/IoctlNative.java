@@ -101,6 +101,7 @@ public class IoctlNative extends Ioctl {
                         fd.getHandle(), command, arg.getValue()));
 
         CLongPointer ptr = UnmanagedMemory.malloc(8);
+        ptr.write(0, arg.getValue());
         try {
             int result = Delegate.ioctl(fd.getHandle(), command, ptr);
             checkIOResult("ioctl:LongRef", result);
@@ -129,6 +130,7 @@ public class IoctlNative extends Ioctl {
                         fd.getHandle(), command, arg.getValue()));
 
         CIntPointer ptr = UnmanagedMemory.malloc(4);
+        ptr.write(0, arg.getValue());
         try {
             int result = Delegate.ioctl(fd.getHandle(), command, ptr);
             log.log(Level.FINEST, () -> String.format("ioctl result is '%s'", result));

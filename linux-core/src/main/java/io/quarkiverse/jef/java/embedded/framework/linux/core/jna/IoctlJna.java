@@ -80,6 +80,7 @@ public class IoctlJna extends Ioctl {
                         fd.getHandle(), command, arg.getValue()));
 
         LongByReference ref = new LongByReference();
+        ref.setValue(arg.getValue());
         int ioctl = Delegate.ioctl(fd.getHandle(), new NativeLong(command, true), ref.getPointer());
         long refValue = ref.getValue();
         arg.setValue(refValue);
@@ -102,6 +103,7 @@ public class IoctlJna extends Ioctl {
                         fd.getHandle(), command, arg.getValue()));
 
         IntByReference ref = new IntByReference();
+        ref.setValue(arg.getValue());
         int ioctl = Delegate.ioctl(fd.getHandle(), new NativeLong(command, true), ref.getPointer());
         log.log(Level.FINEST, () -> String.format("ioctl result is '%s'", ioctl));
         checkIOResult("ioctl:IntReference", ioctl);

@@ -57,6 +57,8 @@ public abstract class Fcntl implements FeatureSupport {
 
     public abstract void write(FileHandle fd, byte[] buffer, int size) throws NativeIOException;
 
+    public abstract void fsync(FileHandle fd) throws NativeIOException;
+
     public abstract long lseek(FileHandle fd, long offset, Whence whence);
 
     public abstract int fcntl(FileHandle fd, int cmd, EnumSet<IOFlags> flags) throws NativeIOException;

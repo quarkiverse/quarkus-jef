@@ -93,6 +93,12 @@ public class FcntlNative extends Fcntl {
     }
 
     @Override
+    public void fsync(FileHandle fd) throws NativeIOException {
+        int result = Delegate.fsync(fd.getHandle());
+        checkIOResult("fsync", result);
+    }
+
+    @Override
     public long lseek(FileHandle fd, long offset, Whence whence) {
         return Delegate.lseek(fd.getHandle(), offset, whence.getValue());
     }
@@ -125,6 +131,9 @@ public class FcntlNative extends Fcntl {
 
         @CFunction(transition = CFunction.Transition.NO_TRANSITION)
         public static native int write(int fd, CCharPointer buffer, int size);
+
+        @CFunction(transition = CFunction.Transition.NO_TRANSITION)
+        public static native int fsync(int fd);
 
         @CFunction(transition = CFunction.Transition.NO_TRANSITION)
         public static native int ioctl(int fd, long command, long arg);

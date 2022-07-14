@@ -1,12 +1,14 @@
 package io.quarkiverse.jef.java.embedded.framework.linux.spi;
 
-import java.io.IOException;
 import java.nio.ByteBuffer;
 
+import io.quarkiverse.jef.java.embedded.framework.linux.core.Fcntl;
 import io.quarkiverse.jef.java.embedded.framework.linux.core.NativeIOException;
 
 @SuppressWarnings("unused")
 public class HalfDuplexSpiBus extends AbstractSpiBus {
+    private final Fcntl fcntl = Fcntl.getInstance();
+
     public HalfDuplexSpiBus(int busNumber) throws NativeIOException {
         super(busNumber);
     }
@@ -26,22 +28,14 @@ public class HalfDuplexSpiBus extends AbstractSpiBus {
     }
 
     @Override
-    public int readByteData(SpiInputParams inputParams) throws IOException {
-        return 0;
-    }
-
-    @Override
-    public void writeByteData(SpiInputParams inputParams) throws NativeIOException {
-
-    }
-
-    @Override
-    public ByteBuffer readArray(SpiInputParams inputParams, int outputSize) throws NativeIOException {
-        return null;
-    }
-
-    @Override
     public ByteBuffer readWriteData(ByteBuffer input, int outputSize) throws NativeIOException {
-        return null;
+        input.position(0);
+        byte[] in = new byte[input.capacity()];
+        byte[] out = new byte[outputSize];
+        input.get(in);
+        fcntl.write(fd, in, in.length);
+        //fcntl.fsync(fd);
+        fcntl.read(fd, out, outputSize);
+        return ByteBuffer.wrap(out);
     }
 }

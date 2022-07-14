@@ -45,6 +45,11 @@ public class FcntlMock extends Fcntl {
     }
 
     @Override
+    public void fsync(FileHandle fd) throws NativeIOException {
+
+    }
+
+    @Override
     public long lseek(FileHandle fd, long offset, Whence whence) {
         return offset;
     }

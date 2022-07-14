@@ -82,6 +82,12 @@ public class FcntlJna extends Fcntl {
     }
 
     @Override
+    public void fsync(FileHandle fd) throws NativeIOException {
+        int result = Delegate.fsync(fd.getHandle());
+        checkIOResult("fsync", result);
+    }
+
+    @Override
     public long lseek(FileHandle fd, long offset, Whence whence) {
         return Delegate.lseek(fd.getHandle(), offset, whence.getValue());
     }
@@ -110,6 +116,8 @@ public class FcntlJna extends Fcntl {
         public static native int open64(String path, int flags);
 
         public static native int close(int fd);
+
+        public static native int fsync(int fd);
 
         public static native int read(int fd, byte[] buffer, int size);
 

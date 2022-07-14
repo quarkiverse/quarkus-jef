@@ -55,7 +55,7 @@ public class SPIBusConfig {
     /**
      * Work mode: half or full duplex
      */
-    @ConfigItem(name = "work-mode", defaultValue = "HALF_DUPLEX")
+    @ConfigItem(name = "work-mode", defaultValue = "FULL_DUPLEX")
     @ConvertWith(SpiWorkModeConverter.class)
     public SpiWorkMode workMode;
 
