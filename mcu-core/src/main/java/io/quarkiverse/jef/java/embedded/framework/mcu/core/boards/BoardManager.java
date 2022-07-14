@@ -53,7 +53,7 @@ public class BoardManager {
     }
 
     private static Board initBoard() throws IOException {
-        ServiceLoader<BoardLoader> sl = ServiceLoader.load(BoardLoader.class);
+        ServiceLoader<BoardLoader> sl = ServiceLoader.load(BoardLoader.class, BoardLoader.class.getClassLoader());
         for (BoardLoader bl : sl) {
             if (bl.accept()) {
                 return bl.create();

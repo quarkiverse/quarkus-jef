@@ -95,7 +95,11 @@ public class OrangePiBoardsLoader implements BoardLoader {
 
     @Override
     public boolean accept() {
-        String key = key(props.getProperty(BOARD_NAME_KEY), props.getProperty(BOARD_FAMILY_KEY));
+        String name = props.getProperty(BOARD_NAME_KEY);
+        String family = props.getProperty(BOARD_FAMILY_KEY);
+        if(name == null || family == null) return false;
+
+        String key = key(name, family);
         return mapping.containsKey(key);
     }
 

@@ -11,12 +11,8 @@ import io.quarkus.deployment.builditem.nativeimage.ServiceProviderBuildItem;
 class BoardServicesProcessor {
     @BuildStep
     void registerNativeServices(BuildProducer<ServiceProviderBuildItem> producer) {
-        Class<BoardLoader> iface = BoardLoader.class;
-        Class<RpiBoardsLoader> clazz = RpiBoardsLoader.class;
-        boolean assignableFrom = iface.isAssignableFrom(clazz);
-        System.out.println("assignableFrom = " + assignableFrom);
-
-        producer.produce(new ServiceProviderBuildItem(BoardLoader.class.getName(), RpiBoardsLoader.class.getName()));
+        producer.produce(new ServiceProviderBuildItem(
+                BoardLoader.class.getName(), RpiBoardsLoader.class.getName()));
         producer.produce(new ServiceProviderBuildItem(BoardLoader.class.getName(), OrangePiBoardsLoader.class.getName()));
     }
 }
