@@ -6,6 +6,12 @@ import java.nio.ByteBuffer;
 import io.quarkiverse.jef.java.embedded.framework.linux.core.NativeIOException;
 import io.quarkiverse.jef.java.embedded.framework.linux.core.io.FileHandle;
 
+/**
+ * Debug:
+ * cd /sys/kernel/debug/tracing
+ * echo 'spi:*' > /sys/kernel/debug/tracing/set_event
+ * less trace
+ */
 public interface SpiBus {
     String getBus();
 
