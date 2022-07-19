@@ -11,9 +11,13 @@ public class OneWireDevice {
     private final String path;
     private final InputStream is;
 
-    public OneWireDevice(String path) throws NativeIOException {
+    public OneWireDevice(String path) {
         this.path = path;
         this.is = new OneWireInputStream();
+    }
+
+    public String getPath() {
+        return path;
     }
 
     public InputStream getInputStream() {
@@ -23,9 +27,8 @@ public class OneWireDevice {
     private class OneWireInputStream extends InputStream {
         private final Fcntl fcntl;
 
-        public OneWireInputStream() throws NativeIOException {
+        public OneWireInputStream() {
             this.fcntl = Fcntl.getInstance();
-
         }
 
         @Override

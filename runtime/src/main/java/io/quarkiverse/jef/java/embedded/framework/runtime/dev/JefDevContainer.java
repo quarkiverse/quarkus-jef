@@ -1,7 +1,11 @@
 package io.quarkiverse.jef.java.embedded.framework.runtime.dev;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
+import io.quarkiverse.jef.java.embedded.framework.linux.core.OneWireDevice;
 import io.quarkiverse.jef.java.embedded.framework.mcu.core.boards.Board;
 import io.quarkiverse.jef.java.embedded.framework.mcu.core.boards.BoardManager;
 import io.quarkiverse.jef.java.embedded.framework.runtime.gpio.GPIOManager;
@@ -73,6 +77,17 @@ public class JefDevContainer {
 
     public I2CMapHolder getI2cMap() {
         return new I2CMapHolder(i2cManager);
+    }
+
+    public List<OneWireRecord> getOneWireRecords() {
+        List<OneWireRecord> result = new ArrayList<>();
+
+        Map<String, OneWireDevice> all = wireManager.getAll();
+        for(Map.Entry<String, OneWireDevice> item : all.entrySet()) {
+            result.add(new OneWireRecord(item.getKey(), item.getValue()));
+        }
+
+        return result;
     }
 
 }

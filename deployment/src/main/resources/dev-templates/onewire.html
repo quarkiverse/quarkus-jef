@@ -1,1 +1,22 @@
-one wire
+{#include main}
+{#title}OneWire Devices{/title}
+{#body}
+<table class="table table-striped">
+    <thead class="thead-dark">
+    <tr>
+        <th scope="col">Name</th>
+        <th scope="col">Status</th>
+        <th scope="col">Path</th>
+    </thead>
+    <tbody>
+    {#for wire in info:jefDevContainer.oneWireRecords}
+    <tr>
+        <td>{wire.name}</td>
+        <td>{wire.status}</td>
+        <td>{wire.path}</td>
+    </tr>
+    {/for}
+    </tbody>
+</table>
+{/body}
+{/include}
