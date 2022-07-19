@@ -1,25 +1,31 @@
-<table>
+{#include main}
+{#title}I2C Map{/title}
+{#body}
+{#for i2c in info:jefDevContainer.i2cMap.records}
+<table class="table table-striped">
+    <thead class="thead-dark">
     <tr>
-        <td>00</td>
-        <td>01</td>
-        <td>02</td>
-        <td>03</td>
-        <td>04</td>
-        <td>05</td>
-        <td>06</td>
-        <td>07</td>
-        <td>08</td>
-        <td>09</td>
-        <td>0A</td>
-        <td>0B</td>
-        <td>0C</td>
-        <td>0D</td>
-        <td>0E</td>
-        <td>0F</td>
+        <td>{i2c.name}</td>
     </tr>
-    {#for item in info:jefDevContainer.i2c}
-        <tr>
-            <td></td>
-        </tr>
-    {/for}
+    </thead>
+    <tbody>
+    <tr>
+        <td>
+            <table>
+                {#for record in i2c.lines}
+                <tr>
+                    {#for item in record}
+                    <td align="center">{item}</td>
+                    {/for}
+                </tr>
+                {/for}
+            </table>
+        </td>
+    </tr>
+    </tbody>
 </table>
+{/for}
+
+
+{/body}
+{/include}

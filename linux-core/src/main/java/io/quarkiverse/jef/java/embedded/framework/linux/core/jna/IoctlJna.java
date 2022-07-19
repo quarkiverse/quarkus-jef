@@ -176,6 +176,7 @@ public class IoctlJna extends Ioctl {
         int txRxSize = txSize + rxSize;
 
         Memory txRxMemory = new Memory(txRxSize);
+        txRxMemory.clear();
         log.log(Level.FINEST, () -> String.format("dump input array \n%s", StringUtils.dump(txBuffer)));
 
         txRxMemory.write(0, LinuxUtils.toBytes(txBuffer), 0, txBuffer.capacity());

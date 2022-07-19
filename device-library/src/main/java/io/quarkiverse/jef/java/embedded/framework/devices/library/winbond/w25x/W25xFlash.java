@@ -322,8 +322,8 @@ public class W25xFlash {
                 CMD_PAGE_PROGRAM.value,
                 (sectorNo << 12) + address,
                 buffer.length);
-        wait(wait);
         writeEnable();
+        wait(wait);
         in.put(buffer);
         bus.writeByteData(in);
         wait(wait);

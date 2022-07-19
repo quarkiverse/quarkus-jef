@@ -71,4 +71,8 @@ public class JefDevContainer {
         }
     }
 
+    public I2CMapHolder getI2cMap() {
+        return new I2CMapHolder(i2cManager);
+    }
+
 }
