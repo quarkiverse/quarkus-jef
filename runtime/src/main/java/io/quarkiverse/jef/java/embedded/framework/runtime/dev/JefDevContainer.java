@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import io.quarkiverse.jef.java.embedded.framework.linux.core.OneWireDevice;
+import io.quarkiverse.jef.java.embedded.framework.linux.spi.SpiBus;
 import io.quarkiverse.jef.java.embedded.framework.mcu.core.boards.Board;
 import io.quarkiverse.jef.java.embedded.framework.mcu.core.boards.BoardManager;
 import io.quarkiverse.jef.java.embedded.framework.runtime.gpio.GPIOManager;
@@ -87,6 +88,15 @@ public class JefDevContainer {
             result.add(new OneWireRecord(item.getKey(), item.getValue()));
         }
 
+        return result;
+    }
+
+    public List<SpiRecord> getSpiRecords() {
+        List<SpiRecord> result = new ArrayList<>();
+        Map<String, SpiBus> all = spiManager.getAll();
+        for(Map.Entry<String, SpiBus> item : all.entrySet()) {
+            result.add(new SpiRecord(item.getKey(), item.getValue()));
+        }
         return result;
     }
 

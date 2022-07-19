@@ -1,1 +1,28 @@
-SPI
+{#include main}
+{#title}SPI Buses{/title}
+{#body}
+<table class="table table-striped">
+    <thead class="thead-dark">
+    <tr>
+        <th scope="col">Name</th>
+        <th scope="col">Status</th>
+        <th scope="col">Frequency</th>
+        <th scope="col">Clock Mode</th>
+        <th scope="col">Word Length</th>
+        <th scope="col">Bit Ordering</th>
+    </thead>
+    <tbody>
+    {#for wire in info:jefDevContainer.spiRecords}
+    <tr>
+        <td>{wire.name}</td>
+        <td>{wire.status}</td>
+        <td>{wire.frequency}</td>
+        <td>{wire.clockMode}</td>
+        <td>{wire.wordLength}</td>
+        <td>{wire.bitOrdering}</td>
+    </tr>
+    {/for}
+    </tbody>
+</table>
+{/body}
+{/include}
