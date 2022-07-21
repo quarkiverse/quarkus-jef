@@ -100,4 +100,13 @@ public class JefDevContainer {
         return result;
     }
 
+    public BoardHolder getBoardHolder() {
+        try {
+            Board board = BoardManager.getBoard();
+            return new BoardHolder(board);
+        } catch (IOException e) {
+            return null;
+        }
+    }
+
 }

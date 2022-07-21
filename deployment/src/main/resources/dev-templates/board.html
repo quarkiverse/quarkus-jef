@@ -1,5 +1,40 @@
 {#include main}
 {#title}Board information{/title}
-{#body}Board information
+{#body}
+
+{#if info:jefDevContainer.boardHolder != null}
+<table class="table table-striped">
+    <thead class="thead-dark">
+    <tr>
+        <td align="center">CPU</td>
+        <td align="center">Name</td>
+        <td align="center">Mode</td>
+        <td align="center">V</td>
+        <td align="center" colspan="2">Physical</td>
+        <td align="center">V</td>
+        <td align="center">Mode</td>
+        <td align="center">Name</td>
+        <td align="center">CPU</td>
+    </tr>
+    </thead>
+    <tbody>
+    {#for record in info:jefDevContainer.boardHolder.records}
+    <tr>
+        {#for item in record}
+        <td align="center">{item}</td>
+        {/for}
+    </tr>
+    {/for}
+    </tbody>
+</table>
+{#else}
+<table class="table table-striped">
+    <tbody>
+    <tr>
+        <td>Board information not available</td>
+    </tr>
+    </tbody>
+</table>
+{/if}
 {/body}
 {/include}
