@@ -1,11 +1,11 @@
 package io.quarkiverse.jef.java.embedded.framework.runtime.onewire;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import io.quarkiverse.jef.java.embedded.framework.linux.core.OneWireDevice;
 import io.quarkiverse.jef.java.embedded.framework.runtime.config.OneWireConfig;
 import io.quarkiverse.jef.java.embedded.framework.runtime.config.OneWiresConfig;
-
-import java.util.HashMap;
-import java.util.Map;
 
 public class OneWireManagerImpl implements OneWireManager {
     private final Map<String, OneWireDevice> devices = new HashMap<>();

@@ -1,16 +1,17 @@
 package io.quarkiverse.jef.java.embedded.framework.runtime.dev;
 
-import io.quarkiverse.jef.java.embedded.framework.linux.i2c.I2CBus;
-import io.quarkiverse.jef.java.embedded.framework.runtime.i2c.I2CBusManager;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import io.quarkiverse.jef.java.embedded.framework.linux.i2c.I2CBus;
+import io.quarkiverse.jef.java.embedded.framework.runtime.i2c.I2CBusManager;
+
 @SuppressWarnings("unused")
 public class I2CMapHolder {
     private final List<Record> records;
-    private final static String[] header7bits = new String[]{" ", "00", "01", "02", "03", "04", "05", "06", "07", "08", "09", "0A", "0B", "0C", "0D", "0E", "0F"};
+    private final static String[] header7bits = new String[] { " ", "00", "01", "02", "03", "04", "05", "06", "07", "08", "09",
+            "0A", "0B", "0C", "0D", "0E", "0F" };
 
     public I2CMapHolder(I2CBusManager mgr) {
         records = new ArrayList<>();
@@ -67,7 +68,7 @@ public class I2CMapHolder {
             if (size < 128) {
                 int offset = 128 - size;
                 for (int i = 0; i < offset; i++) {
-                   list.add(I2CBus.Status.SKIP);
+                    list.add(I2CBus.Status.SKIP);
                 }
             }
         }

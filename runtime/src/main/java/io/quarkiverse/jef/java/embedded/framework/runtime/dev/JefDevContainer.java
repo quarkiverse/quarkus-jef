@@ -84,7 +84,7 @@ public class JefDevContainer {
         List<OneWireRecord> result = new ArrayList<>();
 
         Map<String, OneWireDevice> all = wireManager.getAll();
-        for(Map.Entry<String, OneWireDevice> item : all.entrySet()) {
+        for (Map.Entry<String, OneWireDevice> item : all.entrySet()) {
             result.add(new OneWireRecord(item.getKey(), item.getValue()));
         }
 
@@ -94,7 +94,7 @@ public class JefDevContainer {
     public List<SpiRecord> getSpiRecords() {
         List<SpiRecord> result = new ArrayList<>();
         Map<String, SpiBus> all = spiManager.getAll();
-        for(Map.Entry<String, SpiBus> item : all.entrySet()) {
+        for (Map.Entry<String, SpiBus> item : all.entrySet()) {
             result.add(new SpiRecord(item.getKey(), item.getValue()));
         }
         return result;

@@ -1,9 +1,9 @@
 package io.quarkiverse.jef.java.embedded.framework.runtime.dev;
 
+import java.io.File;
+
 import io.quarkiverse.jef.java.embedded.framework.linux.core.NativeIOException;
 import io.quarkiverse.jef.java.embedded.framework.linux.spi.SpiBus;
-
-import java.io.File;
 
 public class SpiRecord {
     private final String name;
@@ -20,7 +20,7 @@ public class SpiRecord {
 
     private void fill(SpiBus value) {
         try {
-            if(new File(value.getBus()).exists()) {
+            if (new File(value.getBus()).exists()) {
                 value.reload();
                 status = "Available";
                 frequency = String.valueOf(value.getClockFrequency());
