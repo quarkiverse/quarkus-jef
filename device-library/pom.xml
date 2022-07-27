@@ -11,7 +11,7 @@
     <artifactId>device-library</artifactId>
     <name>Java Embedded Framework - Device Library</name>
     <properties>
-        <junit.version>5.8.2</junit.version>
+        <junit.version>5.9.0</junit.version>
     </properties>
 
     <dependencies>
