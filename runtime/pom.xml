@@ -29,6 +29,11 @@
       <artifactId>mcu-core</artifactId>
       <version>${project.version}</version>
     </dependency>
+    <!--<dependency>
+      <groupId>org.graalvm.nativeimage</groupId>
+      <artifactId>svm</artifactId>
+      <scope>provided</scope>
+    </dependency>-->
   </dependencies>
   <build>
     <plugins>
