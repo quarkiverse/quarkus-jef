@@ -8,7 +8,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import io.quarkiverse.jef.java.embedded.framework.linux.core.Fcntl;
-import io.quarkiverse.jef.java.embedded.framework.linux.core.NativeIOException;
 
 public class FileHandlerCleaner {
     private final static ReferenceQueue<FileHandle> QUEUE = new ReferenceQueue<>();
@@ -65,7 +64,7 @@ public class FileHandlerCleaner {
         }
     }
 
-    public static synchronized void register(FileHandle handle) {
+    static synchronized void register(FileHandle handle) {
         //System.out.println("Register cleaner for " + handle.getHandle());
         checkThreadState();
         FileCleaner cleaner = new FileCleaner(handle);
@@ -81,12 +80,7 @@ public class FileHandlerCleaner {
         }
 
         public void clean() {
-            //System.out.println("Cleaner.cleanup: " + handle);
-            try {
-                Fcntl.getInstance().close(handle);
-            } catch (NativeIOException e) {
-                //                e.printStackTrace();
-            }
+            Fcntl.getInstance().close(handle);
         }
     }
 

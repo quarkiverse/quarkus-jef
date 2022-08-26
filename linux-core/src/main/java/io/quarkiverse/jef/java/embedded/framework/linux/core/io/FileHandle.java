@@ -1,14 +1,12 @@
 
 package io.quarkiverse.jef.java.embedded.framework.linux.core.io;
 
-import java.io.IOException;
-
 import io.quarkiverse.jef.java.embedded.framework.linux.core.Fcntl;
 
 public class FileHandle implements AutoCloseable {
     private final int handle;
 
-    public FileHandle(int handle) {
+    FileHandle(int handle) {
         this.handle = handle;
     }
 
@@ -18,11 +16,13 @@ public class FileHandle implements AutoCloseable {
 
     @Override
     public void close() {
-        try {
-            Fcntl.getInstance().close(handle);
-        } catch (IOException ignored) {
+        Fcntl.getInstance().close(handle);
+    }
 
-        }
+    public static FileHandle create(int fd) {
+        FileHandle result = new FileHandle(fd);
+        FileHandlerCleaner.register(result);
+        return result;
     }
 
     @Override

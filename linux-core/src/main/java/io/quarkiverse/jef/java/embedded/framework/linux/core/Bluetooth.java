@@ -447,7 +447,7 @@ public abstract class Bluetooth implements FeatureSupport {
      * } __attribute__ ((packed)) evt_le_meta_event;
      * public static final int EVT_LE_META_EVENT_SIZE 1
      */
-
+    @Deprecated
     public static class EvtLeMetaEvent {
         byte subEvent;
         byte data;
@@ -488,7 +488,7 @@ public abstract class Bluetooth implements FeatureSupport {
      * } __attribute__ ((packed)) le_advertising_info;
      * public static final int LE_ADVERTISING_INFO_SIZE 9
      */
-
+    @Deprecated
     public static class LeAdvertisingInfo {
         byte eventType;
         byte bdAddressType;

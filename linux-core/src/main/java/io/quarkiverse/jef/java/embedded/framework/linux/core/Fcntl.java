@@ -41,27 +41,29 @@ public abstract class Fcntl implements FeatureSupport {
         return instance;
     }
 
-    public FileHandle open(String pathname, IOFlags flag) throws NativeIOException {
+    public int open(String pathname, IOFlags flag) {
         return open(pathname, EnumSet.of(flag));
     }
 
-    public abstract FileHandle open(String pathname, EnumSet<IOFlags> flags) throws NativeIOException;
+    public abstract int open(String pathname, EnumSet<IOFlags> flags);
 
-    public abstract FileHandle open64(String pathname, EnumSet<IOFlags> flags) throws NativeIOException;
+    public abstract int open64(String pathname, EnumSet<IOFlags> flags);
 
-    public abstract void close(FileHandle fd) throws NativeIOException;
+    public int close(FileHandle fd) {
+        return close(fd.getHandle());
+    }
 
-    public abstract void close(int fd) throws NativeIOException;
+    public abstract int close(int fd);
 
-    public abstract int read(FileHandle fd, byte[] buffer, int size) throws NativeIOException;
+    public abstract int read(FileHandle fd, byte[] buffer, int size);
 
-    public abstract void write(FileHandle fd, byte[] buffer, int size) throws NativeIOException;
+    public abstract int write(FileHandle fd, byte[] buffer, int size);
 
-    public abstract void fsync(FileHandle fd) throws NativeIOException;
+    public abstract int fsync(FileHandle fd);
 
     public abstract long lseek(FileHandle fd, long offset, Whence whence);
 
-    public abstract int fcntl(FileHandle fd, int cmd, EnumSet<IOFlags> flags) throws NativeIOException;
+    public abstract int fcntl(FileHandle fd, int cmd, EnumSet<IOFlags> flags);
 
     public enum Whence {
         SEEK_SET(0),

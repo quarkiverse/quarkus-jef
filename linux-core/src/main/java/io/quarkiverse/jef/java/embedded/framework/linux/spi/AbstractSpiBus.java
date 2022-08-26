@@ -33,11 +33,12 @@ public abstract class AbstractSpiBus implements SpiBus {
     public AbstractSpiBus(String bus) throws NativeIOException {
         this.bus = bus;
         log.log(Level.INFO, () -> String.format("Open SPI Bus '%s'", bus));
-        try {
-            fd = Fcntl.getInstance().open(bus, EnumSet.of(IOFlags.O_RDWR));
-        } catch (NativeIOException e) {
+
+        int open = Fcntl.getInstance().open(bus, EnumSet.of(IOFlags.O_RDWR));
+        if (open < 0) {
             throw new NativeIOException("Unable to open SPI bus: " + bus);
         }
+        fd = FileHandle.create(open);
         reload();
     }
 

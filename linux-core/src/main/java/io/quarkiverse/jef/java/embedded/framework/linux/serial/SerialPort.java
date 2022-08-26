@@ -36,12 +36,15 @@ public class SerialPort implements SerialBus {
         fcntl = Fcntl.getInstance();
         ioctl = Ioctl.getInstance();
         termios = Termios.getInstance();
-        try {
-            handle = fcntl.open(path, EnumSet.of(O_RDWR, O_NOCTTY, O_SYNC/* O_NONBLOCK */));
-        } catch (NativeIOException e) {
+        int open = fcntl.open(path, EnumSet.of(O_RDWR, O_NOCTTY, O_SYNC/* O_NONBLOCK */));
+        if (open < 0) {
             throw new NativeIOException("Unable to open serial port: " + path);
         }
-        fcntl.fcntl(handle, Fcntl.F_SETFL, EnumSet.of(O_RDWR));
+        handle = FileHandle.create(open);
+
+        if (fcntl.fcntl(handle, Fcntl.F_SETFL, EnumSet.of(O_RDWR)) < 0) {
+            throw new NativeIOException("Unable to set fcntl to serial port: " + path);
+        }
         setup();
         //setup1();
         is = new SerialInputStream();
@@ -146,7 +149,10 @@ public class SerialPort implements SerialBus {
         @Override
         public void write(int b) throws IOException {
             checkClosed();
-            fcntl.write(handle, new byte[] { (byte) b }, 1);
+            int write = fcntl.write(handle, new byte[] { (byte) b }, 1);
+            if (write < 0) {
+                throw new IOException("Unable to write to serial port: " + path());
+            }
         }
 
         @Override

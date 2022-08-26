@@ -172,10 +172,14 @@ public class GpioPinImpl implements GpioPin {
     }
 
     private FileHandle openHandle(String path) throws NativeIOException {
-        return Fcntl.getInstance().open(path, EnumSet.of(O_RDONLY, O_CLOEXEC));
+        int open = Fcntl.getInstance().open(path, EnumSet.of(O_RDONLY, O_CLOEXEC));
+        if (open < 0) {
+            throw new NativeIOException("Unable to open gpio path: " + path);
+        }
+        return FileHandle.create(open);
     }
 
-    private void freeHandle() throws NativeIOException {
+    private void freeHandle() {
         if (handle > 0) {
             Fcntl.getInstance().close(handle);
         }

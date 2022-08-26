@@ -37,8 +37,15 @@ public class DS18B20 {
      */
     public double getTemperatureCelsius() throws IOException {
         synchronized (this) {
-            try (FileHandle handle = fcntl.open(name, IOFlags.O_RDONLY)) {
+            int open = fcntl.open(name, IOFlags.O_RDONLY);
+            if (open < 0) {
+                throw new IOException("Unable to open " + name);
+            }
+            try (FileHandle handle = FileHandle.create(open)) {
                 int length = fcntl.read(handle, buffer, buffer.length);
+                if (length < 0) {
+                    throw new IOException("Unable to read from " + name);
+                }
                 String s = new String(buffer, 0, length);
 
                 if (!s.contains("YES")) {

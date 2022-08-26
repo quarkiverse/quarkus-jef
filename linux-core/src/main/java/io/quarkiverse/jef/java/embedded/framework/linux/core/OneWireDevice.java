@@ -34,17 +34,24 @@ public class OneWireDevice {
         @Override
         public int read() throws IOException {
             byte[] buffer = new byte[1];
-            try (FileHandle handle = fcntl.open(OneWireDevice.this.path, IOFlags.O_RDONLY)) {
+            try (FileHandle handle = openFile()) {
                 int length = fcntl.read(handle, buffer, buffer.length);
-                return (length == 0) ? -1 : buffer[0];
+                return (length > 0) ? buffer[0] : -1;
             }
+        }
+
+        private FileHandle openFile() throws IOException {
+            int open = fcntl.open(OneWireDevice.this.path, IOFlags.O_RDONLY);
+            if (open < 0) {
+                throw new IOException("Unable to open file: " + OneWireDevice.this.path);
+            }
+            return FileHandle.create(open);
         }
 
         @Override
         public int read(byte[] buffer) throws IOException {
-            try (FileHandle handle = fcntl.open(OneWireDevice.this.path, IOFlags.O_RDONLY)) {
-                int length = fcntl.read(handle, buffer, buffer.length);
-                return length;
+            try (FileHandle handle = openFile()) {
+                return fcntl.read(handle, buffer, buffer.length);
             }
         }
     }

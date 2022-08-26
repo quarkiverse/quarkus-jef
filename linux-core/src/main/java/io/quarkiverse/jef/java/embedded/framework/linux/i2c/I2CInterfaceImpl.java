@@ -82,7 +82,10 @@ public class I2CInterfaceImpl implements I2CInterface {
                         length, bus.getPath()));
         synchronized (synchLock()) {
             synchSelect();
-            Fcntl.getInstance().read(getFD(), LinuxUtils.toBytes(buf), length);
+            int read = Fcntl.getInstance().read(getFD(), LinuxUtils.toBytes(buf), length);
+            if (read < 0) {
+                throw new NativeIOException("Unable to read from i2c bus: " + this.bus.getPath());
+            }
         }
     }
 
@@ -115,7 +118,10 @@ public class I2CInterfaceImpl implements I2CInterface {
 
         synchronized (synchLock()) {
             synchSelect();
-            Fcntl.getInstance().write(getFD(), LinuxUtils.toBytes(buf), length);
+            int result = Fcntl.getInstance().write(getFD(), LinuxUtils.toBytes(buf), length);
+            if (result < 0) {
+                throw new NativeIOException("Unable to write to i2c interface:" + this.bus.getPath());
+            }
         }
     }
 

@@ -76,11 +76,13 @@ public class I2CBusImpl implements I2CBus {
     public I2CBusImpl(String bus) throws NativeIOException {
         this.path = bus;
         log.log(Level.INFO, () -> String.format("Opening I2C bus '%s'", bus));
-        try {
-            fd = Fcntl.getInstance().open(bus, EnumSet.of(IOFlags.O_RDWR));
-        } catch (NativeIOException e) {
+
+        int open = Fcntl.getInstance().open(bus, EnumSet.of(IOFlags.O_RDWR));
+        if (open < 0) {
             throw new NativeIOException("Unable to open i2c bus: " + bus);
         }
+        fd = FileHandle.create(open);
+
         log.log(Level.INFO, () -> String.format("Opening I2C bus '%s' success", bus));
         func = loadFunctionality(fd);
         //log.log(Level.INFO, () -> String.format("I2C bus '%s' support functionalities '%d'", bus, func));

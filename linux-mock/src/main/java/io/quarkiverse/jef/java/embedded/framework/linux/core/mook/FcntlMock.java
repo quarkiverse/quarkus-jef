@@ -4,11 +4,9 @@ import java.util.EnumSet;
 
 import io.quarkiverse.jef.java.embedded.framework.linux.core.Fcntl;
 import io.quarkiverse.jef.java.embedded.framework.linux.core.IOFlags;
-import io.quarkiverse.jef.java.embedded.framework.linux.core.NativeIOException;
 import io.quarkiverse.jef.java.embedded.framework.linux.core.io.FileHandle;
 
 public class FcntlMock extends Fcntl {
-    private final static FileHandle HANDLE = new FileHandle(0);
 
     @Override
     public boolean isMock() {
@@ -16,37 +14,33 @@ public class FcntlMock extends Fcntl {
     }
 
     @Override
-    public FileHandle open(String pathname, EnumSet<IOFlags> flags) throws NativeIOException {
-        return HANDLE;
+    public int open(String pathname, EnumSet<IOFlags> flags) {
+        return 0;
     }
 
     @Override
-    public FileHandle open64(String pathname, EnumSet<IOFlags> flags) throws NativeIOException {
-        return HANDLE;
+    public int open64(String pathname, EnumSet<IOFlags> flags) {
+        return 0;
     }
 
     @Override
-    public void close(FileHandle fd) throws NativeIOException {
-
+    public int close(int fd) {
+        return 0;
     }
 
     @Override
-    public void close(int fd) throws NativeIOException {
-
-    }
-
-    @Override
-    public int read(FileHandle fd, byte[] buffer, int size) throws NativeIOException {
+    public int read(FileHandle fd, byte[] buffer, int size) {
         return size;
     }
 
     @Override
-    public void write(FileHandle fd, byte[] buffer, int size) throws NativeIOException {
+    public int write(FileHandle fd, byte[] buffer, int size) {
+        return size;
     }
 
     @Override
-    public void fsync(FileHandle fd) throws NativeIOException {
-
+    public int fsync(FileHandle fd) {
+        return 0;
     }
 
     @Override
@@ -55,7 +49,7 @@ public class FcntlMock extends Fcntl {
     }
 
     @Override
-    public int fcntl(FileHandle fd, int cmd, EnumSet<IOFlags> flags) throws NativeIOException {
+    public int fcntl(FileHandle fd, int cmd, EnumSet<IOFlags> flags) {
         return 0;
     }
 

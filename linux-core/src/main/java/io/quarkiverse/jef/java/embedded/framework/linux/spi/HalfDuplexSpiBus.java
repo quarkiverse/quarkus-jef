@@ -33,9 +33,14 @@ public class HalfDuplexSpiBus extends AbstractSpiBus {
         byte[] in = new byte[input.capacity()];
         byte[] out = new byte[outputSize];
         input.get(in);
-        fcntl.write(fd, in, in.length);
+        int write = fcntl.write(fd, in, in.length);
+        if (write < 0) {
+            throw new NativeIOException("Unable to write to serial port: " + getBus());
+        }
         //fcntl.fsync(fd);
-        fcntl.read(fd, out, outputSize);
+        if (fcntl.read(fd, out, outputSize) < 0) {
+            throw new NativeIOException("Unable to read from spi bus: " + this.getBus());
+        }
         return ByteBuffer.wrap(out);
     }
 }

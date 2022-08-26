@@ -8,7 +8,7 @@ public class NativeIOException extends IOException {
 
     public NativeIOException(String message) {
         super(message);
-        code = -1;
+        code = Errno.getInstance().ierrno();
     }
 
     public NativeIOException(int code) {

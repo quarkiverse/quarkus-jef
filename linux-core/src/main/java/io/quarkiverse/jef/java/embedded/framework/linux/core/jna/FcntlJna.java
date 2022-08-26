@@ -1,7 +1,6 @@
 
 package io.quarkiverse.jef.java.embedded.framework.linux.core.jna;
 
-import static io.quarkiverse.jef.java.embedded.framework.linux.core.LinuxUtils.checkIOResult;
 import static io.quarkiverse.jef.java.embedded.framework.linux.core.util.StringUtils.dump;
 
 import java.util.EnumSet;
@@ -12,79 +11,54 @@ import com.sun.jna.Native;
 
 import io.quarkiverse.jef.java.embedded.framework.linux.core.Fcntl;
 import io.quarkiverse.jef.java.embedded.framework.linux.core.IOFlags;
-import io.quarkiverse.jef.java.embedded.framework.linux.core.NativeIOException;
 import io.quarkiverse.jef.java.embedded.framework.linux.core.io.FileHandle;
-import io.quarkiverse.jef.java.embedded.framework.linux.core.io.FileHandlerCleaner;
 import io.quarkiverse.jef.java.embedded.framework.linux.core.util.StringUtils;
 
 public class FcntlJna extends Fcntl {
     private static final Logger log = Logger.getLogger(FcntlJna.class.getName());
 
     @Override
-    public FileHandle open(String pathname, EnumSet<IOFlags> flags) throws NativeIOException {
+    public int open(String pathname, EnumSet<IOFlags> flags) {
         int mask = IOFlagsMask(flags);
 
         log.log(Level.FINEST, () -> String.format("fctl.jna open %s with flags %d", pathname, mask));
 
-        int result = Delegate.open(pathname, mask);
-        checkIOResult("open", result);
-
-        FileHandle handle = new FileHandle(result);
-        FileHandlerCleaner.register(handle);
-
-        return handle;
+        return Delegate.open(pathname, mask);
     }
 
     @Override
-    public FileHandle open64(String pathname, EnumSet<IOFlags> flags) throws NativeIOException {
+    public int open64(String pathname, EnumSet<IOFlags> flags) {
         int mask = IOFlagsMask(flags);
 
         log.log(Level.FINEST, () -> String.format("fctl.jna open64 %s with flags %d", pathname, mask));
 
-        int result = Delegate.open64(pathname, mask);
-        checkIOResult("open64", result);
-
-        FileHandle handle = new FileHandle(result);
-        FileHandlerCleaner.register(handle);
-
-        return handle;
+        return Delegate.open64(pathname, mask);
     }
 
     @Override
-    public void close(FileHandle fd) throws NativeIOException {
-        log.log(Level.FINEST, () -> String.format("fctl.jna close descriptor '%d'", fd.getHandle()));
-        int result = Delegate.close(fd.getHandle());
-        checkIOResult("close", result);
-    }
-
-    @Override
-    public void close(int fd) throws NativeIOException {
+    public int close(int fd) {
         log.log(Level.FINEST, () -> String.format("fctl.jna close descriptor '%d'", fd));
-        int result = Delegate.close(fd);
-        checkIOResult("close", result);
+        return Delegate.close(fd);
     }
 
     @Override
-    public int read(FileHandle fd, byte[] buffer, int size) throws NativeIOException {
+    public int read(FileHandle fd, byte[] buffer, int size) {
         log.log(Level.FINEST, () -> String.format("fctl.jna read from '%d' length '%d'", fd.getHandle(), size));
         int result = Delegate.read(fd.getHandle(), buffer, size);
         log.log(Level.FINEST, () -> StringUtils.dump(buffer));
-        checkIOResult("write", result);
         return result;
     }
 
     @Override
-    public void write(FileHandle fd, byte[] buffer, int size) throws NativeIOException {
+    public int write(FileHandle fd, byte[] buffer, int size) {
         log.log(Level.FINEST, () -> String.format("fctl.jna write to '%d' amount '%d'", fd.getHandle(), size));
         log.log(Level.FINEST, () -> StringUtils.dump(buffer));
-        int result = Delegate.write(fd.getHandle(), buffer, size);
-        checkIOResult("write", result);
+        return Delegate.write(fd.getHandle(), buffer, size);
     }
 
     @Override
-    public void fsync(FileHandle fd) throws NativeIOException {
-        int result = Delegate.fsync(fd.getHandle());
-        checkIOResult("fsync", result);
+    public int fsync(FileHandle fd) {
+        return Delegate.fsync(fd.getHandle());
     }
 
     @Override
@@ -93,11 +67,9 @@ public class FcntlJna extends Fcntl {
     }
 
     @Override
-    public int fcntl(FileHandle fd, int cmd, EnumSet<IOFlags> flags) throws NativeIOException {
+    public int fcntl(FileHandle fd, int cmd, EnumSet<IOFlags> flags) {
         int mask = IOFlagsMask(flags);
-        int result = Delegate.fcntl(fd.getHandle(), cmd, mask);
-        checkIOResult("fcntl", result);
-        return result;
+        return Delegate.fcntl(fd.getHandle(), cmd, mask);
     }
 
     @Override
