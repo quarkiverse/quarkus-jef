@@ -10,6 +10,7 @@ import io.quarkiverse.jef.java.embedded.framework.linux.core.types.ByteReference
 // sudo apt-get install libbluetooth-dev
 // https://people.csail.mit.edu/albert/bluez-intro/
 // https://android.googlesource.com/platform/external/bluetooth/bluez/+/master/tools/hcitool.c
+@Deprecated
 public abstract class Bluetooth implements FeatureSupport {
     public static final int IREQ_CACHE_FLUSH = 0x0001;
     public static final int HCI_MAX_EVENT_SIZE = 260;

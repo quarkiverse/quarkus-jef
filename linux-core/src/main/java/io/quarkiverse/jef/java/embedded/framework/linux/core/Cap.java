@@ -7,6 +7,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
  * Wrapper to some functions from libcap.so
  */
 @SuppressWarnings("unused")
+@Deprecated
 public abstract class Cap implements FeatureSupport {
     private static final AtomicBoolean initialized = new AtomicBoolean(false);
     private static Cap instance = null;
