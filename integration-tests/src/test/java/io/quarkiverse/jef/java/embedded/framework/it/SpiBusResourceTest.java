@@ -26,7 +26,7 @@ public class SpiBusResourceTest {
                 .when().get(PATH + "default")
                 .then()
                 .statusCode(200)
-                .body(is("/dev/spidev-0/40000/SPI_MODE_1/7/0"));
+                .body(is("/dev/spidev0.0/40000/SPI_MODE_1/8/0"));
     }
 
     @Test
@@ -35,6 +35,6 @@ public class SpiBusResourceTest {
                 .when().get(PATH + "spi1")
                 .then()
                 .statusCode(200)
-                .body(is("/dev/spidev-1/50000/SPI_MODE_3/8/1"));
+                .body(is("/dev/spidev0.1/50000/SPI_MODE_3/8/0"));
     }
 }

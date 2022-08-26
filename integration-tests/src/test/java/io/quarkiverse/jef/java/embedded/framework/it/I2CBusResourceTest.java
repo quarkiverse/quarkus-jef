@@ -21,15 +21,6 @@ public class I2CBusResourceTest {
     }
 
     @Test
-    public void testDefaultBusInjection() {
-        given()
-                .when().get(PATH + "default")
-                .then()
-                .statusCode(200)
-                .body(is("/dev/i2c-0/true/5/10"));
-    }
-
-    @Test
     public void testSpi1BusInjection() {
         given()
                 .when().get(PATH + "i2c1")
