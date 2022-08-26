@@ -115,7 +115,7 @@ public abstract class AbstractSpiBus implements SpiBus {
         IntReference arg = new IntReference();
         arg.setValue(value);
         int result = console.ioctl(fd, console.getSpiIocWrMaxSpeedHz(), arg);
-        if(result < 0) {
+        if (result < 0) {
             throw new NativeIOException("Unable to set clock frequency '" + value + "' for bus: " + bus);
         }
         currentClockFrequency = value;
@@ -136,7 +136,7 @@ public abstract class AbstractSpiBus implements SpiBus {
         IntReference arg = new IntReference();
         arg.setValue(clockMode.value);
         int result = console.ioctl(fd, console.getSpiIocWrMode(), arg);
-        if(result < 0) {
+        if (result < 0) {
             throw new NativeIOException("Unable to set clock mode '" + clockMode + "' for bus: " + bus);
         }
         this.currentClockMode = clockMode;
@@ -158,7 +158,7 @@ public abstract class AbstractSpiBus implements SpiBus {
         arg.setValue(wordLength);
 
         int result = console.ioctl(fd, console.getSpiIocWrBitsPerWord(), arg);
-        if(result < 0) {
+        if (result < 0) {
             throw new NativeIOException("Unable to set word length '" + wordLength + "' for bus: " + bus);
         }
         this.currentWordLength = wordLength;
@@ -180,7 +180,7 @@ public abstract class AbstractSpiBus implements SpiBus {
         arg.setValue(bitOrdering);
         //        SPI_IOC_WR_LSB_FIRST
         int result = console.ioctl(fd, console.getSpiIocWrLsbFirst(), arg);
-        if(result < 0) {
+        if (result < 0) {
             throw new NativeIOException("Unable to set bit ordering '" + bitOrdering + "' for bus: " + bus);
         }
         this.currentBitOrdering = bitOrdering;
