@@ -3,7 +3,8 @@ package io.quarkiverse.jef.java.embedded.framework.linux.core;
 
 import java.util.concurrent.atomic.AtomicBoolean;
 
-@SuppressWarnings("unused")
+@SuppressWarnings({"unused"})
+@Deprecated
 public abstract class Signal implements FeatureSupport {
     public static final int SIGHUP = 1;
     public static final int SIGINT = 2;

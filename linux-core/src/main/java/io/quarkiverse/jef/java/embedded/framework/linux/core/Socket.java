@@ -4,6 +4,7 @@ package io.quarkiverse.jef.java.embedded.framework.linux.core;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 @SuppressWarnings("unused")
+@Deprecated
 public abstract class Socket implements FeatureSupport {
     private static final AtomicBoolean initialized = new AtomicBoolean(false);
     private static Socket instance = null;
