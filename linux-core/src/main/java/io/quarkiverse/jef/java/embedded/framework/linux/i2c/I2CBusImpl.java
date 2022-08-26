@@ -1,19 +1,19 @@
 
 package io.quarkiverse.jef.java.embedded.framework.linux.i2c;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.EnumSet;
-import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
 import io.quarkiverse.jef.java.embedded.framework.linux.core.Fcntl;
 import io.quarkiverse.jef.java.embedded.framework.linux.core.IOFlags;
 import io.quarkiverse.jef.java.embedded.framework.linux.core.Ioctl;
 import io.quarkiverse.jef.java.embedded.framework.linux.core.NativeIOException;
 import io.quarkiverse.jef.java.embedded.framework.linux.core.io.FileHandle;
 import io.quarkiverse.jef.java.embedded.framework.linux.core.types.LongReference;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.EnumSet;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Provides ability for read/write operations in I2C Bus.
@@ -101,9 +101,9 @@ public class I2CBusImpl implements I2CBus {
     /**
      * System method for ioctl manipulations
      *
-     * @param fd file handle
+     * @param fd      file handle
      * @param command ioctl command
-     * @param arg i2c argument
+     * @param arg     i2c argument
      * @return ioctl result
      * @throws NativeIOException if ioctl returns error
      */
@@ -114,9 +114,9 @@ public class I2CBusImpl implements I2CBus {
     /**
      * System method for ioctl manipulations
      *
-     * @param fd file handle
+     * @param fd      file handle
      * @param command ioctl command
-     * @param arg i2c argument
+     * @param arg     i2c argument
      * @return ioctl result
      * @throws NativeIOException if ioctl returns error
      */
@@ -128,8 +128,8 @@ public class I2CBusImpl implements I2CBus {
      * Force interface selection for i2c device. This method similar to {@link #select(int)}
      * and only provides additional functions
      *
-     * @param address i2c device address
-     * @param force force device selection
+     * @param address  i2c device address
+     * @param force    force device selection
      * @param isTenBit is ten bits bus or not
      * @return {@link I2CInterfaceImpl} for selected address
      * @throws NativeIOException if ioctl returns error
@@ -220,7 +220,7 @@ public class I2CBusImpl implements I2CBus {
      * Selects slave device in I2C bus
      *
      * @param address slave device address
-     * @param force force device selection
+     * @param force   force device selection
      * @throws NativeIOException if ioctl returns error
      */
     @Override
@@ -293,17 +293,18 @@ public class I2CBusImpl implements I2CBus {
     @Override
     public void setTenBits(boolean isTenBit) throws NativeIOException {
         log.log(Level.FINEST, () -> String.format("set ten bits '%b' for bus '%s'", isTenBit, path));
-        try {
-            if (isTenBit) {
-                if (!tenBits) {
-                    ioctl(fd, I2C_TENBIT, 1);
-                }
-            } else {
-                if (tenBits) {
-                    ioctl(fd, I2C_TENBIT, 0);
-                }
+        int result = 0;
+        if (isTenBit) {
+
+            if (!tenBits) {
+                result = ioctl(fd, I2C_TENBIT, 1);
             }
-        } catch (NativeIOException e) {
+        } else {
+            if (tenBits) {
+                result = ioctl(fd, I2C_TENBIT, 0);
+            }
+        }
+        if(result < 0) {
             throw new NativeIOException("Unable set tenBits to '" + isTenBit + "' for bus: " + path);
         }
         tenBits = isTenBit;

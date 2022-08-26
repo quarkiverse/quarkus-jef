@@ -60,9 +60,8 @@ public class FullDuplexSpiBus extends AbstractSpiBus {
                 //(byte) wordLength
                 (byte) getWordLength());
 
-        try {
-            Ioctl.getInstance().ioctl(fd, data);
-        } catch (NativeIOException e) {
+        int result = Ioctl.getInstance().ioctl(fd, data);
+        if(result < 0) {
             throw new NativeIOException("Unable to read/write data to: " + bus);
         }
 
