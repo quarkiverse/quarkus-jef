@@ -14,12 +14,13 @@ import io.quarkus.deployment.pkg.builditem.CurateOutcomeBuildItem;
 import io.quarkus.devconsole.spi.DevConsoleRuntimeTemplateInfoBuildItem;
 
 @SuppressWarnings("unused")
-public class DevConsoleProcessor {
+public class JefDevConsoleProcessor {
     @BuildStep(onlyIf = IsDevelopment.class)
     @Record(ExecutionTime.RUNTIME_INIT)
     public DevConsoleRuntimeTemplateInfoBuildItem exposeJefContainer(
             CurateOutcomeBuildItem curateOutcomeBuildItem,
             DevConsoleRecorder recorder) {
+        System.out.println("Process dev console");
         return new DevConsoleRuntimeTemplateInfoBuildItem("jefDevContainer",
                 recorder.getSupplier(), this.getClass(), curateOutcomeBuildItem);
     }

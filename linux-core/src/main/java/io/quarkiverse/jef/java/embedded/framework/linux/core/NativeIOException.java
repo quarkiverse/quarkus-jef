@@ -38,4 +38,9 @@ public class NativeIOException extends IOException {
     public int getCode() {
         return code;
     }
+
+    @Override
+    public String toString() {
+        return super.toString() + " (" + code + ":" + Errno.getInstance().strerror(code) + ")";
+    }
 }
