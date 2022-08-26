@@ -42,7 +42,7 @@ public class SysNative extends Sys {
     }
 
     @Override
-    public boolean access(String filename, EnumSet<AccessFlag> flags) throws NativeIOException {
+    public boolean access(String filename, EnumSet<AccessFlag> flags) {
         try (CTypeConversion.CCharPointerHolder c = CTypeConversion.toCString(filename)) {
             int result = Delegate.access(
                     c.get(),
@@ -103,37 +103,37 @@ public class SysNative extends Sys {
     }
 
     @Override
-    public void execl(String command, String... params) throws NativeIOException {
+    public int execl(String command, String... params) {
         try (CTypeConversion.CCharPointerHolder cmd = CTypeConversion.toCString(command)) {
             try (CTypeConversion.CCharPointerPointerHolder pr = CTypeConversion.toCStrings(params)) {
-                int result = Delegate.execl(cmd.get(), pr.get());
-                checkIOResult("execv", result);
+                return Delegate.execl(cmd.get(), pr.get());
             }
         }
     }
 
     @Override
-    public void system(String command) throws NativeIOException {
+    public int system(String command) {
         try (CTypeConversion.CCharPointerHolder cmd = CTypeConversion.toCString(command)) {
-            int result = Delegate.system(cmd.get());
-            checkIOResult("system", result);
+            return Delegate.system(cmd.get());
         }
     }
 
     @Override
-    public UtcName uname() throws NativeIOException {
+    public int uname(UtcName u) {
         __new_utsname struct = UnmanagedMemory.malloc(
                 SizeOf.get(__new_utsname.class));
         try {
             int result = Delegate.uname(struct);
-            checkIOResult("uname", result);
-            return new UtcName(
-                    CTypeConversion.toJavaString(struct.sysname()),
-                    CTypeConversion.toJavaString(struct.nodename()),
-                    CTypeConversion.toJavaString(struct.release()).trim(),
-                    CTypeConversion.toJavaString(struct.version()),
-                    CTypeConversion.toJavaString(struct.machine()),
-                    CTypeConversion.toJavaString(struct.domainname()));
+            if (result > -1) {
+                u.fill(
+                        CTypeConversion.toJavaString(struct.sysname()),
+                        CTypeConversion.toJavaString(struct.nodename()),
+                        CTypeConversion.toJavaString(struct.release()).trim(),
+                        CTypeConversion.toJavaString(struct.version()),
+                        CTypeConversion.toJavaString(struct.machine()),
+                        CTypeConversion.toJavaString(struct.domainname()));
+            }
+            return result;
         } finally {
             UnmanagedMemory.free(struct);
         }
