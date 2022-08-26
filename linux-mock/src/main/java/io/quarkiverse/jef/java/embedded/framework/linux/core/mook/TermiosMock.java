@@ -1,6 +1,5 @@
 package io.quarkiverse.jef.java.embedded.framework.linux.core.mook;
 
-import io.quarkiverse.jef.java.embedded.framework.linux.core.NativeIOException;
 import io.quarkiverse.jef.java.embedded.framework.linux.core.Termios;
 import io.quarkiverse.jef.java.embedded.framework.linux.core.io.FileHandle;
 import io.quarkiverse.jef.java.embedded.framework.linux.serial.TermiosStructure;
@@ -17,8 +16,9 @@ public class TermiosMock extends Termios {
     }
 
     @Override
-    public TermiosStructure tcgetattr(FileHandle handle) throws NativeIOException {
-        return new TermiosStructure(0, 0, 0, 0, (byte) 0, new byte[16], 0, 0);
+    public int tcgetattr(FileHandle handle, TermiosStructure ts) {
+        ts.setC_cc(new byte[16]);
+        return 0;
     }
 
     @Override
@@ -27,18 +27,18 @@ public class TermiosMock extends Termios {
     }
 
     @Override
-    public int cfsetispeed(TermiosStructure options, int value) throws NativeIOException {
+    public int cfsetispeed(TermiosStructure options, int value) {
         return 0;
     }
 
     @Override
-    public int cfsetospeed(TermiosStructure options, int value) throws NativeIOException {
+    public int cfsetospeed(TermiosStructure options, int value) {
         return 0;
     }
 
     @Override
-    public void tcsetattr(FileHandle handle, int tcsanow, TermiosStructure options) throws NativeIOException {
-
+    public int tcsetattr(FileHandle handle, int tcsanow, TermiosStructure options) {
+        return 0;
     }
 
     @Override

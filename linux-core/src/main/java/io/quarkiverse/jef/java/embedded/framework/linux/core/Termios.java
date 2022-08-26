@@ -149,15 +149,15 @@ public abstract class Termios implements FeatureSupport {
         return instance;
     }
 
-    public abstract TermiosStructure tcgetattr(FileHandle handle) throws NativeIOException;
+    public abstract int tcgetattr(FileHandle handle, TermiosStructure structure);
 
     public abstract void cfmakeraw(TermiosStructure options);
 
-    public abstract int cfsetispeed(TermiosStructure options, int value) throws NativeIOException;
+    public abstract int cfsetispeed(TermiosStructure options, int value);
 
-    public abstract int cfsetospeed(TermiosStructure options, int value) throws NativeIOException;
+    public abstract int cfsetospeed(TermiosStructure options, int value);
 
-    public abstract void tcsetattr(FileHandle handle, int tcsanow, TermiosStructure options) throws NativeIOException;
+    public abstract int tcsetattr(FileHandle handle, int tcsanow, TermiosStructure options);
 
     public abstract int cfgetispeed(TermiosStructure options);
 

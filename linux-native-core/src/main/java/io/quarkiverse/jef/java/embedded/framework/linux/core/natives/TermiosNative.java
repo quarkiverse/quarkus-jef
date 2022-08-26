@@ -60,13 +60,12 @@ public class TermiosNative extends Termios {
     }
 
     @Override
-    public TermiosStructure tcgetattr(FileHandle handle) {
-        TermiosStructure options = new TermiosStructure();
-        options.setC_cc(new byte[NCCS()]);
+    public int tcgetattr(FileHandle handle, TermiosStructure ts) {
+        ts.setC_cc(new byte[NCCS()]);
         termios2 t = StackValue.get(termios2.class);//UnmanagedMemory.malloc(SizeOf.get(termios2.class));
-        Delegate.tcgetattr(handle.getHandle(), t);
-        updateStruct(options, t);
-        return options;
+        int result = Delegate.tcgetattr(handle.getHandle(), t);
+        updateStruct(ts, t);
+        return result;
     }
 
     @Override
@@ -82,7 +81,9 @@ public class TermiosNative extends Termios {
         termios2 t = StackValue.get(termios2.class);//UnmanagedMemory.malloc(SizeOf.get(termios2.class));
         fillStruct(t, options);
         int result = Delegate.cfsetispeed(t, value);
-        updateStruct(options, t);
+        if (result > -1) {
+            updateStruct(options, t);
+        }
         return result;
 
     }
@@ -92,16 +93,21 @@ public class TermiosNative extends Termios {
         termios2 t = StackValue.get(termios2.class);//UnmanagedMemory.malloc(SizeOf.get(termios2.class));
         fillStruct(t, options);
         int result = Delegate.cfsetospeed(t, value);
-        updateStruct(options, t);
+        if (result > -1) {
+            updateStruct(options, t);
+        }
         return result;
     }
 
     @Override
-    public void tcsetattr(FileHandle handle, int tcsanow, TermiosStructure options) {
+    public int tcsetattr(FileHandle handle, int tcsanow, TermiosStructure options) {
         termios2 t = StackValue.get(termios2.class);//UnmanagedMemory.malloc(SizeOf.get(termios2.class));
         fillStruct(t, options);
-        Delegate.tcsetattr(handle.getHandle(), tcsanow, t);
-        updateStruct(options, t);
+        int result = Delegate.tcsetattr(handle.getHandle(), tcsanow, t);
+        if (result > -1) {
+            updateStruct(options, t);
+        }
+        return result;
     }
 
     @Override
@@ -186,7 +192,7 @@ public class TermiosNative extends Termios {
         public static native int cfgetispeed(termios2 t);
 
         @CFunction(transition = CFunction.Transition.NO_TRANSITION)
-        public static native void tcsetattr(int handle, int tcsanow, termios2 t);
+        public static native int tcsetattr(int handle, int tcsanow, termios2 t);
 
         @CFunction(transition = CFunction.Transition.NO_TRANSITION)
         public static native int tcgetattr(int handle, termios2 t);

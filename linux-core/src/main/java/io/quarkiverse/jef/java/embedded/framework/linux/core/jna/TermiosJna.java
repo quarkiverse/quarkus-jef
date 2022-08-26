@@ -1,13 +1,10 @@
 
 package io.quarkiverse.jef.java.embedded.framework.linux.core.jna;
 
-import static io.quarkiverse.jef.java.embedded.framework.linux.core.LinuxUtils.checkIOResult;
-
 import com.sun.jna.Native;
 import com.sun.jna.Pointer;
 import com.sun.jna.Structure;
 
-import io.quarkiverse.jef.java.embedded.framework.linux.core.NativeIOException;
 import io.quarkiverse.jef.java.embedded.framework.linux.core.Termios;
 import io.quarkiverse.jef.java.embedded.framework.linux.core.io.FileHandle;
 import io.quarkiverse.jef.java.embedded.framework.linux.serial.TermiosStructure;
@@ -22,15 +19,13 @@ public class TermiosJna extends Termios {
     }
 
     @Override
-    public TermiosStructure tcgetattr(FileHandle handle) throws NativeIOException {
+    public int tcgetattr(FileHandle handle, TermiosStructure structure) {
         termios t = new termios();
-        //termios.TermiosByReference ref = new termios.TermiosByReference(t.getPointer());
         int result = Delegate.tcgetattr(handle.getHandle(), t);
-        if (result < 0) {
-            checkIOResult("tcgetattr", result);
-            System.out.println("SHEEEEEEEET");
+        if (result > -1) {
+            t.generalize(structure);
         }
-        return t.generalize();
+        return result;
     }
 
     @Override
@@ -41,29 +36,33 @@ public class TermiosJna extends Termios {
     }
 
     @Override
-    public int cfsetispeed(TermiosStructure options, int value) throws NativeIOException {
+    public int cfsetispeed(TermiosStructure options, int value) {
         termios t = new termios(options);
         int result = Delegate.cfsetispeed(t, value);
-        checkIOResult("cfsetispeed", result);
-        t.generalize(options);
+        if (result > -1) {
+            t.generalize(options);
+        }
         return result;
     }
 
     @Override
-    public int cfsetospeed(TermiosStructure options, int value) throws NativeIOException {
+    public int cfsetospeed(TermiosStructure options, int value) {
         termios t = new termios(options);
         int result = Delegate.cfsetospeed(t, value);
-        checkIOResult("cfsetospeed", result);
-        t.generalize(options);
+        if (result > -1) {
+            t.generalize(options);
+        }
         return result;
     }
 
     @Override
-    public void tcsetattr(FileHandle handle, int tcsanow, TermiosStructure options) throws NativeIOException {
+    public int tcsetattr(FileHandle handle, int tcsanow, TermiosStructure options) {
         termios t = new termios(options);
         int result = Delegate.tcsetattr(handle.getHandle(), tcsanow, t);
-        checkIOResult("tcsetattr", result);
-        t.generalize(options);
+        if (result > -1) {
+            t.generalize(options);
+        }
+        return result;
     }
 
     @Override

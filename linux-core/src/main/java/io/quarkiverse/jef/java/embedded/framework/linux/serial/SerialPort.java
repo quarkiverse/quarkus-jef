@@ -49,10 +49,20 @@ public class SerialPort implements SerialBus {
     }
 
     private void setup() throws NativeIOException {
-        TermiosStructure tty = termios.tcgetattr(handle);
+        TermiosStructure tty = new TermiosStructure();
+
+        if (termios.tcgetattr(handle, tty) < 0) {
+            throw new NativeIOException("Unable to get termios structure for serial port: " + path());
+        }
         termios.cfmakeraw(tty);
-        termios.cfsetispeed(tty, rate.value);
-        termios.cfsetospeed(tty, rate.value);
+
+        if (termios.cfsetispeed(tty, rate.value) < 0) {
+            throw new NativeIOException("Unable to set input speed to serial port: " + path());
+        }
+
+        if (termios.cfsetospeed(tty, rate.value) < 0) {
+            throw new NativeIOException("Unable to set out speed to serial port: " + path());
+        }
 
         tty.c_cflag |= (CLOCAL | CREAD);
         tty.c_cflag &= ~PARENB;
@@ -69,8 +79,13 @@ public class SerialPort implements SerialBus {
         tty.c_cc[VMIN] = 0;
         tty.c_cc[VTIME] = 10;
 
-        termios.tcsetattr(handle, TCSANOW, tty);
-        termios.tcflush(handle, TCIFLUSH);
+        if (termios.tcsetattr(handle, TCSANOW, tty) < 0) {
+            throw new NativeIOException("Unable to set attributes to serial port: " + path());
+        }
+
+        if (termios.tcflush(handle, TCIFLUSH) < 0) {
+            throw new NativeIOException("Unable to flush serial port: " + path());
+        }
         IntReference statusRef = new IntReference();
 
         ioctl.ioctl(handle, TIOCMGET, statusRef);
