@@ -11,27 +11,8 @@ public class NativeIOException extends IOException {
         code = Errno.getInstance().ierrno();
     }
 
-    public NativeIOException(int code) {
-        this.code = code;
-    }
-
     public NativeIOException(String message, int code) {
         super(message);
-        this.code = code;
-    }
-
-    public NativeIOException(String message, Throwable cause) {
-        super(message, cause);
-        this.code = -1;
-    }
-
-    public NativeIOException(String message, Throwable cause, int code) {
-        super(message, cause);
-        this.code = code;
-    }
-
-    public NativeIOException(Throwable cause, int code) {
-        super(cause);
         this.code = code;
     }
 

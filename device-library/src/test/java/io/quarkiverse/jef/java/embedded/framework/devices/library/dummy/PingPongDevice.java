@@ -28,7 +28,7 @@ public class PingPongDevice {
                 }
                 return new String(b);
             } catch (IOException e) {
-                throw new NativeIOException(e, -1);
+                throw new NativeIOException(e.getMessage());
             }
         };
     }
