@@ -43,17 +43,17 @@ public abstract class Sys implements FeatureSupport {
         return result;
     }
 
-    public boolean access(String filename, AccessFlag flag) throws NativeIOException {
+    public boolean access(String filename, AccessFlag flag) {
         return access(filename, EnumSet.of(flag));
     }
 
-    public abstract boolean access(String filename, EnumSet<AccessFlag> flags) throws NativeIOException;
+    public abstract boolean access(String filename, EnumSet<AccessFlag> flags);
 
     public abstract String getcwd() throws NativeIOException;
 
-    public abstract void execl(String command, String... params) throws NativeIOException;
+    public abstract int execl(String command, String... params);
 
-    public abstract void system(String command) throws NativeIOException;
+    public abstract int system(String command);
 
     protected abstract passwd getpwuid(long uid);
 
@@ -75,7 +75,7 @@ public abstract class Sys implements FeatureSupport {
         return pw.username;
     }
 
-    public abstract UtcName uname() throws NativeIOException;
+    public abstract int uname(UtcName u);
 
     public enum AccessFlag {
         R_OK(4), /* Test for read permission. */
@@ -96,20 +96,18 @@ public abstract class Sys implements FeatureSupport {
 
     public static class UtcName {
         //#define __NEW_UTS_LEN 64
-        private final String sysName;
-        private final String nodeName;
-        private final String release;
-        private final String version;
-        private final String machine;
-        private final String domainName;
+        private String sysName;
+        private String nodeName;
+        private String release;
+        private String version;
+        private String machine;
+        private String domainName;
 
         public UtcName(String sysName, String nodeName, String release, String version, String machine, String domainName) {
-            this.sysName = sysName;
-            this.nodeName = nodeName;
-            this.release = release;
-            this.version = version;
-            this.machine = machine;
-            this.domainName = domainName;
+            fill(sysName, nodeName, release, version, machine, domainName);
+        }
+
+        public UtcName() {
         }
 
         public String getSysName() {
@@ -146,6 +144,15 @@ public abstract class Sys implements FeatureSupport {
                     ", machine='" + machine + '\'' +
                     ", domainName='" + domainName + '\'' +
                     '}';
+        }
+
+        public void fill(String sysName, String nodeName, String release, String version, String machine, String domainName) {
+            this.sysName = sysName;
+            this.nodeName = nodeName;
+            this.release = release;
+            this.version = version;
+            this.machine = machine;
+            this.domainName = domainName;
         }
     }
 

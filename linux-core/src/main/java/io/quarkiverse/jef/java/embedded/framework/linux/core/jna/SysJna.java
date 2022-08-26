@@ -34,7 +34,7 @@ public class SysJna extends Sys {
     }
 
     @Override
-    public boolean access(String filename, EnumSet<AccessFlag> flags) throws NativeIOException {
+    public boolean access(String filename, EnumSet<AccessFlag> flags) {
         int flag = flagToInt(flags);
         int result = Delegate.access(filename, flag);
         return result == 0;
@@ -49,15 +49,13 @@ public class SysJna extends Sys {
     }
 
     @Override
-    public void execl(String command, String... params) throws NativeIOException {
-        int result = Delegate.execl(command, new StringArray(params));
-        checkIOResult("execv", result);
+    public int execl(String command, String... params) {
+        return Delegate.execl(command, new StringArray(params));
     }
 
     @Override
-    public void system(String command) throws NativeIOException {
-        int result = Delegate.system(command);
-        checkIOResult("system", result);
+    public int system(String command) {
+        return Delegate.system(command);
     }
 
     @Override
@@ -88,17 +86,18 @@ public class SysJna extends Sys {
     }
 
     @Override
-    public UtcName uname() throws NativeIOException {
+    public int uname(UtcName u) {
         new_utsname param = new new_utsname();
         int result = Delegate.uname(param);
-        checkIOResult("uname", result);
-        return new UtcName(
-                new String(param.sysname),
-                new String(param.nodename),
-                new String(param.release).trim(),
-                new String(param.version),
-                new String(param.machine),
-                new String(param.domainname));
+        if (result > -1) {
+            u.fill(new String(param.sysname),
+                    new String(param.nodename),
+                    new String(param.release).trim(),
+                    new String(param.version),
+                    new String(param.machine),
+                    new String(param.domainname));
+        }
+        return result;
     }
 
     @Override

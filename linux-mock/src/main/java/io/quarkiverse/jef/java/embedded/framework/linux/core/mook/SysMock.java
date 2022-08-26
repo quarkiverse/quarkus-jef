@@ -42,7 +42,7 @@ public class SysMock extends Sys {
     }
 
     @Override
-    public boolean access(String filename, EnumSet<AccessFlag> flags) throws NativeIOException {
+    public boolean access(String filename, EnumSet<AccessFlag> flags) {
         return true;
     }
 
@@ -52,13 +52,13 @@ public class SysMock extends Sys {
     }
 
     @Override
-    public void execl(String command, String... params) throws NativeIOException {
-
+    public int execl(String command, String... params) {
+        return 0;
     }
 
     @Override
-    public void system(String command) throws NativeIOException {
-
+    public int system(String command) {
+        return 0;
     }
 
     @Override
@@ -77,7 +77,8 @@ public class SysMock extends Sys {
     }
 
     @Override
-    public UtcName uname() throws NativeIOException {
-        return new UtcName("test", "test", "test", "test", "test", "test");
+    public int uname(UtcName u) {
+        u.fill("test", "test", "test", "test", "test", "test");
+        return 0;
     }
 }
