@@ -20,6 +20,11 @@ public class NativeIOException extends IOException {
         this.code = code;
     }
 
+    public NativeIOException(String message, Throwable cause) {
+        super(message, cause);
+        this.code = -1;
+    }
+
     public NativeIOException(String message, Throwable cause, int code) {
         super(message, cause);
         this.code = code;

@@ -255,7 +255,11 @@ public class SMBusImpl implements SmBusConstants, SMBus {
         SmbusData smbusData = new SmbusData();
         smbusData.setBlock(data);
         SmbusIoctlData ioctlData = new SmbusIoctlData(readWrite, command, size, smbusData);
-        Ioctl.getInstance().ioctl(fd(), command, ioctlData);
+        try {
+            Ioctl.getInstance().ioctl(fd(), command, ioctlData);
+        } catch (NativeIOException e) {
+            throw new IOException("Unable to send command: '" + command + "' to " + iface.bus.getPath());
+        }
     }
 
     /**

@@ -76,7 +76,11 @@ public class I2CBusImpl implements I2CBus {
     public I2CBusImpl(String bus) throws NativeIOException {
         this.path = bus;
         log.log(Level.INFO, () -> String.format("Opening I2C bus '%s'", bus));
-        fd = Fcntl.getInstance().open(bus, EnumSet.of(IOFlags.O_RDWR));
+        try {
+            fd = Fcntl.getInstance().open(bus, EnumSet.of(IOFlags.O_RDWR));
+        } catch (NativeIOException e) {
+            throw new NativeIOException("Unable to open i2c bus: " + bus);
+        }
         log.log(Level.INFO, () -> String.format("Opening I2C bus '%s' success", bus));
         func = loadFunctionality(fd);
         //log.log(Level.INFO, () -> String.format("I2C bus '%s' support functionalities '%d'", bus, func));
@@ -129,7 +133,7 @@ public class I2CBusImpl implements I2CBus {
      * @throws NativeIOException if ioctl returns error
      */
     @Override
-    public I2CInterfaceImpl select(int address, boolean force, boolean isTenBit) throws NativeIOException {
+    public I2CInterface select(int address, boolean force, boolean isTenBit) throws NativeIOException {
         log.log(
                 Level.FINEST,
                 () -> String.format(
@@ -202,11 +206,11 @@ public class I2CBusImpl implements I2CBus {
      * Selects slave device in I2C bus without force selection
      *
      * @param address slave device address
-     * @return instance of {@link I2CInterfaceImpl}
+     * @return instance of {@link I2CInterface}
      * @throws NativeIOException if ioctl returns error
      */
     @Override
-    public I2CInterfaceImpl select(int address) throws NativeIOException {
+    public I2CInterface select(int address) throws NativeIOException {
         return select(address, false, false);
     }
 
@@ -287,14 +291,18 @@ public class I2CBusImpl implements I2CBus {
     @Override
     public void setTenBits(boolean isTenBit) throws NativeIOException {
         log.log(Level.FINEST, () -> String.format("set ten bits '%b' for bus '%s'", isTenBit, path));
-        if (isTenBit) {
-            if (!tenBits) {
-                ioctl(fd, I2C_TENBIT, 1);
+        try {
+            if (isTenBit) {
+                if (!tenBits) {
+                    ioctl(fd, I2C_TENBIT, 1);
+                }
+            } else {
+                if (tenBits) {
+                    ioctl(fd, I2C_TENBIT, 0);
+                }
             }
-        } else {
-            if (tenBits) {
-                ioctl(fd, I2C_TENBIT, 0);
-            }
+        } catch (NativeIOException e) {
+            throw new NativeIOException("Unable set tenBits to '" + isTenBit + "' for bus: " + path);
         }
         tenBits = isTenBit;
     }
