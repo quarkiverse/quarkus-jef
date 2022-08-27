@@ -5,6 +5,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import io.quarkiverse.jef.java.embedded.framework.linux.core.OneWireDevice;
 import io.quarkiverse.jef.java.embedded.framework.linux.spi.SpiBus;
 import io.quarkiverse.jef.java.embedded.framework.mcu.core.boards.Board;
@@ -19,6 +22,7 @@ import io.quarkus.arc.InstanceHandle;
 
 @SuppressWarnings("unused")
 public class JefDevContainer {
+    private final static Logger logger = LogManager.getLogger("JEF-Dev-Tools");
     private final GPIOManager gpioManager;
     private final SerialBusManager serialManager;
     private final I2CBusManager i2cManager;
@@ -26,25 +30,36 @@ public class JefDevContainer {
     private final OneWireManager wireManager;
 
     public JefDevContainer() {
+        logger.debug("Create new instance of JEF Dev Container");
+        logger.debug("Create new gpio manager");
         try (InstanceHandle<GPIOManager> h = Arc.container().instance(GPIOManager.class)) {
             gpioManager = h.get();
         }
+        logger.debug("gpio manager created");
 
+        logger.debug("Create new serial bus manager");
         try (InstanceHandle<SerialBusManager> h = Arc.container().instance(SerialBusManager.class)) {
             serialManager = h.get();
         }
+        logger.debug("serial bus manager created");
 
+        logger.debug("Create new i2c bus manager");
         try (InstanceHandle<I2CBusManager> h = Arc.container().instance(I2CBusManager.class)) {
             i2cManager = h.get();
         }
+        logger.debug("i2c bus manager created");
 
+        logger.debug("Create new spi bus manager");
         try (InstanceHandle<SPIBusManager> h = Arc.container().instance(SPIBusManager.class)) {
             spiManager = h.get();
         }
+        logger.debug("spi bus manager created");
 
+        logger.debug("Create new one wire manager");
         try (InstanceHandle<OneWireManager> h = Arc.container().instance(OneWireManager.class)) {
             wireManager = h.get();
         }
+        logger.debug("one wire manager created");
     }
 
     public int getGpioCount() {
