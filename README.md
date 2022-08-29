@@ -6,3 +6,10 @@
 [![Build](https://github.com/quarkiverse/quarkus-jef/workflows/Build/badge.svg)](https://github.com/quarkiverse/quarkus-jef/actions?query=workflow%3ABuild)
 [![Maven Central](https://img.shields.io/maven-central/v/io.quarkiverse.jef/quarkus-java-embedded-framework.svg?label=Maven%20Central)](https://search.maven.org/artifact/io.quarkiverse.jef/quarkus-java-embedded-framework)
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
+
+Quarkus - Java Embedded Framework is a Quarkus extension for the embedded hardware and low level interfaces.
+
+
+## User Documentation
+
+https://quarkiverse.github.io/quarkiverse-docs/quarkus-java-embedded-framework/dev/index.html
