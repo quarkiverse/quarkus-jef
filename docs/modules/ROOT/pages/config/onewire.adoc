@@ -1,0 +1,34 @@
+
+== GPIO
+
+[.configuration-legend]
+icon:lock[title=Fixed at build time] Configuration property fixed at build time - All other configuration properties are overridable at runtime
+[.configuration-reference.searchable, cols="80,.^10,.^10"]
+
+
+|===
+
+h|[[quarkus-jef_onewire_configuration]]link:#quarkus-jef_onewire_configuration[Configuration property]
+
+h|Type
+h|Default
+
+a|icon:lock[title=Fixed at build time] [[quarkus.jef.onewire.enabled]]`link:#quarkus.jef.onewire.enabled[quarkus.jef.onewire."name".enabled]`
+
+[.description]
+--
+Enable or disable One Wire bus
+--|boolean
+|`false`
+
+
+a|icon:lock[title=Fixed at build time] [[quarkus.jef.onewire.path]]`link:#quarkus.jef.onewire.path[quarkus.jef.onewire."name".path]`
+
+[.description]
+--
+Path to GPIO like `/sys/bus/w1/devices/28-01203882217a/w1_slave`
+--|string
+|
+
+|===
+

@@ -1,0 +1,44 @@
+
+== Serial Bus
+
+[.configuration-legend]
+icon:lock[title=Fixed at build time] Configuration property fixed at build time - All other configuration properties are overridable at runtime
+[.configuration-reference.searchable, cols="80,.^10,.^10"]
+
+
+|===
+
+h|[[quarkus-jef_serial_configuration]]link:#quarkus-jef_serial_configuration[Configuration property]
+
+h|Type
+h|Default
+
+a|icon:lock[title=Fixed at build time] [[quarkus.jef.serial.enabled]]`link:#quarkus.jef.serial.enabled[quarkus.jef.serial."name".enabled]`
+
+[.description]
+--
+Enable or disable serial bus
+--|boolean
+|`false`
+
+
+a|icon:lock[title=Fixed at build time] [[quarkus.jef.serial.path]]`link:#quarkus.jef.serial.path[quarkus.jef.serial.path]`
+
+[.description]
+--
+Path to serial or USB bus like `/dev/serial1` or `/dev/dev/ttyUSB0`
+--|string
+|
+
+
+a|icon:lock[title=Fixed at build time] [[quarkus.jef.serial.arduino.baud-rate]]`link:#quarkus.jef.serial.arduino.baud-rate[quarkus.jef.serial.arduino.baud-rate]`
+
+[.description]
+--
+Set serial bus speed to one of values described in `SerialBaudRate` class
+
+--|enum
+|`B9600`
+
+|===
+

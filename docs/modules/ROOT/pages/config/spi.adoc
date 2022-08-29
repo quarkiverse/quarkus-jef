@@ -1,0 +1,74 @@
+
+== SPI Bus
+
+[.configuration-legend]
+icon:lock[title=Fixed at build time] Configuration property fixed at build time - All other configuration properties are overridable at runtime
+[.configuration-reference.searchable, cols="80,.^10,.^10"]
+
+
+|===
+
+h|[[quarkus-jef_spi_configuration]]link:#quarkus-jef_spi_configuration[Configuration property]
+
+h|Type
+h|Default
+
+a|icon:lock[title=Fixed at build time] [[quarkus.jef.spi.bus.enabled]]`link:#quarkus.jef.spi.bus.enabled[quarkus.jef.spi."name".enabled]`
+
+[.description]
+--
+Enable or disable SPI bus
+--|boolean
+|`false`
+
+
+a|icon:lock[title=Fixed at build time] [[quarkus.jef.spi.path]]`link:#quarkus.jef.spi.path[quarkus.jef.spi."name".path]`
+
+[.description]
+--
+Path to SPI bus like `/dev/spidev0.0`
+--|string
+|
+
+
+a|icon:lock[title=Fixed at build time] [[quarkus.jef.spi.clock-frequency]]`link:#quarkus.jef.spi.clock-frequency[quarkus.jef.spi."name".clock-frequency]`
+
+[.description]
+--
+SPI bus speed. Please check your vendor CPU documentation for acceptable values
+
+--|integer
+|`500000`
+
+
+a|icon:lock[title=Fixed at build time] [[quarkus.jef.spi.spi-mode]]`link:#quarkus.jef.spi.spi-mode[quarkus.jef.spi."name".spi-mode]`
+
+[.description]
+--
+SPI bus mode.
+--|`SPI_MODE_0` `SPI_MODE_1` `SPI_MODE_3` `SPI_MODE_4`
+|`SPI_MODE_1`
+
+
+a|icon:lock[title=Fixed at build time] [[quarkus.jef.spi.word-length]]`link:#quarkus.jef.spi.word-length[quarkus.jef.spi."name".word-length]`
+
+[.description]
+--
+Word length for byte in bus
+
+--|enum
+|`8`
+
+
+a|icon:lock[title=Fixed at build time] [[quarkus.jef.spi.bit-ordering]]`link:#quarkus.jef.spi.bit-ordering[quarkus.jef.spi."name".bit-ordering]`
+
+[.description]
+--
+Bits ordering for bus
+
+--|`BIG_ENDIAN` `LITTLE_ENDIAN`
+|`BIG_ENDIAN`
+
+
+|===
+

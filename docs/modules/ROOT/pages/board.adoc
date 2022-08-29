@@ -1,0 +1,100 @@
+Before you start development you need to prepare your board
+
+== Prepare Linux
+
+[source,bash]
+apt update && apt upgrade -y
+apt -y install \
+    build-essential \
+    libz-dev \
+    git \
+    zlib1g-dev \
+    apt-transport-https \
+    ca-certificates \
+    curl \
+    wget \
+    linux-generic
+
+
+== Install GraalVM
+
+[NOTE]
+===============================
+Please update *GRAAL_VERSION* and *GRAAL_JDK_VERSION* values
+to the latest if needed
+===============================
+
+[source,bash]
+sudo su
+export GRAAL_VERSION="22.1.0"
+export GRAAL_JDK_VERSION="17"
+export ARCH_LINUX_AARCH64="linux-aarch64"
+export GRAAL_DOWNLOAD_PATH="https://github.com/graalvm/graalvm-ce-builds/releases/download/vm-${GRAAL_VERSION}/graalvm-ce-java${GRAAL_JDK_VERSION}-${GRAAL_ARCHITECTURE}-${GRAAL_VERSION}.tar.gz"
+export GRAAL_FILE="graalvm-ce-java${GRAAL_JDK_VERSION}-${GRAAL_ARCHITECTURE}-${GRAAL_VERSION}"
+export GRAAL_GZIP_FILE="${GRAAL_FILE}.tar.gz"
+wget ${GRAAL_DOWNLOAD_PATH} -P /tmp
+tar -xvzf "/tmp/${GRAAL_GZIP_FILE}" -C /tmp
+mkdir /usr/lib/jvm
+export TMP_PATH="/tmp/graalvm-ce-java${GRAAL_JDK_VERSION}-${GRAAL_VERSION}/"
+export JVM_PATH="/usr/lib/jvm/graalvm-ce-java${GRAAL_JDK_VERSION}-${GRAAL_VERSION}"
+mv ${TMP_PATH} /usr/lib/jvm/
+rm "/tmp/${GRAAL_GZIP_FILE}"
+ln -s ${JVM_PATH} /usr/lib/jvm/graalvm
+update-alternatives --install /usr/bin/java java /usr/lib/jvm/graalvm/bin/java 20
+update-alternatives --set java /usr/lib/jvm/graalvm/bin/java
+export GRAALVM_HOME=/usr/lib/jvm/graalvm/
+export JAVA_HOME=/usr/lib/jvm/graalvm/
+export PATH=$PATH:$GRAALVM_HOME
+export PATH=$PATH:$GRAALVM_HOME/bin
+echo "export JAVA_HOME=/usr/lib/jvm/graalvm/" >>/etc/profile
+echo "export GRAALVM_HOME=/usr/lib/jvm/graalvm/" >>/etc/profile
+echo "export PATH=\$PATH:\$GRAALVM_HOME" >>/etc/profile
+echo "export PATH=\$PATH:\$GRAALVM_HOME\bin" >>/etc/profile
+export NATIVE_IMAGE_JAR="native-image-installable-svm-java${GRAAL_JDK_VERSION}-${GRAAL_ARCHITECTURE}-${GRAAL_VERSION}.jar"
+wget "https://github.com/graalvm/graalvm-ce-builds/releases/download/vm-${GRAAL_VERSION}/${NATIVE_IMAGE_JAR}" -P /tmp
+${GRAALVM_HOME}/bin/gu -L install "/tmp/${NATIVE_IMAGE_JAR}"
+rm "/tmp/${NATIVE_IMAGE_JAR}"
+
+== Install Maven
+[NOTE]
+===============================
+Please update *MAVEN_VERSION* value
+to the latest if needed
+===============================
+[source,bash]
+export MAVEN_VERSION="3.8.6"
+wget "https://dlcdn.apache.org/maven/maven-3/${MAVEN_VERSION}/binaries/apache-maven-${MAVEN_VERSION}-bin.tar.gz" -P /tmp
+tar -xvzf "/tmp/apache-maven-${MAVEN_VERSION}-bin.tar.gz" -C /tmp
+rm -d -r "/usr/lib/maven/apache-maven-${MAVEN_VERSION}"
+mv "/tmp/apache-maven-${MAVEN_VERSION}/" /usr/lib/maven/
+update-alternatives --install /usr/bin/mvn mvn /usr/lib/maven/apache-maven-${MAVEN_VERSION}/bin/mvn 20
+update-alternatives --set mvn /usr/lib/maven/apache-maven-${MAVEN_VERSION}/bin/mvn
+export M2_HOME=/usr/lib/maven
+export PATH=$PATH:$M2_HOME
+export PATH=$PATH:$M2_HOME/bin
+echo "export M2_HOME=/usr/lib/maven" >>/etc/profile
+echo "export PATH=$PATH:$M2_HOME" >>/etc/profile
+echo "export PATH=$PATH:$M2_HOME/bin" >>/etc/profile
+
+== Install Samba
+For the remote development you need to share board folders to your PC
+[source,bash]
+sudo apt install samba samba-common-bin
+
+Edit samba configuration file and save over Ctrl+X
+[source,bash]
+sudo nano /etc/samba/smb.conf
+[board]
+comment = My Board
+path = /home/pi
+browseable = yes
+writeable = yes
+force create mode = 0777
+force directory mode = 0777
+public = yes
+
+and reboot
+[source,bash]
+sudo systemctl restart smbd
+
+Congratulations! Your environment is ready.

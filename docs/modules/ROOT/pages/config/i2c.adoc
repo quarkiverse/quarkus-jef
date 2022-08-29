@@ -1,0 +1,62 @@
+
+== I2C Bus
+
+[.configuration-legend]
+icon:lock[title=Fixed at build time] Configuration property fixed at build time - All other configuration properties are overridable at runtime
+[.configuration-reference.searchable, cols="80,.^10,.^10"]
+
+
+|===
+
+h|[[quarkus-jef_i2c_configuration]]link:#quarkus-jef_i2c_configuration[Configuration property]
+
+h|Type
+h|Default
+
+a|icon:lock[title=Fixed at build time] [[quarkus.jef.i2c.bus.enabled]]`link:#quarkus.jef.i2c.bus.enabled[quarkus.jef.i2c."name".enabled]`
+
+[.description]
+--
+Enable or disable I2C bus
+--|boolean
+|`false`
+
+
+a|icon:lock[title=Fixed at build time] [[quarkus.jef.i2c.path]]`link:#quarkus.jef.i2c.path[quarkus.jef.i2c."name".path]`
+
+[.description]
+--
+Path to I2C bus like `/dev/i2c-0`
+--|string
+|
+
+
+a|icon:lock[title=Fixed at build time] [[quarkus.jef.i2c.ten-bits]]`link:#quarkus.jef.i2c.ten-bits[quarkus.jef.i2c."name".ten-bits]`
+
+[.description]
+--
+Describe is I2C 7 bits or 10 bits bus. Please check with CPU vendor documentation.
+--|boolean
+|`false`
+
+
+a|icon:lock[title=Fixed at build time] [[quarkus.jef.i2c.retries]]`link:#quarkus.jef.i2c.retries[quarkus.jef.i2c."name".retries]`
+
+[.description]
+--
+Amount of retries in bus. Default is not set and using default vendor value
+--|integer
+|`-1`
+
+
+a|icon:lock[title=Fixed at build time] [[quarkus.jef.i2c.timeout]]`link:#quarkus.jef.i2c.timeout[quarkus.jef.i2c."name".timeout]`
+
+[.description]
+--
+Timeout in bus. Default is not set and using default vendor value.
+
+--|integer
+|`-1`
+
+|===
+

@@ -1,11 +1,15 @@
 = Quarkus - Java Embedded Framework
-:extension-status: preview
+:extension-status: experemintal
 
 Describe what the extension does here.
 
 == Installation
 
-If you want to use this extension, you need to add the `io.quarkiverse.jef:quarkus-java-embedded-framework` extension first.
+Before installation of Quarkus extension you need xref:board.adoc[to prepare your Raspberry Pi].
+
+If you not expert in embedded development xref:theory.adoc[theory can be helpful]
+
+If you want to use this extension in your projects, you need to add the `io.quarkiverse.jef:quarkus-java-embedded-framework` extension first.
 In your `pom.xml` file, add:
 
 [source,xml]
