@@ -54,7 +54,7 @@ public class I2CMapHolder {
                 for (int j = 0; j < 16; j++) {
                     I2CBus.Status status = enumerate.get(i + j);
                     if (status == I2CBus.Status.AVAILABLE) {
-                        line.add(String.format("%02x: ", i + j));
+                        line.add(String.format("%02x", i + j));
                     } else {
                         line.add("--");
                     }

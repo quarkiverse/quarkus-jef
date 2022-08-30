@@ -42,7 +42,7 @@ public class LinuxUtils {
     public static void checkIOResult(String method, int result) throws NativeIOException {
         if (result < 0) {
             String err = Errno.getInstance().strerror();
-            System.out.println("err = " + err);
+            //System.out.println("err = " + err);
             //String strerror = errno.get().strerror(result);
             ErrnoCode errnoCode = ErrnoCode.valueOf(-result).orElse(null);
 
