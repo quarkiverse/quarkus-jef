@@ -49,7 +49,7 @@ public class RpiBoardsLoader implements BoardLoader {
     private final static Map<String, RpiBoardInfo> mapping = new HashMap<String, RpiBoardInfo>() {
         {
             {
-                for(RpiBoardInfo i : RpiBoardInfo.values()) {
+                for (RpiBoardInfo i : RpiBoardInfo.values()) {
                     put(i.getCode(), i);
                 }
             }

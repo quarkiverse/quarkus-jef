@@ -7,8 +7,11 @@ import io.quarkiverse.jef.java.embedded.framework.linux.core.NativeIOException;
 import io.quarkiverse.jef.java.embedded.framework.linux.spi.SpiBus;
 import io.quarkiverse.jef.java.embedded.framework.runtime.config.SPIBusConfig;
 import io.quarkiverse.jef.java.embedded.framework.runtime.config.SPIBusesConfig;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class SPIBusManagerImpl implements SPIBusManager {
+    private final static Logger logger = LogManager.getLogger("JEF-Dev-Tools");
     private final Map<String, SpiBus> buses = new HashMap<>();
 
     public SPIBusManagerImpl(SPIBusesConfig cfg) {
@@ -34,7 +37,7 @@ public class SPIBusManagerImpl implements SPIBusManager {
                 bus.setWordLength(config.wordLength);
                 buses.put(name, bus);
             } catch (NativeIOException e) {
-                throw new RuntimeException(e);
+                logger.error(e);
             }
         }
     }

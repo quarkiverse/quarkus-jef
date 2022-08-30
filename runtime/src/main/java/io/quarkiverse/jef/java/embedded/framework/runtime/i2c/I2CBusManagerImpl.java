@@ -7,9 +7,12 @@ import io.quarkiverse.jef.java.embedded.framework.linux.core.NativeIOException;
 import io.quarkiverse.jef.java.embedded.framework.linux.i2c.I2CBus;
 import io.quarkiverse.jef.java.embedded.framework.runtime.config.I2CBusConfig;
 import io.quarkiverse.jef.java.embedded.framework.runtime.config.I2CBusesConfig;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 //@ApplicationScoped
 public class I2CBusManagerImpl implements I2CBusManager {
+    private final static Logger logger = LogManager.getLogger("JEF-Dev-Tools");
     private final Map<String, I2CBus> buses = new HashMap<>();
 
     public I2CBusManagerImpl(I2CBusesConfig cfg) {
@@ -39,7 +42,7 @@ public class I2CBusManagerImpl implements I2CBusManager {
 
                 buses.put(name, bus);
             } catch (NativeIOException e) {
-                throw new RuntimeException(e);
+                logger.error(e);
             }
 
         }

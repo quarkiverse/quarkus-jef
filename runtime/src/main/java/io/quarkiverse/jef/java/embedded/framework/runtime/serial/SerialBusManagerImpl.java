@@ -9,8 +9,11 @@ import io.quarkiverse.jef.java.embedded.framework.linux.core.NativeIOException;
 import io.quarkiverse.jef.java.embedded.framework.linux.serial.SerialBus;
 import io.quarkiverse.jef.java.embedded.framework.runtime.config.SerialBusConfig;
 import io.quarkiverse.jef.java.embedded.framework.runtime.config.SerialBusesConfig;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class SerialBusManagerImpl implements SerialBusManager {
+    private final static Logger logger = LogManager.getLogger("JEF-Dev-Tools");
     private final Map<String, SerialBus> buses = new HashMap<>();
 
     public SerialBusManagerImpl(SerialBusesConfig cfg) {
@@ -34,7 +37,7 @@ public class SerialBusManagerImpl implements SerialBusManager {
             try {
                 buses.put(name, SerialBus.create(config.path.get(), config.baudRate));
             } catch (NativeIOException e) {
-                throw new RuntimeException(e);
+                logger.error(e);
             }
         }
     }

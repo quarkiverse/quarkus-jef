@@ -10,7 +10,7 @@ public class JefContainerSupplier implements Supplier<JefDevContainer> {
 
     @Override
     public JefDevContainer get() {
-        logger.debug("Create Jef Dev Container");
+        logger.debug("Create Jef Dev Container:" + JefContainerSupplier.class.getClassLoader());
         return new JefDevContainer();
     }
 }

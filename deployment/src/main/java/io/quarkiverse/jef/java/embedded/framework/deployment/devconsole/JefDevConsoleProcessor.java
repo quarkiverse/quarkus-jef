@@ -38,7 +38,7 @@ public class JefDevConsoleProcessor {
                 recorder.getSupplier()));
     }
 
-    @BuildStep(onlyIf = IsDevelopment.class)
+/*    @BuildStep(onlyIf = IsDevelopment.class)
     void enableService(CurateOutcomeBuildItem item,
             BuildProducer<DevConsoleRuntimeTemplateInfoBuildItem> producer) {
         logger.debug("Checking dev services for JEF");
@@ -48,8 +48,7 @@ public class JefDevConsoleProcessor {
         } else {
             logger.debug("Dev services for JEF already enabled");
         }
-
-    }
+    }*/
 
     @BuildStep(onlyIf = IsDevelopment.class)
     public void registerSPI(BuildProducer<ServiceProviderBuildItem> spis) {
