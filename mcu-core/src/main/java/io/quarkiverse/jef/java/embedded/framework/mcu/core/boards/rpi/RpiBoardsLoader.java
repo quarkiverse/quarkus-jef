@@ -48,38 +48,11 @@ public class RpiBoardsLoader implements BoardLoader {
 
     private final static Map<String, RpiBoardInfo> mapping = new HashMap<String, RpiBoardInfo>() {
         {
-            put(RpiBoardInfo.A_PLUS_1_1.getCode(), RpiBoardInfo.A_PLUS_1_1);
-            put(RpiBoardInfo.B_PLUS_1_2.getCode(), RpiBoardInfo.B_PLUS_1_2);
-            put(RpiBoardInfo.ZERO_1_2.getCode(), RpiBoardInfo.ZERO_1_2);
-            put(RpiBoardInfo.ZERO_1_3.getCode(), RpiBoardInfo.ZERO_1_3);
-            put(RpiBoardInfo.ZERO_W.getCode(), RpiBoardInfo.ZERO_W);
-            put(RpiBoardInfo.THREE_A_PLUS_1_0.getCode(), RpiBoardInfo.THREE_A_PLUS_1_0);
-            put(RpiBoardInfo.ZERO_1_2E.getCode(), RpiBoardInfo.ZERO_1_2E);
-            put(RpiBoardInfo.ZERO_1_3E.getCode(), RpiBoardInfo.ZERO_1_3E);
-            put(RpiBoardInfo.CM_1_1.getCode(), RpiBoardInfo.CM_1_1);
-            put(RpiBoardInfo.TWO_B_1_0.getCode(), RpiBoardInfo.TWO_B_1_0);
-            put(RpiBoardInfo.TWO_B_1_1.getCode(), RpiBoardInfo.TWO_B_1_1);
-            put(RpiBoardInfo.THREE_B_1_2.getCode(), RpiBoardInfo.THREE_B_1_2);
-            put(RpiBoardInfo.CM_3_1_0.getCode(), RpiBoardInfo.CM_3_1_0);
-            put(RpiBoardInfo.THREE_B_PLUS_1_3.getCode(), RpiBoardInfo.THREE_B_PLUS_1_3);
-            put(RpiBoardInfo.TWO_B_1_2.getCode(), RpiBoardInfo.TWO_B_1_2);
-            put(RpiBoardInfo.TWO_B_1_1E.getCode(), RpiBoardInfo.TWO_B_1_1E);
-            put(RpiBoardInfo.TWO_B_1_2E.getCode(), RpiBoardInfo.TWO_B_1_2E);
-            put(RpiBoardInfo.THREE_B_1_2E.getCode(), RpiBoardInfo.THREE_B_1_2E);
-            put(RpiBoardInfo.CM_3_1_0E.getCode(), RpiBoardInfo.CM_3_1_0E);
-            put(RpiBoardInfo.THREE_B_1_2S.getCode(), RpiBoardInfo.THREE_B_1_2S);
-            put(RpiBoardInfo.THREE_B_1_2ST.getCode(), RpiBoardInfo.THREE_B_1_2ST);
-            put(RpiBoardInfo.THREE_B_1_3E.getCode(), RpiBoardInfo.THREE_B_1_3E);
-            put(RpiBoardInfo.CM_3_1_0_PLUS.getCode(), RpiBoardInfo.CM_3_1_0_PLUS);
-            put(RpiBoardInfo.FOUR_B_1_1_1G.getCode(), RpiBoardInfo.FOUR_B_1_1_1G);
-            put(RpiBoardInfo.FOUR_B_1_1_2G.getCode(), RpiBoardInfo.FOUR_B_1_1_2G);
-            put(RpiBoardInfo.FOUR_B_1_2_2G.getCode(), RpiBoardInfo.FOUR_B_1_2_2G);
-            put(RpiBoardInfo.FOUR_B_1_4_2G.getCode(), RpiBoardInfo.FOUR_B_1_4_2G);
-            put(RpiBoardInfo.FOUR_B_1_1_4G.getCode(), RpiBoardInfo.FOUR_B_1_1_4G);
-            put(RpiBoardInfo.FOUR_B_1_2_4G.getCode(), RpiBoardInfo.FOUR_B_1_2_4G);
-            put(RpiBoardInfo.FOUR_B_1_4_4G.getCode(), RpiBoardInfo.FOUR_B_1_4_4G);
-            put(RpiBoardInfo.FOUR_B_1_4_8G.getCode(), RpiBoardInfo.FOUR_B_1_4_8G);
-            put(RpiBoardInfo.PI_400_4G.getCode(), RpiBoardInfo.PI_400_4G);
+            {
+                for(RpiBoardInfo i : RpiBoardInfo.values()) {
+                    mapping.put(i.getCode(), i);
+                }
+            }
         }
     };
 
