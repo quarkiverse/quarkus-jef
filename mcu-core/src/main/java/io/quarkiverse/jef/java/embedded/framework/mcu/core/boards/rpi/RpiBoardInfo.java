@@ -62,11 +62,18 @@ enum RpiBoardInfo {
     FOUR_B_1_1_2G("b03111", "4B", "1.1", "2GB", "Sony UK", RaspberryPi40PinsBoard.class),
     FOUR_B_1_2_2G("b03112", "4B", "1.2", "2GB", "Sony UK", RaspberryPi40PinsBoard.class),
     FOUR_B_1_4_2G("b03114", "4B", "1.4", "2GB", "Sony UK", RaspberryPi40PinsBoard.class),
+    FOUR_B_1_5_2G("b03115", "4B", "1.5", "2GB", "Sony UK", RaspberryPi40PinsBoard.class),
     FOUR_B_1_1_4G("c03111", "4B", "1.1", "4GB", "Sony UK", RaspberryPi40PinsBoard.class),
     FOUR_B_1_2_4G("c03112", "4B", "1.2", "4GB", "Sony UK", RaspberryPi40PinsBoard.class),
     FOUR_B_1_4_4G("c03114", "4B", "1.4", "4GB", "Sony UK", RaspberryPi40PinsBoard.class),
+    FOUR_B_1_5_4G("c03115", "4B", "1.5", "4GB", "Sony UK", RaspberryPi40PinsBoard.class),
     FOUR_B_1_4_8G("d03114", "4B", "1.4", "8GB", "Sony UK", RaspberryPi40PinsBoard.class),
-    PI_400_4G("c03130", "Pi 400", "1.0", "4GB", "Sony UK", RaspberryPi40PinsBoard.class);
+    FOUR_B_1_5_8G("d03114", "4B", "1.5", "8GB", "Sony UK", RaspberryPi40PinsBoard.class),
+    PI_400_1G("a03140", "Pi 400", "1.0", "1GB", "Sony UK", RaspberryPi40PinsBoard.class),
+    PI_400_2G("b03140", "Pi 400", "1.0", "2GB", "Sony UK", RaspberryPi40PinsBoard.class),
+    PI_400_4G("c03140", "Pi 400", "1.0", "4GB", "Sony UK", RaspberryPi40PinsBoard.class),
+    PI_400_8G("d03140", "Pi 400", "1.0", "8GB", "Sony UK", RaspberryPi40PinsBoard.class),
+    ZERO_2W("902120", "Zero 2 W", "1.0", "512MB", "Sony UK", RaspberryPi40PinsBoard.class);
 
     private final String code;
     private final String model;
