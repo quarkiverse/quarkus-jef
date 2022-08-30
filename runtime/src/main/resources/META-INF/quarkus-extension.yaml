@@ -1,5 +1,5 @@
 name: Java Embedded Framework
-description: Access to HW interfaces(SPI/I2C/GPIO/Serial)
+description: Access to embedded devices
 group-id: io.quarkiverse.jef
 artifact-id: quarkus-java-embedded-framework
 metadata:
