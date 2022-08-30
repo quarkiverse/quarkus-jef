@@ -25,12 +25,12 @@ class JavaEmbeddedFrameworkProcessor {
         return new FeatureBuildItem(FEATURE);
     }
 
-    @BuildStep(onlyIf = IsDevMode.class)
-    SystemPropertyBuildItem isDevMode() {
+    @BuildStep(onlyIf = IsTestMode.class)
+    SystemPropertyBuildItem isTestMode() {
         return new SystemPropertyBuildItem("java.embedded.framework.mode", "test");
     }
 
-    @BuildStep(onlyIf = IsDevMode.class)
+    @BuildStep(onlyIf = IsTestMode.class)
     NativeImageSystemPropertyBuildItem isNativeDevMode() {
         return new NativeImageSystemPropertyBuildItem("java.embedded.framework.mode", "test");
     }
@@ -47,11 +47,11 @@ class JavaEmbeddedFrameworkProcessor {
                 providers));
     }
 
-    static class IsDevMode implements BooleanSupplier {
+    static class IsTestMode implements BooleanSupplier {
         LaunchMode launchMode;
 
         public boolean getAsBoolean() {
-            return launchMode == LaunchMode.DEVELOPMENT || launchMode == LaunchMode.TEST;
+            return launchMode == LaunchMode.TEST;
         }
     }
 }

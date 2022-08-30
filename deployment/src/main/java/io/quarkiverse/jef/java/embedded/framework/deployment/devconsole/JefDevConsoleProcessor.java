@@ -2,12 +2,12 @@ package io.quarkiverse.jef.java.embedded.framework.deployment.devconsole;
 
 import java.util.List;
 
-import io.quarkus.deployment.IsDevelopment;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import io.quarkiverse.jef.java.embedded.framework.runtime.dev.JefDevConsoleRecorder;
 import io.quarkiverse.jef.java.embedded.framework.runtime.dev.tracing.*;
+import io.quarkus.deployment.IsDevelopment;
 import io.quarkus.deployment.annotations.BuildProducer;
 import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.annotations.ExecutionTime;
