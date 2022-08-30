@@ -50,7 +50,7 @@ public class RpiBoardsLoader implements BoardLoader {
         {
             {
                 for(RpiBoardInfo i : RpiBoardInfo.values()) {
-                    mapping.put(i.getCode(), i);
+                    put(i.getCode(), i);
                 }
             }
         }
