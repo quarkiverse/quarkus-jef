@@ -7,6 +7,8 @@ import java.util.Map;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import io.quarkiverse.jef.java.embedded.framework.linux.core.NativeIOException;
+import io.quarkiverse.jef.java.embedded.framework.linux.gpio.GpioChipInfo;
 import io.quarkiverse.jef.java.embedded.framework.linux.gpio.GpioManager;
 import io.quarkiverse.jef.java.embedded.framework.linux.gpio.GpioPin;
 import io.quarkiverse.jef.java.embedded.framework.runtime.config.GPIOConfig;
@@ -35,6 +37,11 @@ public class GPIOManagerImpl implements GPIOManager {
             logger.info("add GPIO bus to list: {}", name);
             buses.put(name, bus.path.get());
         }
+    }
+
+    @Override
+    public GpioChipInfo getChipInfo(String path) throws NativeIOException {
+        return GpioManager.getChipInfo(path);
     }
 
     @Override

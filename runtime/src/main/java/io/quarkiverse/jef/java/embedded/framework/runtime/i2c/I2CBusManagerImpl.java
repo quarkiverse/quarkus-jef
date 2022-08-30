@@ -3,12 +3,13 @@ package io.quarkiverse.jef.java.embedded.framework.runtime.i2c;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import io.quarkiverse.jef.java.embedded.framework.linux.core.NativeIOException;
 import io.quarkiverse.jef.java.embedded.framework.linux.i2c.I2CBus;
 import io.quarkiverse.jef.java.embedded.framework.runtime.config.I2CBusConfig;
 import io.quarkiverse.jef.java.embedded.framework.runtime.config.I2CBusesConfig;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 //@ApplicationScoped
 public class I2CBusManagerImpl implements I2CBusManager {

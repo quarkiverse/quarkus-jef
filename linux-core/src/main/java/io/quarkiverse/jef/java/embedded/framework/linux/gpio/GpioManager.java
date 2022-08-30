@@ -5,6 +5,9 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
+import io.quarkiverse.jef.java.embedded.framework.linux.core.*;
+import io.quarkiverse.jef.java.embedded.framework.linux.core.io.FileHandle;
+
 @SuppressWarnings("unused")
 public class GpioManager {
     private final static Map<String, GpioPin> pinsets = new HashMap<>();
@@ -21,6 +24,26 @@ public class GpioManager {
             return pin;
         }
         //return getPin(path, number, null);
+    }
+
+    public static GpioChipInfo getChipInfo(String path) throws NativeIOException {
+        Fcntl fcntl = Fcntl.getInstance();
+
+        int fd = fcntl.open(path, IOFlags.O_RDONLY);
+
+        if (fd < 0) {
+            throw new NativeIOException("Unable to open gpio file: " + path);
+        }
+        try (FileHandle handle = FileHandle.create(fd)) {
+            Ioctl ioctl = Ioctl.getInstance();
+            GpioChipInfo result = new GpioChipInfo();
+            try {
+                ioctl.ioctl(handle, IoctlBase.getGpioGetChipInfoIoctl(), result);
+                return result;
+            } catch (NativeIOException e) {
+                throw new NativeIOException("Unable to access to gpio '" + path + "'");
+            }
+        }
     }
 
     public static boolean isUsed(String path, int number) {

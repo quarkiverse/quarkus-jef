@@ -3,12 +3,13 @@ package io.quarkiverse.jef.java.embedded.framework.runtime.spi;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import io.quarkiverse.jef.java.embedded.framework.linux.core.NativeIOException;
 import io.quarkiverse.jef.java.embedded.framework.linux.spi.SpiBus;
 import io.quarkiverse.jef.java.embedded.framework.runtime.config.SPIBusConfig;
 import io.quarkiverse.jef.java.embedded.framework.runtime.config.SPIBusesConfig;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 public class SPIBusManagerImpl implements SPIBusManager {
     private final static Logger logger = LogManager.getLogger("JEF-Dev-Tools");

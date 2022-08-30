@@ -15,8 +15,6 @@ import io.quarkus.deployment.annotations.Record;
 import io.quarkus.deployment.builditem.nativeimage.ServiceProviderBuildItem;
 import io.quarkus.deployment.pkg.builditem.CurateOutcomeBuildItem;
 import io.quarkus.devconsole.spi.DevConsoleRuntimeTemplateInfoBuildItem;
-import io.quarkus.runtime.LaunchMode;
-import io.quarkus.runtime.configuration.ProfileManager;
 
 @SuppressWarnings("unused")
 public class JefDevConsoleProcessor {
@@ -38,17 +36,19 @@ public class JefDevConsoleProcessor {
                 recorder.getSupplier()));
     }
 
-/*    @BuildStep(onlyIf = IsDevelopment.class)
-    void enableService(CurateOutcomeBuildItem item,
-            BuildProducer<DevConsoleRuntimeTemplateInfoBuildItem> producer) {
-        logger.debug("Checking dev services for JEF");
-        if (LaunchMode.current() != LaunchMode.DEVELOPMENT) {
-            logger.debug("Enable dev services for JEF");
-            ProfileManager.setLaunchMode(LaunchMode.DEVELOPMENT);
-        } else {
-            logger.debug("Dev services for JEF already enabled");
-        }
-    }*/
+    /*
+     * @BuildStep(onlyIf = IsDevelopment.class)
+     * void enableService(CurateOutcomeBuildItem item,
+     * BuildProducer<DevConsoleRuntimeTemplateInfoBuildItem> producer) {
+     * logger.debug("Checking dev services for JEF");
+     * if (LaunchMode.current() != LaunchMode.DEVELOPMENT) {
+     * logger.debug("Enable dev services for JEF");
+     * ProfileManager.setLaunchMode(LaunchMode.DEVELOPMENT);
+     * } else {
+     * logger.debug("Dev services for JEF already enabled");
+     * }
+     * }
+     */
 
     @BuildStep(onlyIf = IsDevelopment.class)
     public void registerSPI(BuildProducer<ServiceProviderBuildItem> spis) {

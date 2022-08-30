@@ -8,6 +8,7 @@ import java.util.Map;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import io.quarkiverse.jef.java.embedded.framework.linux.core.NativeIOException;
 import io.quarkiverse.jef.java.embedded.framework.linux.core.OneWireDevice;
 import io.quarkiverse.jef.java.embedded.framework.linux.spi.SpiBus;
 import io.quarkiverse.jef.java.embedded.framework.mcu.core.boards.Board;
@@ -103,6 +104,20 @@ public class JefDevContainer {
             result.add(new OneWireRecord(item.getKey(), item.getValue()));
         }
 
+        return result;
+    }
+
+    public List<GpioMapHolder> getGpioRecords() {
+        List<GpioMapHolder> result = new ArrayList<>();
+        Map<String, String> buses = gpioManager.getBuses();
+        for (Map.Entry<String, String> entry : buses.entrySet()) {
+            String path = entry.getValue();
+            try {
+                result.add(new GpioMapHolder(entry.getKey(), entry.getValue(), gpioManager));
+            } catch (NativeIOException e) {
+                logger.error("Unable to read GPIO map", e);
+            }
+        }
         return result;
     }
 

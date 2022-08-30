@@ -1,1 +1,59 @@
-GPIO
+{#include main}
+{#title}GPIO information{/title}
+{#body}
+{#for gpio in info:jefDevContainer.gpioRecords}
+<table class="table table-striped">
+    <thead class="thead-dark">
+    <tr>
+        <td colspan="2"><h2>{gpio.name}</h2></td>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td colspan="2">Attributes</td>
+    </tr>
+    <tr>
+        <td>Path</td>
+        <td width="100%">{gpio.path}</td>
+    </tr>
+    <tr>
+        <td>System&nbsp;Name</td>
+        <td>{gpio.systemName}</td>
+    </tr>
+    <tr>
+        <td>System&nbsp;Label</td>
+        <td>{gpio.systemLabel}</td>
+    </tr>
+    <tr>
+        <td>Lines</td>
+        <td>{gpio.lines}</td>
+    </tr>
+    <tr>
+        <td colspan="2">
+            <table>
+                <thead class="thead-dark">
+                <tr>
+                    <td><b>#</b></td>
+                    <td><b>Name</b></td>
+                    <td><b>Consumer</b></td>
+                    <td><b>Direction</b></td>
+                    <td><b>Flags</b></td>
+                </tr>
+                </thead>
+                {#for record in gpio.pins}
+                <tr>
+                    <td>{record.pinNumber}</td>
+                    <td>{record.name}</td>
+                    <td>{record.consumer}</td>
+                    <td>{record.direction}</td>
+                    <td>{record.flags}</td>
+                </tr>
+                {/for}
+            </table>
+        </td>
+    </tr>
+    </tbody>
+</table>
+{/for}
+{/body}
+{/include}
