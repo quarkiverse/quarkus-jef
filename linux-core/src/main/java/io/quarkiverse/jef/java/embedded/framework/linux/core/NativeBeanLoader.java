@@ -20,7 +20,7 @@ class NativeBeanLoader<S> {
                 service.getName(),
                 LinuxUtils.isNative() ? "native" : "java"));
 
-        ServiceLoader<S> loader = ServiceLoader.load(service);
+        ServiceLoader<S> loader = ServiceLoader.load(service, service.getClassLoader());
         Iterator<S> iterator = loader.iterator();
         while (iterator.hasNext()) {
             try {
