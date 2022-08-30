@@ -1,1 +1,20 @@
-Serial
+{#include main}
+{#title}SPI Buses{/title}
+{#body}
+<table class="table table-striped">
+    <thead class="thead-dark">
+    <tr>
+        <th scope="col">Path</th>
+        <th scope="col">Speed</th>
+    </thead>
+    <tbody>
+    {#for bus in info:jefDevContainer.serialBuses}
+    <tr>
+        <td>{bus.path}</td>
+        <td>{bus.serialBaudRate}</td>
+    </tr>
+    {/for}
+    </tbody>
+</table>
+{/body}
+{/include}

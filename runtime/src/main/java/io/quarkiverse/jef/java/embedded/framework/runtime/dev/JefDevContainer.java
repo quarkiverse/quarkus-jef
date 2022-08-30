@@ -10,6 +10,7 @@ import org.apache.logging.log4j.Logger;
 
 import io.quarkiverse.jef.java.embedded.framework.linux.core.NativeIOException;
 import io.quarkiverse.jef.java.embedded.framework.linux.core.OneWireDevice;
+import io.quarkiverse.jef.java.embedded.framework.linux.serial.SerialBus;
 import io.quarkiverse.jef.java.embedded.framework.linux.spi.SpiBus;
 import io.quarkiverse.jef.java.embedded.framework.mcu.core.boards.Board;
 import io.quarkiverse.jef.java.embedded.framework.mcu.core.boards.BoardManager;
@@ -119,6 +120,10 @@ public class JefDevContainer {
             }
         }
         return result;
+    }
+
+    public List<SerialBus> getSerialBuses() {
+        return serialManager.getAll();
     }
 
     public List<SpiRecord> getSpiRecords() {
