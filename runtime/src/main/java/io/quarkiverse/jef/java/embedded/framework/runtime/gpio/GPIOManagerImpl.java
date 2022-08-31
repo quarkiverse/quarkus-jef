@@ -19,10 +19,10 @@ public class GPIOManagerImpl implements GPIOManager {
     private final Map<String, String> buses = new HashMap<>();
 
     public GPIOManagerImpl(GPIOsConfig cfg) {
-        logger.info("Create GPIOManagerImpl");
+        logger.debug("Create GPIOManagerImpl");
 
         if (cfg.defaultBus != null) {
-            logger.info("Default bus found");
+            logger.debug("Default bus found");
             processBus("<default>", cfg.defaultBus);
         }
 
@@ -34,7 +34,7 @@ public class GPIOManagerImpl implements GPIOManager {
 
     private void processBus(String name, GPIOConfig bus) {
         if (bus.enabled && bus.path.isPresent()) {
-            logger.info("add GPIO bus to list: {}", name);
+            logger.debug("add GPIO bus to list: {}", name);
             buses.put(name, bus.path.get());
         }
     }
@@ -46,7 +46,7 @@ public class GPIOManagerImpl implements GPIOManager {
 
     @Override
     public GpioPin getPin(String name, int number) {
-        logger.info("Get pin({}) from bus {}", number, name);
+        logger.debug("Get pin({}) from bus {}", number, name);
         String path = buses.get(name);
         if (path != null) {
             try {
