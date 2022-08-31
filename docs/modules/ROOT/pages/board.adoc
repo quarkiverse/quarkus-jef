@@ -1,4 +1,4 @@
-Before you start development you need to prepare your board
+Before you start development you need to prepare your embedded environment
 
 == Prepare Linux
 

@@ -1,5 +1,5 @@
 * xref:theory.adoc[Embedded Theory]
-* xref:board.adoc[Prepare Raspberry Pi Environment]
+* xref:board.adoc[Prepare Embedded Environment]
 * xref:index.adoc[Use Java Embedded Framework]
 * xref:dev.adoc[JEF Dev Services]
 * xref:architecture.adoc[Architecture]
