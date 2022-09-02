@@ -17,6 +17,7 @@
     <module>linux-native-core</module>
     <module>linux-mock</module>
     <module>device-library</module>
+    <module>tools</module>
     <module>mcu-core</module>
     <module>deployment</module>
     <module>runtime</module>
