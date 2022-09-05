@@ -1,11 +1,11 @@
 package io.quarkiverse.jef.java.embedded.framework.devices.library.rohm.bh750fvi;
 
-import java.io.IOException;
-import java.nio.ByteBuffer;
-
 import io.quarkiverse.jef.java.embedded.framework.linux.i2c.I2CBus;
 import io.quarkiverse.jef.java.embedded.framework.linux.i2c.I2CInterface;
 import io.quarkiverse.jef.java.embedded.framework.linux.i2c.SMBus;
+
+import java.io.IOException;
+import java.nio.ByteBuffer;
 
 // https://github.com/endail/BH1750
 // https://github.com/enjoyneering/BH1750FVI/blob/master/src/BH1750FVI.cpp
@@ -40,14 +40,16 @@ public class BH1750FVI {
         this.address = address;
         this.smbus = bus.select(address.value).getSmBus();
         this.resolution = Resolution.BH1750_CONTINUOUS_HIGH_RES_MODE;
+        this._accuracy = 1;
+        this._sensitivity = 1.2f;
     }
 
     public void setResolution(Resolution res) {
-
+        this.resolution = res;
     }
 
     public Resolution getResolution() {
-        return null;
+        return resolution;
     }
 
     public void setSensitivity(float sensitivity) throws IOException {
@@ -97,7 +99,7 @@ public class BH1750FVI {
 
         try {
 
-            face.write(ByteBuffer.wrap(new byte[] { resolution.getValue() }));
+            face.write(ByteBuffer.wrap(new byte[]{resolution.getValue()}));
             //smbus.writeByte(resolution.getValue());
         } catch (IOException e) {
             return BH1750_ERROR; //error handler, collision on the i2c bus
@@ -120,13 +122,13 @@ public class BH1750FVI {
                 break;
         }
 
-        /*
-         * try {
-         * Thread.sleep((int)integrationTime);
-         * } catch (InterruptedException e) {
-         * throw new RuntimeException(e);
-         * }
-         */
+
+        try {
+            Thread.sleep((int) integrationTime);
+        } catch (InterruptedException e) {
+           throw new RuntimeException(e);
+        }
+
         //delay(integrationTime);
 
         /*
@@ -138,7 +140,7 @@ public class BH1750FVI {
         byte[] buf = new byte[2];
         face.read(ByteBuffer.wrap(buf));
         //int rawLightLevel  = smbus.readByte() << 8 | smbus.readByte();
-        int rawLightLevel = buf[0] << 8 | buf[1];
+        int rawLightLevel = buf[0] & 0xFF << 8 | buf[1] & 0xFF;
 
         /* light level calculation, p.11 */
         switch (resolution) {

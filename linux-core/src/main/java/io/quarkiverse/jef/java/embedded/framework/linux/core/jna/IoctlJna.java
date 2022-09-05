@@ -132,18 +132,24 @@ public class IoctlJna extends Ioctl {
         int size = data.size();
 
         Memory ioctlData = new Memory(size);
-        Memory i2cSmbusData = new Memory(I2CSmbusData.SIZE);
-
         ioctlData.clear();
-        i2cSmbusData.clear();
 
-        ByteBuffer block = ByteBuffer.wrap(ptr.getData().getBlock());
+        Memory i2cSmbusData = null;
+        ByteBuffer block = null;
+        byte[] dataBlock = ptr.getData().getBlock();
 
-        log.log(Level.FINEST, "ioctl.smbus input block: ");
-        //log.log(Level.FINEST, ()-> dump(block));
+        if (dataBlock != null) {
+            i2cSmbusData = new Memory(I2CSmbusData.SIZE);
+            i2cSmbusData.clear();
 
-        if (ptr.getReadWrite() == I2C_SMBUS_WRITE) {
-            i2cSmbusData.write(0, block.array(), 0, block.limit());
+            block = ByteBuffer.wrap(dataBlock);
+
+            log.log(Level.FINEST, "ioctl.smbus input block: ");
+            //log.log(Level.FINEST, ()-> dump(block));
+
+            if (ptr.getReadWrite() == I2C_SMBUS_WRITE) {
+                i2cSmbusData.write(0, block.array(), 0, block.limit());
+            }
         }
 
         ioctlData.setByte(offsetRw, ptr.getReadWrite());
@@ -154,9 +160,11 @@ public class IoctlJna extends Ioctl {
 
         checkIOResult("ioctl:sm_bus", result);
 
-        byte[] byteArray = i2cSmbusData.getByteArray(0, I2CSmbusData.SIZE);
+        if (block != null) {
+            byte[] byteArray = i2cSmbusData.getByteArray(0, I2CSmbusData.SIZE);
 
-        block.put(byteArray, 0, byteArray.length);
+            block.put(byteArray, 0, byteArray.length);
+        }
 
         log.log(Level.FINEST, "ioctl.smbus output block: ");
         //log.log(Level.FINEST, ()-> dump(block));

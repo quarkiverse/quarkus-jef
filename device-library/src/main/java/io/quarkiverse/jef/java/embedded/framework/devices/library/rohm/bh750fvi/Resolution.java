@@ -9,7 +9,7 @@ public enum Resolution {
     BH1750_ONE_TIME_HIGH_RES_MODE_2(0x21), //one measurement & power down, 0.5 lx resolution
     BH1750_ONE_TIME_LOW_RES_MODE(0x23); //one measurement & power down, 4.0 lx resolution
 
-    private byte value;
+    private final byte value;
 
     Resolution(int value) {
         this.value = (byte) value;
