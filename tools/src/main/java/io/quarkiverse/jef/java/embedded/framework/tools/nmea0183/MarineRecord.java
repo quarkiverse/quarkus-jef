@@ -34,7 +34,7 @@ public abstract class MarineRecord {
             byte b = ch.get(0);
             ch.rewind();
             System.out.print((char) b);
-            if (b == '\n') {
+            if (b == '\r' || b == '\n' ) {
                 validateChecksum(chars.limit(chars.position()).rewind());
                 System.out.println();
                 break;
