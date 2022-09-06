@@ -1,11 +1,11 @@
 package io.quarkiverse.jef.java.embedded.framework.devices.library.rohm.bh750fvi;
 
+import java.io.IOException;
+import java.nio.ByteBuffer;
+
 import io.quarkiverse.jef.java.embedded.framework.linux.i2c.I2CBus;
 import io.quarkiverse.jef.java.embedded.framework.linux.i2c.I2CInterface;
 import io.quarkiverse.jef.java.embedded.framework.linux.i2c.SMBus;
-
-import java.io.IOException;
-import java.nio.ByteBuffer;
 
 // https://github.com/endail/BH1750
 // https://github.com/enjoyneering/BH1750FVI/blob/master/src/BH1750FVI.cpp
@@ -99,7 +99,7 @@ public class BH1750FVI {
 
         try {
 
-            face.write(ByteBuffer.wrap(new byte[]{resolution.getValue()}));
+            face.write(ByteBuffer.wrap(new byte[] { resolution.getValue() }));
             //smbus.writeByte(resolution.getValue());
         } catch (IOException e) {
             return BH1750_ERROR; //error handler, collision on the i2c bus
@@ -122,11 +122,10 @@ public class BH1750FVI {
                 break;
         }
 
-
         try {
             Thread.sleep((int) integrationTime);
         } catch (InterruptedException e) {
-           throw new RuntimeException(e);
+            throw new RuntimeException(e);
         }
 
         //delay(integrationTime);
