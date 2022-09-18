@@ -6,7 +6,7 @@
     <parent>
         <groupId>io.quarkiverse.jef</groupId>
         <artifactId>quarkus-java-embedded-framework-parent</artifactId>
-        <version>1.0.0-SNAPSHOT</version>
+        <version>999-SNAPSHOT</version>
     </parent>
     <artifactId>device-library</artifactId>
     <name>Java Embedded Framework - Device Library</name>

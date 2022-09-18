@@ -5,7 +5,7 @@
   <parent>
     <groupId>io.quarkiverse.jef</groupId>
     <artifactId>quarkus-java-embedded-framework-parent</artifactId>
-    <version>1.0.0-SNAPSHOT</version>
+    <version>999-SNAPSHOT</version>
   </parent>
   <artifactId>quarkus-java-embedded-framework-integration-tests</artifactId>
   <name>Quarkus - Java Embedded Framework - Integration Tests</name>
