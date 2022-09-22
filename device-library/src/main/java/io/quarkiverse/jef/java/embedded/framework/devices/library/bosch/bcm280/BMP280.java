@@ -38,6 +38,11 @@ public class BMP280 extends DeviceImpl {
             throw new IOException("Unknown chipset version: " + chipID);
         }
         calibrationData = getCalibrationData();
+        setPowerMode(PowerMode.BMP280_NORMAL_MODE);
+        setTemperatureOversampling(TemperatureOversampling.ULTRA_HIGH);
+        setPressureOversampling(PressureOversampling.ULTRA_HIGH);
+        setIrrFilter(IrrFilter.COEFF_16);
+        setStandbyTime(StandbyTime.STANDBY_TIME_250_MS);
     }
 
     /**
@@ -268,10 +273,13 @@ public class BMP280 extends DeviceImpl {
      * @throws IOException if i2c bus not allow this operation
      */
     public BMP280Data getBMP280Data() throws IOException {
-        for (;;) {
-            if (getMeasuringStatus() != 0) {
+        int c = 0;
+        while (getMeasuringStatus() == 0) {
+            if(c > 1000) {
                 break;
             }
+            Thread.yield();
+            c++;
         }
         BMP280RawData bmp280RawData = getRawData();
 
