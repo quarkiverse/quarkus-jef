@@ -33,10 +33,10 @@ public abstract class MarineRecord {
         while ((read = channel.read(ch)) != -1) {
             byte b = ch.get(0);
             ch.rewind();
-            System.out.print((char) b);
+            //System.out.print((char) b);
             if (b == '\r' || b == '\n') {
                 validateChecksum(chars.limit(chars.position()).rewind());
-                System.out.println();
+                //System.out.println();
                 break;
             } else if (b == ',') {
                 checksum = checksum ^ b;
