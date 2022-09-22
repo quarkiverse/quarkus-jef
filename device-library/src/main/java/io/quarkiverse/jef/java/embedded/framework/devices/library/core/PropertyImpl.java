@@ -154,7 +154,7 @@ class PropertyImpl implements Property {
         } else {
             throw new RuntimeException("Class classType '" + classType.getName() + "' not supported for '" + name() + "'");
         }
-        System.out.println("Class classType for " + name() + " is ok");
+        //System.out.println("Class classType for " + name() + " is ok");
     }
 
     @Override
@@ -172,7 +172,7 @@ class PropertyImpl implements Property {
 
     public void lock() {
         if (readMethod != null && writeMethod != null) {
-            System.out.println("property '" + name() + "' is in/out");
+            //System.out.println("property '" + name() + "' is in/out");
             final Class<?> readReturn = readMethod.getReturnType();
             final Class<?> writeReturn = writeMethod.getParameterTypes()[0];
             if (!readReturn.equals(writeReturn)) {
