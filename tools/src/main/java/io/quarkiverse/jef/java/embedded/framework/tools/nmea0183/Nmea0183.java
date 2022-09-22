@@ -42,8 +42,8 @@ public class Nmea0183 {
         buf.limit(3).rewind();
         channel.read(buf);
         String ident = StandardCharsets.UTF_8.decode(buf.rewind()).toString();
-        System.out.print(sat);
-        System.out.print(ident);
+        //System.out.print(sat);
+        //System.out.print(ident);
 
         MarineRecord record;
         switch (ident) {
@@ -78,7 +78,8 @@ public class Nmea0183 {
                 record = new ZDARecord();
                 break;
             default:
-                throw new IOException("Unable to parse record with prefix: " + ident);
+                return;
+                //throw new IOException("Unable to parse record with prefix: " + ident);
         }
         record.setSatellite(satellite);
         record.setChecksum(calculateChecksum(sat, ident));
