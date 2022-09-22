@@ -3,7 +3,8 @@ Before you start development you need to prepare your embedded environment
 == Prepare Linux
 
 [source,bash]
-apt update && apt upgrade -y
+sudo apt update -y
+sudo apt upgrade -y
 apt -y install \
     build-essential \
     libz-dev \
@@ -29,6 +30,7 @@ sudo su
 export GRAAL_VERSION="22.1.0"
 export GRAAL_JDK_VERSION="17"
 export ARCH_LINUX_AARCH64="linux-aarch64"
+export GRAAL_ARCHITECTURE=${ARCH_LINUX_AARCH64}
 export GRAAL_DOWNLOAD_PATH="https://github.com/graalvm/graalvm-ce-builds/releases/download/vm-${GRAAL_VERSION}/graalvm-ce-java${GRAAL_JDK_VERSION}-${GRAAL_ARCHITECTURE}-${GRAAL_VERSION}.tar.gz"
 export GRAAL_FILE="graalvm-ce-java${GRAAL_JDK_VERSION}-${GRAAL_ARCHITECTURE}-${GRAAL_VERSION}"
 export GRAAL_GZIP_FILE="${GRAAL_FILE}.tar.gz"
@@ -48,8 +50,8 @@ export PATH=$PATH:$GRAALVM_HOME
 export PATH=$PATH:$GRAALVM_HOME/bin
 echo "export JAVA_HOME=/usr/lib/jvm/graalvm/" >>/etc/profile
 echo "export GRAALVM_HOME=/usr/lib/jvm/graalvm/" >>/etc/profile
-echo "export PATH=\$PATH:\$GRAALVM_HOME" >>/etc/profile
-echo "export PATH=\$PATH:\$GRAALVM_HOME\bin" >>/etc/profile
+echo "export PATH=$PATH:$GRAALVM_HOME" >>/etc/profile
+echo "export PATH=$PATH:$GRAALVM_HOME/bin" >>/etc/profile
 export NATIVE_IMAGE_JAR="native-image-installable-svm-java${GRAAL_JDK_VERSION}-${GRAAL_ARCHITECTURE}-${GRAAL_VERSION}.jar"
 wget "https://github.com/graalvm/graalvm-ce-builds/releases/download/vm-${GRAAL_VERSION}/${NATIVE_IMAGE_JAR}" -P /tmp
 ${GRAALVM_HOME}/bin/gu -L install "/tmp/${NATIVE_IMAGE_JAR}"
@@ -79,7 +81,7 @@ echo "export PATH=$PATH:$M2_HOME/bin" >>/etc/profile
 == Install Samba
 For the remote development you need to share board folders to your PC
 [source,bash]
-sudo apt install samba samba-common-bin
+sudo apt -y install samba samba-common-bin
 
 Edit samba configuration file and save over Ctrl+X
 [source,bash]
