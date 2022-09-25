@@ -50,10 +50,11 @@ public class FullDuplexSpiBus extends AbstractSpiBus {
 
         log.log(Level.FINEST, () -> StringUtils.dump(input));
 
+        int length = input.capacity() + outputSize;
         SpiIocTransfer data = new SpiIocTransfer(
                 input,
                 output,
-                input.capacity() + outputSize,
+                length,
                 getClockFrequency(),
                 //clockFrequency,
                 (short) 0,
@@ -63,6 +64,9 @@ public class FullDuplexSpiBus extends AbstractSpiBus {
         int result = Ioctl.getInstance().ioctl(fd, data);
         if (result < 0) {
             throw new NativeIOException("Unable to read/write data to: " + bus);
+        }
+        if (result != length) {
+            throw new NativeIOException("SPI result length:" + result + " expected: " + length);
         }
 
         log.log(Level.FINEST, () -> StringUtils.dump(output));

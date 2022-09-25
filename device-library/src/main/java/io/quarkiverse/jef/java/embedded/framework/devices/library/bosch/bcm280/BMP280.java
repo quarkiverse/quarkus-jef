@@ -275,7 +275,7 @@ public class BMP280 extends DeviceImpl {
     public BMP280Data getBMP280Data() throws IOException {
         int c = 0;
         while (getMeasuringStatus() == 0) {
-            if(c > 1000) {
+            if (c > 1000) {
                 break;
             }
             Thread.yield();

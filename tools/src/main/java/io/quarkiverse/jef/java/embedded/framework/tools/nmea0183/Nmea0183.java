@@ -79,7 +79,7 @@ public class Nmea0183 {
                 break;
             default:
                 return;
-                //throw new IOException("Unable to parse record with prefix: " + ident);
+            //throw new IOException("Unable to parse record with prefix: " + ident);
         }
         record.setSatellite(satellite);
         record.setChecksum(calculateChecksum(sat, ident));
