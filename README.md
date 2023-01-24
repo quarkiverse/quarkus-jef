@@ -12,4 +12,7 @@ Quarkus - Java Embedded Framework is a Quarkus extension for the embedded hardwa
 
 ## User Documentation
 
-https://quarkiverse.github.io/quarkiverse-docs/quarkus-java-embedded-framework/dev/index.html
+User Docs [available here](https://quarkiverse.github.io/quarkiverse-docs/quarkus-java-embedded-framework/dev/index.html)
+
+## Examples
+Application with examples for SPI/I2C/Serial ports with SPA user interface(vue.js) [available here](https://github.com/alexeysharandin/quarkus-jef-example)
