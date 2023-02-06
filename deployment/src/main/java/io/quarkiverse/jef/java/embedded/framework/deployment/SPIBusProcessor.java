@@ -4,7 +4,7 @@ import static io.quarkiverse.jef.java.embedded.framework.deployment.JefDeploymen
 import static io.quarkus.arc.deployment.ValidationPhaseBuildItem.ValidationErrorBuildItem;
 import static io.quarkus.deployment.annotations.ExecutionTime.STATIC_INIT;
 
-import javax.enterprise.context.ApplicationScoped;
+import jakarta.enterprise.context.ApplicationScoped;
 
 import io.quarkiverse.jef.java.embedded.framework.runtime.config.SPIBusesConfig;
 import io.quarkiverse.jef.java.embedded.framework.runtime.spi.SPI;

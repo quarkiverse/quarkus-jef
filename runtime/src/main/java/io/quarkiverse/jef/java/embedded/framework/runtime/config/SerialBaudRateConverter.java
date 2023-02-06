@@ -2,9 +2,8 @@ package io.quarkiverse.jef.java.embedded.framework.runtime.config;
 
 import static io.quarkus.runtime.configuration.ConverterSupport.DEFAULT_QUARKUS_CONVERTER_PRIORITY;
 
+import jakarta.annotation.Priority;
 import java.io.Serializable;
-
-import javax.annotation.Priority;
 
 import org.eclipse.microprofile.config.spi.Converter;
 

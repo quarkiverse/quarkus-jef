@@ -3,7 +3,7 @@ package io.quarkiverse.jef.java.embedded.framework.deployment;
 import static io.quarkiverse.jef.java.embedded.framework.deployment.JefDeploymentConstants.ONE_WIRE_NAME;
 import static io.quarkus.deployment.annotations.ExecutionTime.STATIC_INIT;
 
-import javax.enterprise.context.ApplicationScoped;
+import jakarta.enterprise.context.ApplicationScoped;
 
 import io.quarkiverse.jef.java.embedded.framework.runtime.config.OneWiresConfig;
 import io.quarkiverse.jef.java.embedded.framework.runtime.onewire.OneWire;

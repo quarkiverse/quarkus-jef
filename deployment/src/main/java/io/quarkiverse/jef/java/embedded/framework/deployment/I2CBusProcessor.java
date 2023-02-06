@@ -3,7 +3,7 @@ package io.quarkiverse.jef.java.embedded.framework.deployment;
 import static io.quarkiverse.jef.java.embedded.framework.deployment.JefDeploymentConstants.I2C_BUS_NAME;
 import static io.quarkus.deployment.annotations.ExecutionTime.STATIC_INIT;
 
-import javax.enterprise.context.ApplicationScoped;
+import jakarta.enterprise.context.ApplicationScoped;
 
 import io.quarkiverse.jef.java.embedded.framework.runtime.config.I2CBusesConfig;
 import io.quarkiverse.jef.java.embedded.framework.runtime.i2c.I2C;
