@@ -22,7 +22,7 @@
     <module>runtime</module>
   </modules>
   <scm>
-    <connection>:git:git@github.com:quarkiverse/quarkus-jef.git</connection>
+    <connection>scm:git:git@github.com:quarkiverse/quarkus-jef.git</connection>
     <developerConnection>scm:git:git@github.com:quarkiverse/quarkus-jef.git</developerConnection>
     <url>https://github.com/quarkiverse/quarkus-jef</url>
   </scm>
