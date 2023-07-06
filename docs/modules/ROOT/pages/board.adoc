@@ -3,6 +3,7 @@ Before you start development you need to prepare your embedded environment
 == Prepare Linux
 
 [source,bash]
+----
 sudo apt update -y
 sudo apt upgrade -y
 apt -y install \
@@ -15,7 +16,7 @@ apt -y install \
     curl \
     wget \
     linux-generic
-
+----
 
 == Install GraalVM
 
@@ -26,6 +27,7 @@ to the latest if needed
 ===============================
 
 [source,bash]
+----
 sudo su
 export GRAAL_VERSION="22.1.0"
 export GRAAL_JDK_VERSION="17"
@@ -56,6 +58,7 @@ export NATIVE_IMAGE_JAR="native-image-installable-svm-java${GRAAL_JDK_VERSION}-$
 wget "https://github.com/graalvm/graalvm-ce-builds/releases/download/vm-${GRAAL_VERSION}/${NATIVE_IMAGE_JAR}" -P /tmp
 ${GRAALVM_HOME}/bin/gu -L install "/tmp/${NATIVE_IMAGE_JAR}"
 rm "/tmp/${NATIVE_IMAGE_JAR}"
+----
 
 == Install Maven
 [NOTE]
@@ -64,6 +67,7 @@ Please update *MAVEN_VERSION* value
 to the latest if needed
 ===============================
 [source,bash]
+----
 export MAVEN_VERSION="3.8.6"
 wget "https://dlcdn.apache.org/maven/maven-3/${MAVEN_VERSION}/binaries/apache-maven-${MAVEN_VERSION}-bin.tar.gz" -P /tmp
 tar -xvzf "/tmp/apache-maven-${MAVEN_VERSION}-bin.tar.gz" -C /tmp
@@ -77,14 +81,18 @@ export PATH=$PATH:$M2_HOME/bin
 echo "export M2_HOME=/usr/lib/maven" >>/etc/profile
 echo "export PATH=$PATH:$M2_HOME" >>/etc/profile
 echo "export PATH=$PATH:$M2_HOME/bin" >>/etc/profile
+----
 
 == Install Samba
 For the remote development you need to share board folders to your PC
 [source,bash]
+----
 sudo apt -y install samba samba-common-bin
+----
 
 Edit samba configuration file and save over Ctrl+X
 [source,bash]
+----
 sudo nano /etc/samba/smb.conf
 [board]
 comment = My Board
@@ -94,9 +102,12 @@ writeable = yes
 force create mode = 0777
 force directory mode = 0777
 public = yes
+----
 
 and reboot
 [source,bash]
+----
 sudo systemctl restart smbd
+----
 
 Congratulations! Your environment is ready.
