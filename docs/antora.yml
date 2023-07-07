@@ -1,5 +1,5 @@
 name: quarkus-java-embedded-framework
-title: Quarkus - Java Embedded Framework
+title: Java Embedded Framework
 version: dev
 nav:
   - modules/ROOT/nav.adoc
