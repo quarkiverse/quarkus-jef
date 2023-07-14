@@ -8,7 +8,7 @@
   </parent>
   <groupId>io.quarkiverse.jef</groupId>
   <artifactId>quarkus-java-embedded-framework-parent</artifactId>
-  <version>999-SNAPSHOT</version>
+  <version>3.0.2</version>
   <packaging>pom</packaging>
   <name>Quarkus - Java Embedded Framework - Parent</name>
   <modules>
@@ -25,6 +25,7 @@
     <connection>scm:git:git@github.com:quarkiverse/quarkus-jef.git</connection>
     <developerConnection>scm:git:git@github.com:quarkiverse/quarkus-jef.git</developerConnection>
     <url>https://github.com/quarkiverse/quarkus-jef</url>
+    <tag>3.0.2</tag>
   </scm>
   <properties>
     <compiler-plugin.version>3.8.1</compiler-plugin.version>
