@@ -1,11 +1,13 @@
-== Enable  Linux Event Tracing
+== Enable Linux Event Tracing
 To track what commands or data send to buses or from buses you need to enable linux tracing debugfs
 
 === Enable I2C tracing
 [source,bash]
+----
 sudo su
 echo 'i2c:*' > /sys/kernel/debug/tracing/set_event
 echo 'smbus:*' > /sys/kernel/debug/tracing/set_event
+----
 
 [NOTE]
 ===============================
@@ -15,8 +17,10 @@ All events will be available in `/sys/kernel/debug/tracing/trace` with labels:
 
 === Enable SPI tracing
 [source,bash]
+----
 sudo su
 echo 'spi:*' > /sys/kernel/debug/tracing/set_event
+----
 
 [NOTE]
 ===============================
@@ -26,8 +30,10 @@ All events will be available in `/sys/kernel/debug/tracing/trace` with label:
 
 === Enable GPIO/OneWire tracing
 [source,bash]
+----
 sudo su
 echo 'gpio:*' > /sys/kernel/debug/tracing/set_event
+----
 
 [NOTE]
 ===============================
@@ -39,23 +45,27 @@ These commands will enable logging only for current linux session and will be di
 If you want to add  tracing logging permanently please add commands to cmdline boot options.
 For example in RaspberryPi need to update `/boot/cmdline.txt` and add tracing in the format below:
 [source,bash]
+----
 trace_evace_event=i2c:*,smbus:*,spi:*,gpio:*
+----
 
-== Java Embeded Framework Dev Services
+== Java Embedded Framework Dev Services
 When you compile your application with `quarkus:dev` Quarkus will enable Dev Services for JEF Extension
 
 
 [NOTE]
 ===============================
-For the remote debuging from your development machine you need to run Quarkus via
+For the remote debugging from your development machine you need to run Quarkus via
 [source,bash]
+----
 mvn compile quarkus:dev -Dmaven.test.skip=true -DdebugHost=0.0.0.0
+----
 
 In this case `/q/dev` and remote debugging will be available from remote machine
 ===============================
 
 JEF DevServices widget will look like:
 
-image::images/devservicewidget.png["Dev Services widget"]
+image::devservicewidget.png["Dev Services widget"]
 
 Some additional information about interfaces will be available if you click to the links.
