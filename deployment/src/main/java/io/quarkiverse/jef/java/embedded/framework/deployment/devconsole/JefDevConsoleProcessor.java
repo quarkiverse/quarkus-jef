@@ -14,13 +14,13 @@ import io.quarkus.deployment.annotations.ExecutionTime;
 import io.quarkus.deployment.annotations.Record;
 import io.quarkus.deployment.builditem.nativeimage.ServiceProviderBuildItem;
 import io.quarkus.deployment.pkg.builditem.CurateOutcomeBuildItem;
-import io.quarkus.devconsole.spi.DevConsoleRuntimeTemplateInfoBuildItem;
+//import io.quarkus.devconsole.spi.DevConsoleRuntimeTemplateInfoBuildItem;
 
 @SuppressWarnings("unused")
 public class JefDevConsoleProcessor {
     private final static Logger logger = LogManager.getLogger("JEF-Dev-Tools");
 
-    @BuildStep(onlyIf = IsDevelopment.class)
+/*    @BuildStep(onlyIf = IsDevelopment.class)
     @Record(ExecutionTime.RUNTIME_INIT)
     public void exposeJefContainer(
             BuildProducer<DevConsoleRuntimeTemplateInfoBuildItem> producer,
@@ -34,7 +34,7 @@ public class JefDevConsoleProcessor {
                 "quarkus-java-embedded-framework",
                 "jefDevContainer",
                 recorder.getSupplier()));
-    }
+    }*/
 
     /*
      * @BuildStep(onlyIf = IsDevelopment.class)
