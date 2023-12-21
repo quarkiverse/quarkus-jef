@@ -13,7 +13,7 @@
     <properties>
         <powermock.version>2.0.2</powermock.version>
         <junit.version>5.10.1</junit.version>
-        <logmanager.version>3.0.3.Final</logmanager.version>
+        <logmanager.version>3.0.4.Final</logmanager.version>
     </properties>
 
     <dependencies>
