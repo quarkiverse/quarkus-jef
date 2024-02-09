@@ -12,7 +12,7 @@
 
     <properties>
         <powermock.version>2.0.2</powermock.version>
-        <junit.version>5.10.1</junit.version>
+        <junit.version>5.10.2</junit.version>
         <logmanager.version>3.0.4.Final</logmanager.version>
     </properties>
 
@@ -55,7 +55,7 @@
             </plugin>
             <plugin>
                 <artifactId>maven-surefire-plugin</artifactId>
-                <version>3.2.3</version>
+                <version>3.2.5</version>
                 <configuration>
                     <systemProperties>
                         <property>
