@@ -4,9 +4,9 @@ import java.io.File;
 
 import org.graalvm.nativeimage.hosted.Feature;
 
-import com.oracle.svm.core.annotate.AutomaticFeature;
+//import com.oracle.svm.core.annotate.AutomaticFeature;
 
-@AutomaticFeature
+//@AutomaticFeature
 public class LinuxCoreRegistrationFeature implements Feature {
     @Override
     public void beforeAnalysis(BeforeAnalysisAccess access) {
