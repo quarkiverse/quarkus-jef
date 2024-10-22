@@ -9,7 +9,7 @@
     <artifactId>tools</artifactId>
     <name>Java Embedded Framework - Tools Library</name>
     <properties>
-        <junit.version>5.11.1</junit.version>
+        <junit.version>5.11.3</junit.version>
     </properties>
 
     <dependencies>
