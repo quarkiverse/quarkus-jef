@@ -3,20 +3,19 @@ package io.quarkiverse.jef.java.embedded.framework.runtime.config;
 import java.util.Optional;
 
 import io.quarkus.runtime.annotations.ConfigGroup;
-import io.quarkus.runtime.annotations.ConfigItem;
+import io.smallrye.config.WithDefault;
 
 @ConfigGroup
-public class GPIOConfig {
+public interface GPIOConfig {
     /**
      * Enable bus
      */
-    @ConfigItem(defaultValue = "false")
-    public boolean enabled;
+    @WithDefault("false")
+    boolean enabled();
 
     /**
      * Path to /dev/gpio*
      */
-    @ConfigItem
-    public Optional<String> path;
+    Optional<String> path();
 
 }

@@ -55,7 +55,6 @@ public class GPIOProcessor extends AbstractProcessor {
                 validationErrors,
                 GPIO_NAME,
                 "GPIO",
-                config.defaultBus,
-                config.namedBuses.keySet());
+                config.buses().keySet());
     }
 }

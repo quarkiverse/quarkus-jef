@@ -20,22 +20,16 @@ public class GPIOManagerImpl implements GPIOManager {
 
     public GPIOManagerImpl(GPIOsConfig cfg) {
         logger.debug("Create GPIOManagerImpl");
-
-        if (cfg.defaultBus != null) {
-            logger.debug("Default bus found");
-            processBus("<default>", cfg.defaultBus);
-        }
-
-        for (Map.Entry<String, GPIOConfig> entry : cfg.namedBuses.entrySet()) {
+        for (Map.Entry<String, GPIOConfig> entry : cfg.buses().entrySet()) {
             GPIOConfig config = entry.getValue();
             processBus(entry.getKey(), config);
         }
     }
 
     private void processBus(String name, GPIOConfig bus) {
-        if (bus.enabled && bus.path.isPresent()) {
+        if (bus.enabled() && bus.path().isPresent()) {
             logger.debug("add GPIO bus to list: {}", name);
-            buses.put(name, bus.path.get());
+            buses.put(name, bus.path().get());
         }
     }
 

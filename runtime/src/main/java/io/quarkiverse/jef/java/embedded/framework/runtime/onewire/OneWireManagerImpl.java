@@ -11,15 +11,15 @@ public class OneWireManagerImpl implements OneWireManager {
     private final Map<String, OneWireDevice> devices = new HashMap<>();
 
     public OneWireManagerImpl(OneWiresConfig cfg) {
-        for (Map.Entry<String, OneWireConfig> entry : cfg.namedWires.entrySet()) {
+        for (Map.Entry<String, OneWireConfig> entry : cfg.namedWires().entrySet()) {
             OneWireConfig config = entry.getValue();
             processWire(entry.getKey(), config);
         }
     }
 
     private void processWire(String key, OneWireConfig config) {
-        if (config.enabled && config.path.isPresent()) {
-            String path = config.path.get();
+        if (config.enabled() && config.path().isPresent()) {
+            String path = config.path().get();
             devices.put(key, new OneWireDevice(path));
         }
     }

@@ -1,31 +1,23 @@
 package io.quarkiverse.jef.java.embedded.framework.runtime.config;
 
 import java.util.Map;
-import java.util.Objects;
 
 import io.quarkus.runtime.annotations.*;
+import io.smallrye.config.ConfigMapping;
+import io.smallrye.config.WithDefaults;
+import io.smallrye.config.WithParentName;
+import io.smallrye.config.WithUnnamedKey;
 
-@ConfigRoot(name = "jef.spi", phase = ConfigPhase.BUILD_TIME)
-public class SPIBusesConfig {
+@ConfigRoot(phase = ConfigPhase.BUILD_AND_RUN_TIME_FIXED)
+@ConfigMapping(prefix = "quarkus.jef.spi")
+public interface SPIBusesConfig {
     /**
-     * The default spi bus.
-     */
-    @ConfigItem(name = ConfigItem.PARENT)
-    public SPIBusConfig defaultBus;
-
-    /**
-     * Additional named SPIs.
+     * SPI buses.
      */
     @ConfigDocSection
     @ConfigDocMapKey("i2c-name")
-    @ConfigItem(name = ConfigItem.PARENT)
-    public Map<String, SPIBusConfig> namedBuses;
-
-    public SPIBusConfig getRuntimeConfig(String name) {
-        if ("<default>".equals(name)) {
-            return defaultBus;
-        }
-        SPIBusConfig cfg = namedBuses.get(name);
-        return Objects.requireNonNullElseGet(cfg, SPIBusConfig::new);
-    }
+    @WithParentName
+    @WithDefaults
+    @WithUnnamedKey(ConfigConstants.DEFAULT_NAME)
+    Map<String, SPIBusConfig> buses();
 }

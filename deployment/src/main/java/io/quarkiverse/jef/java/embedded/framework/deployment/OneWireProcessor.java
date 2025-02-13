@@ -55,7 +55,6 @@ public class OneWireProcessor extends AbstractProcessor {
                 validationErrors,
                 ONE_WIRE_NAME,
                 "OneWire",
-                null,
-                config.namedWires.keySet());
+                config.namedWires().keySet());
     }
 }
