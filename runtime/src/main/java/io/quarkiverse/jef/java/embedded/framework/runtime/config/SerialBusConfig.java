@@ -4,28 +4,27 @@ import java.util.Optional;
 
 import io.quarkiverse.jef.java.embedded.framework.linux.serial.SerialBaudRate;
 import io.quarkus.runtime.annotations.ConfigGroup;
-import io.quarkus.runtime.annotations.ConfigItem;
-import io.quarkus.runtime.annotations.ConvertWith;
+import io.smallrye.config.WithConverter;
+import io.smallrye.config.WithDefault;
 
 @ConfigGroup
-public class SerialBusConfig {
+public interface SerialBusConfig {
     /**
      * Enable bus
      */
-    @ConfigItem(defaultValue = "false")
-    public boolean enabled;
+    @WithDefault("false")
+    public boolean enabled();
 
     /**
      * Path to I2C bus i.e /dev/something
      */
-    @ConfigItem
-    public Optional<String> path;
+    public Optional<String> path();
 
     /**
      * Port speed
      */
-    @ConfigItem(name = "baud-rate", defaultValue = "B9600")
-    @ConvertWith(SerialBaudRateConverter.class)
-    public SerialBaudRate baudRate;
+    @WithDefault("B9600")
+    @WithConverter(SerialBaudRateConverter.class)
+    public SerialBaudRate baudRate();
 
 }
