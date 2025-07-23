@@ -1,32 +1,24 @@
 package io.quarkiverse.jef.java.embedded.framework.runtime.config;
 
 import java.util.Map;
-import java.util.Objects;
 
 import io.quarkus.runtime.annotations.*;
+import io.smallrye.config.ConfigMapping;
+import io.smallrye.config.WithDefaults;
+import io.smallrye.config.WithParentName;
+import io.smallrye.config.WithUnnamedKey;
 
-@ConfigRoot(name = "jef.i2c", phase = ConfigPhase.BUILD_TIME)
-public class I2CBusesConfig {
-    /**
-     * The default i2c bus.
-     */
-    @ConfigItem(name = ConfigItem.PARENT)
-    public I2CBusConfig defaultBus;
+@ConfigRoot(phase = ConfigPhase.BUILD_AND_RUN_TIME_FIXED)
+@ConfigMapping(prefix = "quarkus.jef.i2c")
+public interface I2CBusesConfig {
 
     /**
-     * Additional named I2Cs.
+     * I2C buses.
      */
     @ConfigDocSection
     @ConfigDocMapKey("i2c-name")
-    @ConfigItem(name = ConfigItem.PARENT)
-    public Map<String, I2CBusConfig> namedBuses;
-
-    public I2CBusConfig getRuntimeConfig(String name) {
-        if ("<default>".equals(name)) {
-            return defaultBus;
-        }
-        I2CBusConfig cfg = namedBuses.get(name);
-        return Objects.requireNonNullElseGet(cfg, I2CBusConfig::new);
-    }
-
+    @WithParentName
+    @WithDefaults
+    @WithUnnamedKey(ConfigConstants.DEFAULT_NAME)
+    Map<String, I2CBusConfig> buses();
 }

@@ -4,12 +4,14 @@ import static org.jboss.jandex.AnnotationTarget.Kind.METHOD;
 
 import java.util.HashSet;
 import java.util.Set;
+import java.util.TreeSet;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.jboss.jandex.AnnotationInstance;
 import org.jboss.jandex.DotName;
 
+import io.quarkiverse.jef.java.embedded.framework.runtime.config.ConfigConstants;
 import io.quarkus.arc.deployment.ValidationPhaseBuildItem;
 import io.quarkus.deployment.annotations.BuildProducer;
 import io.quarkus.deployment.builditem.CombinedIndexBuildItem;
@@ -22,15 +24,12 @@ public abstract class AbstractProcessor {
             BuildProducer<ValidationPhaseBuildItem.ValidationErrorBuildItem> validationErrors,
             DotName annotation,
             String topic,
-            Object defaultObject,
             Set<String> names) {
         Set<String> errors = new HashSet<>();
         Set<String> buses = new HashSet<>(names);
-        Set<String> unused = new HashSet<>(buses);
-
-        if (defaultObject != null) {
-            buses.add("<default>");
-        }
+        // the default bus is part of the map and we want to ignore it
+        buses.remove(ConfigConstants.DEFAULT_NAME);
+        Set<String> unused = new TreeSet<>(buses);
 
         for (AnnotationInstance binding : combinedIndex.getIndex().getAnnotations(annotation)) {
             String name = binding.value("name").asString();
@@ -45,7 +44,7 @@ public abstract class AbstractProcessor {
             }
         }
 
-        if (unused.size() > 0) {
+        if (!unused.isEmpty()) {
             logger.warn("{} buses {} declared in config but never used in code", topic, String.join(",", unused));
         }
 

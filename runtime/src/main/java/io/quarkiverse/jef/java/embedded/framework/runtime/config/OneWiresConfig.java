@@ -3,14 +3,17 @@ package io.quarkiverse.jef.java.embedded.framework.runtime.config;
 import java.util.Map;
 
 import io.quarkus.runtime.annotations.*;
+import io.smallrye.config.ConfigMapping;
+import io.smallrye.config.WithParentName;
 
-@ConfigRoot(name = "jef.onewire", phase = ConfigPhase.BUILD_TIME)
-public class OneWiresConfig {
+@ConfigRoot(phase = ConfigPhase.BUILD_AND_RUN_TIME_FIXED)
+@ConfigMapping(prefix = "quarkus.jef.onewire")
+public interface OneWiresConfig {
     /**
      * Additional named one wires.
      */
     @ConfigDocSection
     @ConfigDocMapKey("onewire-name")
-    @ConfigItem(name = ConfigItem.PARENT)
-    public Map<String, OneWireConfig> namedWires;
+    @WithParentName
+    Map<String, OneWireConfig> namedWires();
 }

@@ -18,11 +18,7 @@ public class SerialBusManagerImpl implements SerialBusManager {
     private final Map<String, SerialBus> buses = new HashMap<>();
 
     public SerialBusManagerImpl(SerialBusesConfig cfg) {
-        if (cfg.defaultBus != null) {
-            processBus("<default>", cfg.defaultBus);
-        }
-
-        for (Map.Entry<String, SerialBusConfig> entry : cfg.namedBuses.entrySet()) {
+        for (Map.Entry<String, SerialBusConfig> entry : cfg.buses().entrySet()) {
             SerialBusConfig config = entry.getValue();
             processBus(entry.getKey(), config);
         }
@@ -34,9 +30,9 @@ public class SerialBusManagerImpl implements SerialBusManager {
     }
 
     private void processBus(String name, SerialBusConfig config) {
-        if (config.enabled && config.path.isPresent()) {
+        if (config.enabled() && config.path().isPresent()) {
             try {
-                buses.put(name, SerialBus.create(config.path.get(), config.baudRate));
+                buses.put(name, SerialBus.create(config.path().get(), config.baudRate()));
             } catch (NativeIOException e) {
                 logger.error(e);
             }

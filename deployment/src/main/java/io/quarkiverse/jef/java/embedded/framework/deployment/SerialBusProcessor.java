@@ -56,7 +56,6 @@ public class SerialBusProcessor extends AbstractProcessor {
                 validationErrors,
                 SERIAL_BUS_NAME,
                 "Serial",
-                config.defaultBus,
-                config.namedBuses.keySet());
+                config.buses().keySet());
     }
 }

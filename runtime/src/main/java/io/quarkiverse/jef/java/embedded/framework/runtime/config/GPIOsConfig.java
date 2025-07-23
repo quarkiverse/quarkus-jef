@@ -1,31 +1,27 @@
 package io.quarkiverse.jef.java.embedded.framework.runtime.config;
 
 import java.util.Map;
-import java.util.Objects;
 
-import io.quarkus.runtime.annotations.*;
+import io.quarkus.runtime.annotations.ConfigDocMapKey;
+import io.quarkus.runtime.annotations.ConfigDocSection;
+import io.quarkus.runtime.annotations.ConfigPhase;
+import io.quarkus.runtime.annotations.ConfigRoot;
+import io.smallrye.config.ConfigMapping;
+import io.smallrye.config.WithDefaults;
+import io.smallrye.config.WithParentName;
+import io.smallrye.config.WithUnnamedKey;
 
-@ConfigRoot(name = "jef.gpio", phase = ConfigPhase.BUILD_TIME)
-public class GPIOsConfig {
+@ConfigRoot(phase = ConfigPhase.BUILD_AND_RUN_TIME_FIXED)
+@ConfigMapping(prefix = "quarkus.jef.gpio")
+public interface GPIOsConfig {
+
     /**
-     * The default gpio bus.
-     */
-    @ConfigItem(name = ConfigItem.PARENT)
-    public GPIOConfig defaultBus;
-
-    /**
-     * Additional named GPIOs.
+     * GPIO buses.
      */
     @ConfigDocSection
     @ConfigDocMapKey("i2c-name")
-    @ConfigItem(name = ConfigItem.PARENT)
-    public Map<String, GPIOConfig> namedBuses;
-
-    public GPIOConfig getRuntimeConfig(String name) {
-        if ("<default>".equals(name)) {
-            return defaultBus;
-        }
-        GPIOConfig cfg = namedBuses.get(name);
-        return Objects.requireNonNullElseGet(cfg, GPIOConfig::new);
-    }
+    @WithParentName
+    @WithDefaults
+    @WithUnnamedKey(ConfigConstants.DEFAULT_NAME)
+    Map<String, GPIOConfig> buses();
 }

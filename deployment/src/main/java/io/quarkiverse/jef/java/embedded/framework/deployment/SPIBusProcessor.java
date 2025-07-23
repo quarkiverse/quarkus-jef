@@ -56,7 +56,6 @@ public class SPIBusProcessor extends AbstractProcessor {
                 validationErrors,
                 SPI_BUS_NAME,
                 "SPI",
-                config.defaultBus,
-                config.namedBuses.keySet());
+                config.buses().keySet());
     }
 }

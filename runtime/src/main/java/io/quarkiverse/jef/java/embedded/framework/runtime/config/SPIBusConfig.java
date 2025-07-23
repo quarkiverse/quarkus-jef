@@ -4,28 +4,27 @@ import java.util.Optional;
 
 import io.quarkiverse.jef.java.embedded.framework.linux.spi.SpiMode;
 import io.quarkus.runtime.annotations.ConfigGroup;
-import io.quarkus.runtime.annotations.ConfigItem;
-import io.quarkus.runtime.annotations.ConvertWith;
+import io.smallrye.config.WithConverter;
+import io.smallrye.config.WithDefault;
 
 @ConfigGroup
-public class SPIBusConfig {
+public interface SPIBusConfig {
     /**
      * Enable bus
      */
-    @ConfigItem(defaultValue = "false")
-    public Boolean enabled;
+    @WithDefault("false")
+    Boolean enabled();
 
     /**
      * Path to SPI bus i.e /dev/spi-1
      */
-    @ConfigItem
-    public Optional<String> path;
+    Optional<String> path();
 
     /**
      * Clock Frequency
      */
-    @ConfigItem(name = "clock-frequency", defaultValue = "500000")
-    public Integer clockFrequency;
+    @WithDefault("500000")
+    Integer clockFrequency();
 
     /**
      * SPI modes:
@@ -35,31 +34,31 @@ public class SPIBusConfig {
      * SPI_MODE_3: CPOL = 1, CPHA = 1 mode
      * Default: SPI_MODE_3
      */
-    @ConfigItem(name = "spi-mode", defaultValue = "SPI_MODE_3")
-    @ConvertWith(SpiModeConverter.class)
-    public SpiMode spiMode;
+    @WithDefault("SPI_MODE_3")
+    @WithConverter(SpiModeConverter.class)
+    SpiMode spiMode();
 
     /**
      * Word length: Default 8 bits
      */
-    @ConfigItem(name = "word-length", defaultValue = "8")
-    public Integer wordLength;
+    @WithDefault("8")
+    Integer wordLength();
 
     /**
      * Bit ordering. Default: BIG_ENDIAN
      */
-    @ConfigItem(name = "bit-ordering", defaultValue = "BIG_ENDIAN")
-    @ConvertWith(BitOrderingConverter.class)
-    public BitOrdering bitOrdering;
+    @WithDefault("BIG_ENDIAN")
+    @WithConverter(BitOrderingConverter.class)
+    BitOrdering bitOrdering();
 
     /**
      * Work mode: half or full duplex
      */
-    @ConfigItem(name = "work-mode", defaultValue = "FULL_DUPLEX")
-    @ConvertWith(SpiWorkModeConverter.class)
-    public SpiWorkMode workMode;
+    @WithDefault("FULL_DUPLEX")
+    @WithConverter(SpiWorkModeConverter.class)
+    SpiWorkMode workMode();
 
-    public enum BitOrdering {
+    enum BitOrdering {
         BIG_ENDIAN(0),
         LITTLE_ENDIAN(1);
 
@@ -74,7 +73,7 @@ public class SPIBusConfig {
         }
     }
 
-    public enum SpiWorkMode {
+    enum SpiWorkMode {
         HALF_DUPLEX,
         FULL_DUPLEX;
     }

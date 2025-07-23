@@ -55,7 +55,6 @@ public class I2CBusProcessor extends AbstractProcessor {
                 validationErrors,
                 I2C_BUS_NAME,
                 "I2C",
-                config.defaultBus,
-                config.namedBuses.keySet());
+                config.buses().keySet());
     }
 }

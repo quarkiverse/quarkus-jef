@@ -1,39 +1,24 @@
 package io.quarkiverse.jef.java.embedded.framework.runtime.config;
 
 import java.util.Map;
-import java.util.Objects;
 
 import io.quarkus.runtime.annotations.*;
+import io.smallrye.config.ConfigMapping;
+import io.smallrye.config.WithDefaults;
+import io.smallrye.config.WithParentName;
+import io.smallrye.config.WithUnnamedKey;
 
-@ConfigRoot(name = "jef.serial", phase = ConfigPhase.BUILD_TIME)
-public class SerialBusesConfig {
-    /**
-     * The default serial bus.
-     */
-    @ConfigItem(name = ConfigItem.PARENT)
-    public SerialBusConfig defaultBus;
+@ConfigRoot(phase = ConfigPhase.BUILD_AND_RUN_TIME_FIXED)
+@ConfigMapping(prefix = "quarkus.jef.serial")
+public interface SerialBusesConfig {
 
     /**
-     * Additional named Serials.
+     * Serial buses.
      */
     @ConfigDocSection
     @ConfigDocMapKey("i2c-name")
-    @ConfigItem(name = ConfigItem.PARENT)
-    public Map<String, SerialBusConfig> namedBuses;
-
-    public SerialBusConfig getRuntimeConfig(String name) {
-        if ("<default>".equals(name)) {
-            return defaultBus;
-        }
-        SerialBusConfig cfg = namedBuses.get(name);
-        return Objects.requireNonNullElseGet(cfg, SerialBusConfig::new);
-    }
-
-    @Override
-    public String toString() {
-        return "SerialBusesConfig{" +
-                "defaultBus=" + defaultBus +
-                ", namedBuses=" + namedBuses +
-                '}';
-    }
+    @WithParentName
+    @WithDefaults
+    @WithUnnamedKey(ConfigConstants.DEFAULT_NAME)
+    Map<String, SerialBusConfig> buses();
 }
